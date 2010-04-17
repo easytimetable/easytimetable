@@ -22,14 +22,17 @@ Nous avons choisi d'utiliser le framework web django, qui s'appuie sur le
 language python pour réaliser ce logiciel, pour plusieurs raisons:
 
  * Python est un langage simple, concis et précis, qui permet d'aller à
- l'essentiel. 
+   l'essentiel. 
+
  * Django est un framework *full stack*, ce qui signifie que l'ensemble des
- composants qui le composent interagissent de manière efficace.
+   composants qui le composent interagissent de manière efficace.
+
  * Au niveau des membres de l'équipe que nous avons choisi de constituer, 3
- membres sur quatre avaient une experience de python, et souhaitaient utiliser
- cette opportunité pour découvrir django et python plus en profondeur
+   membres sur quatre avaient une experience de python, et souhaitaient utiliser
+   cette opportunité pour découvrir django et python plus en profondeur
+
  * De plus, il s'agit d'un outil qui à dores et déjà fait ses preuves, puisque
- de nombreux sites à forte charge l'utilisent.
+   de nombreux sites à forte charge l'utilisent.
  
 HTML / jQuery
 ~~~~~~~~~~~~~~
