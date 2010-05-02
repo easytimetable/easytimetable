@@ -6,6 +6,9 @@ import datetime
 # TODO Add managers
 
 class When(models.Model):
+    """Reprensents the "when" of an event. 
+
+    """
     date = models.DateTimeField(blank=True, default=datetime.datetime.now)    
     event = models.ForeignKey('Event')
     
@@ -28,6 +31,11 @@ class ClassGroup(models.Model):
         return self.name
     
 class Who(models.Model):
+    """The Who model has some references to different others models.
+
+    To know who is concerned by an event, it have a method that return this
+    informations.
+    """
     user = models.ForeignKey(User)
     classgroup = models.ForeignKey(ClassGroup)
     cursus = models.ForeignKey('Cursus')
