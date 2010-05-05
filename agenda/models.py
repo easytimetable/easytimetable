@@ -101,9 +101,10 @@ class SubjectModality(models.Model):
 class Event(models.Model):
     name = models.CharField(blank=False, max_length=150)
     duration = models.PositiveIntegerField(blank=False, null=False)
-    places = models.ManyToManyField(Place)
+    places = models.ManyToManyField(Place, null=True)
     subject_modality = models.ForeignKey(SubjectModality)
     force_display = models.BooleanField(default=False)
+    place_text = models.CharField(max_length=255, blank=True)
     
     def __unicode__(self):
         return self.name

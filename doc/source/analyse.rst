@@ -21,9 +21,7 @@ Cas d'utilisation
 Voici l'ensemble des cas d'utilisation, qui sont illustré grace au diagramme UML
 disponible juste en dessous.
 
-    * En tant qu'étudiant, je souhaites
-    * En tant que campus manager, je souhaites
-    * En tant que 
+.. image:: pictures/usecases.svg
 
 Données / Diagrame  de classes
 -------------------------------
