@@ -14,5 +14,4 @@ avions à réaliser.
 
    technologies
    analyse
-   archi_interne
-
+   architecture
