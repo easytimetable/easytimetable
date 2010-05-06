@@ -1,5 +1,10 @@
-from agenda.shortcuts import render_to_response
-from django.shortcuts import get_object_or_404
+# django imports
+from django.shortcuts import get_object_or_404, redirect
+
+# app import
+from agenda.views import render_to_response
+from agenda.models import University
+from agenda.forms import UniversityForm
 
 def get_campus(request, campus_id):
     campus = get_object_or_404(Campus, pk = campus_id)
@@ -24,12 +29,23 @@ def list_campuses(request):
 """
 
 def add_university(request):
-	"""
-	"""
+    if request.POST:
+        form = UniversityForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('agenda:list_universities')
+    else:
+        form = UniversityForm()
+
+    return render_to_response("agenda/locations/add_university.html", {
+        'form': form,
+    }, request)
+        
 
 def delete_university(request, university_id):
-	"""
-	"""
+    university = get_object_or_404(University, pk=university_id)
+    university.delete()
+    return redirect('agenda:list_universities')
 
 def update_university(request, university_id):
 	"""
@@ -39,9 +55,12 @@ def get_university(request):
 	"""
 	"""
 	
-def list_universities(request)
-	"""
-	"""
+def list_universities(request):
+    universities = University.objects.all()
+    return render_to_response("agenda/locations/list_universities.html", {
+        'universities': universities,
+    }, request)
+
 """Places
 """
 

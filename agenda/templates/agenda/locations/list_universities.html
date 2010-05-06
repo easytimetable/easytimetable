@@ -1,0 +1,11 @@
+{% extends "agenda/base.html" %}
+{% load i18n %}
+{% block title %}test{% trans "List Universities" %}{% endblock %}
+{% block content %}
+<ul>
+{% for university in universities %}
+    <li>{{ university }} 
+    <a class="button" href="{% url agenda:delete_university university.id %}">delete</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

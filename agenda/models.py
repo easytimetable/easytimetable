@@ -26,7 +26,7 @@ class University(models.Model):
     name = models.CharField(blank=False, max_length=150)
     
     def __unicode__(self):
-        return u"University"
+        return self.name
 
 class ClassGroup(models.Model):
     name = models.CharField(blank=False, max_length=150)    
