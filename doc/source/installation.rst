@@ -40,15 +40,7 @@ Installation de django
 Maintenant, installez django dans l'environnement de developpement. Nous
 utilisons la version 1.1, qui est actuellement la version stable::
 
-    $ pip install django
-    Downloading/unpacking django
-    Downloading Django-1.1.1.tar.gz (5.6Mb): 5.6Mb downloaded
-    Running setup.py egg_info for package django
-    Installing collected packages: django
-    Running setup.py install for django
-     changing mode of build/scripts-2.6/django-admin.py from 644 to 755
-     changing mode of /home/alexis/projets/groupproject/django/bin/django-admin.py to 755
-    Successfully installed django
+    $ easy_install django
     (django)
 
 Dépot GIT
