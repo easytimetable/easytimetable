@@ -78,4 +78,5 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django_extensions',
     'agenda', 
+    'django.contrib.admin',
 )
