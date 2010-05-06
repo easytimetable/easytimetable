@@ -1,7 +1,7 @@
 Analyse du besoin
 ==================
 
-A partir des docuemnts fournis par les clients, nous avons effectué une analyse
+A partir des documents fournis par les clients, nous avons effectué une analyse
 du besoin, qui se décline en plusieurs parties: analyse fonctionelle (les cas
 d'utilisation), et analyse de l'architecture de notre application.
 
@@ -18,8 +18,7 @@ metier, voici le document que nous avons réalisé pour syntethiser ce besoin:
 Cas d'utilisation
 ------------------
 
-Voici l'ensemble des cas d'utilisation, qui sont illustré grace au diagramme UML
-disponible juste en dessous.
+Voici l'ensemble des cas d'utilisation, dans un diagramme UML:
 
 .. image:: pictures/usecases.svg
 
@@ -27,7 +26,7 @@ Données / Diagrame  de classes
 -------------------------------
 
 Voici une representation, generée depuis notre projet django, des modèles (la
-aprtie metier de notre application) que l'on à défini à partir des besoins du
+partie metier de notre application) que l'on à défini à partir des besoins du
 projet.
 
 .. image:: pictures/model.png

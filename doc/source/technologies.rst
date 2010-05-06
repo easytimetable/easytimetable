@@ -1,14 +1,5 @@
-Introduction
-============
-
-EasyTimeTable est un système de gestion de calendriers, réalisé dans le cadre
-des projets de groupes de M1, à SUPINFO.
-
-Vous pouvez retrouver ici l'ensemble des documents qui nous ont permis de faire
-l'analyse fonctionelle.
-
 Choix technologiques
----------------------
+=====================
 
 Nous avons choisi d'utiliser Django et jQuery pour la réalisation de ce projet
 de groupe, puisque, outre les avantages liés aux langages eux mêmes, il s'agit
