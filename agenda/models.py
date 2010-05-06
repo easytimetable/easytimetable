@@ -17,15 +17,21 @@ class When(models.Model):
 
 class Campus(models.Model):
     name = models.CharField(blank=False, max_length=150)
-    classgroups = models.ForeignKey('ClassGroup')
+    university = models.ForeignKey('University')
     
     def __unicode__(self):
         return u"Campus"
 
+class University(models.Model):
+    name = models.CharField(blank=False, max_length=150)
+    
+    def __unicode__(self):
+        return u"University"
+
 class ClassGroup(models.Model):
     name = models.CharField(blank=False, max_length=150)    
-    # maybe a m2m with cursus here ?
-    users = models.ForeignKey(User)
+    campus = models.ForeignKey('Campus')
+    cursus = models.ForeignKey('Cursus')
 
     def __unicode__(self):
         return self.name
@@ -41,7 +47,8 @@ class Who(models.Model):
     cursus = models.ForeignKey('Cursus')
     campus = models.ForeignKey(Campus)
     event = models.ForeignKey('Event')
-    is_university = models.BooleanField(default=False)
+    university = models.ForeignKey('University')
+    is_universal = models.BooleanField(default=False)
 
     def __unicode__(self):
         return u"Who"
@@ -49,7 +56,7 @@ class Who(models.Model):
 class Place(models.Model):
     name = models.CharField(blank=False, max_length=150)
     capacity = models.PositiveIntegerField(blank=True, null=True)
-    campus = models.ForeignKey(Campus)
+    campus = models.ForeignKey('Campus')
     address = models.CharField(blank=True, max_length=500)
     is_main_place = models.BooleanField(default=False)
     
@@ -59,14 +66,13 @@ class Place(models.Model):
 class Cursus(models.Model):
     name = models.CharField(blank=False, max_length=150)
     start_date = models.DateField(default=datetime.datetime.today)
-    classgroups = models.ManyToManyField(ClassGroup)
     
     def __unicode__(self):
         return self.name
 
 class StudyPeriod(models.Model):
     name = models.CharField(blank=False, max_length=150)
-    cursus = models.ForeignKey(Cursus)
+    cursus = models.ForeignKey('Cursus')
     start_date = models.DateField(default=datetime.datetime.today)
     end_date = models.DateField()
     
@@ -92,7 +98,7 @@ class SubjectModality(models.Model):
         ('soutenance', 'Soutenance'),
     )
     planned_hours = models.DecimalField(max_digits=4, decimal_places=2)
-    subject = models.ForeignKey(Subject)
+    subject = models.ForeignKey('Subject')
     type = models.CharField(blank=False, max_length=100, choices=TYPE_CHOICES)
 
     def __unicode__(self):
