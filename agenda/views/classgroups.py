@@ -10,3 +10,5 @@ def update_classgroup(request, classgroup_id):
 def add_classgroup(request):
     pass
 
+def list_classgroups(request):
+    pass

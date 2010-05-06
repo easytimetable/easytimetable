@@ -10,3 +10,5 @@ def update_campus(request, campus_id):
 def add_campus(request):
     pass
 
+def list_campuses(request):
+    pass
