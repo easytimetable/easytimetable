@@ -3,6 +3,12 @@ Procédure d'installation
 
 Voici la procédure d'installation de EasyTimeTable Online.
 
+Prérequis
+==========
+
+* Python >= 2.5
+* Git 
+
 Virtualenv
 ==========
 
