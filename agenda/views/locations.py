@@ -20,3 +20,42 @@ def add_campus(request):
 
 def list_campuses(request):
     pass
+"""University
+"""
+
+def add_university(request):
+	"""
+	"""
+
+def delete_university(request, university_id):
+	"""
+	"""
+
+def update_university(request, university_id):
+	"""
+	"""
+	
+def get_university(request):
+	"""
+	"""
+	
+def list_universities(request)
+	"""
+	"""
+"""Places
+"""
+
+def add_place(request):
+    pass
+
+def delete_place(request, place_id):
+    pass
+
+def update_place(request, place_id):
+    pass
+
+def list_places(request):
+    pass
+
+def get_place(request, place_id):
+    pass
