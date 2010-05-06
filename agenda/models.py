@@ -64,6 +64,9 @@ class Place(models.Model):
         return self.name
 
 class Cursus(models.Model):
+    """A cursus can be Master of Science 2011, it's just like a promotion
+
+    """
     name = models.CharField(blank=False, max_length=150)
     start_date = models.DateField(default=datetime.datetime.today)
     
@@ -115,3 +118,7 @@ class Event(models.Model):
     def __unicode__(self):
         return self.name
 
+class Profile(models.Model):
+    """A user profile. Can be useful for students, to define classgroups."""
+    user = models.ForeignKey(User, unique=True)
+    classgroup = models.ForeignKey(ClassGroup, null=True)
