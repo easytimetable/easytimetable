@@ -90,4 +90,4 @@ Le projet est maintenant installé, il est possible de lancer le projet comme su
     $ cd easytimetable/
     (django)
     $ python manage.py syncdb
-    $ python runserver 
+    $ python manage.py runserver 
