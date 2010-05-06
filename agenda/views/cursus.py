@@ -10,3 +10,5 @@ def edit_cursus(request, cursus_id):
 def get_cursus(request, cursus_id):
     pass
 
+def list_cursus(request):
+    pass
