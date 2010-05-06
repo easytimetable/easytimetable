@@ -15,9 +15,10 @@ D'une manière générale, il est préférable d'utiliser virtualenv pour ses
 projets, afin de contrôler completement l'environnement de developpement de la
 même manière sur la machine de production et sur la machine de developpement.
 
-Pour installer virtualenv, voici une procédure::
+Pour installer virtualenv, voici une procédure. Vous avez besoin d'avoir soit
+pip soit easy_install sur votre machine. Voici la procédure avec easy_install::
 
-    $ pip install virtualenv
+    $ easy_install virtualenv
 
 Une fois virtualenv installé, il faut créer un environnement de developpement::
 
