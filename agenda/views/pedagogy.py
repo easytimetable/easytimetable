@@ -76,11 +76,12 @@ def add_cursus(request):
 def delete_cursus(request, cursus_id):
     pass
 
-def edit_cursus(request, cursus_id):
-    pass
-
 def get_cursus(request, cursus_id):
     pass
 
 def list_cursus(request):
     pass
+
+def update_cursus(request, cursus_id):
+    pass
+
