@@ -1,5 +1,6 @@
 # django imports
 from django.shortcuts import get_object_or_404, redirect
+from django.utils.translation import ugettext as _
 
 # app import
 from agenda.views import render_to_response
@@ -45,6 +46,7 @@ def add_university(request):
 def delete_university(request, university_id):
     university = get_object_or_404(University, pk=university_id)
     university.delete()
+    request.user.message_set.create(message=_("%s university has been deleted.") % university.name)
     return redirect('agenda:list_universities')
 
 def update_university(request, university_id):

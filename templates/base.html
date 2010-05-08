@@ -15,12 +15,19 @@
 
     <!-- Awesome buttons CSS -->
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/awesome.css" type="text/css" media="screen, projection">
+    
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/jquery.gritter.css" type="text/css" media="screen, projection">
 
     <!-- Other styles -->
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/screen.css" type="text/css" media="screen, projection">
 
+    <!-- Javascript -->
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.gritter.min.js"></script>
+
     {% endblock %}
     {% block additional_css %}{% endblock %}
+    {% block additional_js %}{% endblock %}
 </head>
 <body>
     <div class="container" class="span-24"> 
@@ -28,6 +35,18 @@
     <a href="/"><h1>EasyTimeTable <span class="small">an easy loutre
     calendar system</h1></a>
     <hr />
+    {% endblock %}
+    {% block messages %}
+       {% if messages %}
+            <script type="text/javascript">
+            {% for message in messages %}
+            $.gritter.add({
+                title: 'Information',
+                text: '{{ message }}' 
+            });
+            {% endfor %}
+            </script>
+        {% endif %}   
     {% endblock %}
     <div id="content" class="span-18">
     {% block content %}
