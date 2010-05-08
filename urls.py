@@ -6,6 +6,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^', include('agenda.urls', namespace='agenda')),
+    (r'^accounts/login/$', 'django.contrib.auth.views.login', {}, 'login'),
+    (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {}, 'logout'),
 )
 
 # To serve static files. Do not use in production

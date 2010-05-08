@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}Log in{% endblock %}
+{% block content %}
+<h2>Log in</h2>
+<form action="" method="post" accept-charset="utf-8">
+{{ form.as_p }} 
+<p><input type="submit" value="{% trans "Login" %}"></p>
+</form>
+{% endblock %}

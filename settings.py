@@ -52,6 +52,8 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT_PATH, 'templates'),
 )
 
+AUTH_PROFILE_MODULE = 'agenda.models.Profile'
+
 INSTALLED_APPS = (
     # django contribs
     'django.contrib.auth',
