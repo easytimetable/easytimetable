@@ -74,7 +74,7 @@ def get_subject_modality(request):
 	"""
 	"""
 
-def list_subject_modalitys(request):
+def list_subject_modalities(request):
 	"""
 	"""
 
@@ -83,23 +83,25 @@ def list_subject_modalitys(request):
 @login_required
 def add_cursus(request):
     if request.POST:
-        form = CursusForm(data = request.POST)
+        form = CursusForm(data=request.POST)
         if form.is_valid():
             form.save()
             return redirect('agenda:list_cursuses')
     else:
         form = CursusForm()
-    return render_to_response('agenda/pedagogy/add_cursus.html', {'form' : form}, request) 
+    return render_to_response('agenda/pedagogy/add_cursus.html', {
+        'form' : form,
+    }, request) 
 
 @login_required
 def delete_cursus(request, cursus_id):
-    cursus = get_object_or_404(Cursus, pk = cursus_id)
+    cursus = get_object_or_404(Cursus, pk=cursus_id)
     cursus.delete()
     return redirect('agenda:list_cursuses')
 
 @login_required
 def get_cursus(request, cursus_id):
-    cursus = get_object_or_404(Cursus, pk = cursus_id)
+    cursus = get_object_or_404(Cursus, pk=cursus_id)
     return render_to_response("agenda/pdagogy/get_cursus.html", {
         'cursus': cursus,
     }, request)
@@ -113,7 +115,7 @@ def list_cursuses(request):
 
 @login_required
 def update_cursus(request, cursus_id):
-#    cursus = get_object_or_404(Cursus, pk = cursus_id)
+#    cursus = get_object_or_404(Cursus, pk=cursus_id)
 #    cursus.update()
     pass
 
