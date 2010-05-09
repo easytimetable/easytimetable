@@ -1,6 +1,11 @@
 Liste des choses à faire
 ########################
 
+* Créer un thème: OK (Alexis)
+* Gérer l'authentification: OK (Alexis)
+* Système de notifications: OK (Alexis)
+* Voir le planning: 
+
 * Lire le planning d'une université
 * Lire le planning d'un campus
 * Lire le planning d'une classe

@@ -1,13 +1,71 @@
+{% load i18n %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>{% block title %}EasyTimeTable{% endblock %}</title>
+    {% block css %}
+
+    <!-- Blueprint CSS framework -->
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/blueprint/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/blueprint/print.css" type="text/css" media="print">
+    <!--[if lt IE 8]>
+      <link rel="stylesheet" href="{{ MEDIA_URL }}css/blueprint/ie.css" type="text/css" media="screen, projection">
+    <![endif]-->
+
+    <!-- Awesome buttons CSS -->
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/awesome.css" type="text/css" media="screen, projection">
+    
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/jquery.gritter.css" type="text/css" media="screen, projection">
+
+    <!-- Other styles -->
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/screen.css" type="text/css" media="screen, projection">
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.gritter.min.js"></script>
+
+    {% endblock %}
+    {% block additional_css %}{% endblock %}
+    {% block additional_js %}{% endblock %}
 </head>
 <body>
+    <div class="container" class="span-24"> 
+    {% block header %}
+    <a href="/"><h1>EasyTimeTable <span class="small">an easy loutre
+    calendar system</h1></a>
+    <hr />
+    {% endblock %}
+    {% block messages %}
+       {% if messages %}
+            <script type="text/javascript">
+            {% for message in messages %}
+            $.gritter.add({
+                title: 'Information',
+                text: '{{ message }}' 
+            });
+            {% endfor %}
+            </script>
+        {% endif %}   
+    {% endblock %}
+    <div id="content" class="span-18">
     {% block content %}
     lapin 
     {% endblock %}
+    </div>
+    <div id="menu" class="span-6 last">
+    {% block login_menu %}
+    {% if user.is_authenticated %}
+    {% trans "You're " %}{{ user.username }}.
+    <a href="{% url logout %}">{% trans "logout" %}</a>
+    {% else %}
+    <a href="{% url login %}">{% trans "login" %}</a>
+    {% endif %}
+    {% endblock %}
+    {% block menu %}
+    menu here.
+    {% endblock %}
+    </div>
 </body>
 </html>

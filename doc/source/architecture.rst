@@ -57,28 +57,28 @@ les vues en fonction de la ressource sur laquelle les actions agissent.
 
 Cela nous donnes la structure suivante::
 
-    agenda/
-        urls.py
-        models.py
-        managers.py
-        views/
-            classgroups.py
-            campus.py
-            universities.py
-            plannings.py
-            studyperiods.py
-            cursus.py
-            places.py
-        templates/
-            agenda/
-                base.html
-                classgroups/
-                    add.html
-                    edit.html
-                    ...
-                campus/
-                universities/
-                ...
+    |-- urls.py
+    |-- managers.py
+    |-- models.py
+    |-- forms
+    |   |-- locations.py
+    |   |-- pedagogy.py
+    |   |-- plannings.py
+    |   |-- ...
+    |-- templates
+    |   `-- agenda
+    |       |-- base.html
+    |       `-- locations
+    |           |-- add_university.html
+    |           `-- list_universities.html
+    |           `-- ...
+    `-- views
+        |-- classgroups.py
+        |-- locations.py
+        |-- pedagogy.py
+        |-- plannings.py
+        |-- shortcuts.py
+
 
 Séparation des applications
 ===========================

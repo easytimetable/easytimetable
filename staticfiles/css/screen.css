@@ -1,0 +1,5 @@
+tr.even td  { background: #eaeaea; }
+thead th    { 
+    background: #222; 
+    color: #eaeaea;
+}
