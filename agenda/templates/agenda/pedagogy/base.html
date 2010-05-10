@@ -1,0 +1,9 @@
+{% extends "agenda/base.html" %}
+{% load i18n %}
+{% block menu %}
+<h2>{% trans "Pedagogy : " %}</h2>
+<ul>
+    <li><a href="{% url agenda:add_cursus %}">{% trans "add a cursus" %}</a></li>
+    <li><a href="{% url agenda:list_cursuses %}">{% trans "list cursuses" %}</a></li>
+</ul>
+{% endblock %}

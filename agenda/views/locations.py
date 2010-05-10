@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 
 # app import
 from agenda.views import render_to_response
-from agenda.models import University
-from agenda.forms import UniversityForm
+from agenda.models import University, Campus
+from agenda.forms import UniversityForm, CampusForm
 
 def get_campus(request, campus_id):
     campus = get_object_or_404(Campus, pk=campus_id)
@@ -28,10 +28,29 @@ def update_campus(request, campus_id):
     pass
 
 def add_campus(request):
-    pass
+    if request.POST:
+        form = CampusForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('agenda:list_campuses')
+    else:
+        form = CampusForm()
+
+    return render_to_response("agenda/locations/add_campus.html", {
+        'form': form,
+    }, request)
 
 def list_campuses(request):
+    campuses = Campus.objects.all()
+    return render_to_response("agenda/locations/list_campuses.html", {
+        'campuses': campuses,
+    }, request)
+
     pass
+
+
+
+
 """University
 """
 

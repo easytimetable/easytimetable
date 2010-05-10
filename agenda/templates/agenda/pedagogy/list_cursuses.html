@@ -1,0 +1,34 @@
+{% extends "agenda/pedagogy/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "List Cursuses" %}{% endblock %}
+{% block content %}
+<h2>{% trans "The list of the cursuses " %}</h2>
+{% if cursuses %}
+<table id="cursuses">
+<thead>
+    <tr>
+        <th>{% trans "Cursus " %}</th>
+        <th>{% trans "Classes " %}</th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for cursus in cursuses %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>
+        <a href="
+        {% url agenda:get_cursus cursus.id %}">{{ cursus }}</a>
+    </td>
+    <td>{{ cursus.classgroup_set.count }}</td>
+    <td>
+        <a class="awesome small red button" href="
+        {% url agenda:delete_cursus cursus.id %}">delete</a>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{% trans "there is no cursus, yet." %}
+{% endif %}
+{% endblock %}

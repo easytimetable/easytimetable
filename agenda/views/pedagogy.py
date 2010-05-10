@@ -102,7 +102,7 @@ def delete_cursus(request, cursus_id):
 @login_required
 def get_cursus(request, cursus_id):
     cursus = get_object_or_404(Cursus, pk=cursus_id)
-    return render_to_response("agenda/pdagogy/get_cursus.html", {
+    return render_to_response("agenda/pedagogy/get_cursus.html", {
         'cursus': cursus,
     }, request)
 
