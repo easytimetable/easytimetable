@@ -1,0 +1,26 @@
+{% extends "agenda/classgroups/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "List Classes" %}{% endblock %}
+{% block content %}
+<h2>{% trans "The list of the classes" %}</h2>
+{% if universities %}
+<table id="classgroups">
+<thead>
+    <tr><th>{% trans "Classes " %}</th><th>{% trans "Actions" %}</th></tr>
+</thead>
+<tbody>
+{% for classgroup in classgroups %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>{{ classgroup }}</td>
+    <td>
+        <a class="awesome small red button" href="{% url
+        agenda:delete_classgroup classgroup.id %}">delete</a></li>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{% trans "there is no class, yet." %}
+{% endif %}
+{% endblock %}

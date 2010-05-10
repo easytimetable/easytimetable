@@ -13,3 +13,10 @@ urlpatterns += patterns('agenda.views.pedagogy',
     (r'^cursuses/(?P<cursus_id>\d+)/delete/$',
        'delete_cursus', {}, 'delete_cursus'),
 )
+
+urlpatterns += patterns('agenda.views.classgroups',
+    (r'^classes/add/$', 'add_classgroup', {}, 'add_classgroup'),
+    (r'^classes/$', 'list_classgroups', {}, 'list_classgroups'),
+    (r'^classes/(?P<classgroup_id>\d+)/delete/$',
+       'delete_classgroup', {}, 'delete_classgroup'),
+)

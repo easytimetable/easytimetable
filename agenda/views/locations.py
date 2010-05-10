@@ -16,6 +16,10 @@ def get_campus(request, campus_id):
 @login_required
 def delete_campus(request, campus_id):
     campus = get_object_or_404(Campus, pk=campus_id)
+    campus.delete()
+    request.user.message_set.create(message=_("%s campus has been deleted.") % campus.name)
+    return redirect('agenda:list_universities')
+
     pass
 
 @login_required

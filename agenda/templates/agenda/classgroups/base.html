@@ -1,0 +1,9 @@
+{% extends "agenda/base.html" %}
+{% load i18n %}
+{% block menu %}
+<h2>{% trans "Classes : " %}</h2>
+<ul>
+    <li><a href="{% url agenda:add_classgroup%}">{% trans "add a class" %}</a></li>
+    <li><a href="{% url agenda:list_classgroups%}">{% trans "list classes" %}</a></li>
+</ul>
+{% endblock %}
