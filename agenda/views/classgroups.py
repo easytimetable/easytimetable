@@ -10,7 +10,7 @@ from agenda.forms import ClassGroupForm
 
 def get_classgroup(request, classgroup_id):
     classgroup = get_object_or_404(ClassGroup, pk=classgroup_id)
-    return render_to_response('agenda/classgroups/get.html',
+    return render_to_response('agenda/classgroups/get_classgroup.html',
                               { 'classgroup' : classgroup },
                               request)
 

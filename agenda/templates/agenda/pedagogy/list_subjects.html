@@ -1,0 +1,44 @@
+{% extends "agenda/pedagogy/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "List Subjects" %}{% endblock %}
+{% block content %}
+<h2>{% trans "The list of the subjects " %}</h2>
+{% if subjects %}
+<table id="subjects">
+<thead>
+    <tr>
+        <th>{% trans "Subject " %}</th>
+        <th>{% trans "Cursus " %}</th>
+		<th>{% trans "Study Period " %}</th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for subject in subjects %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>
+        <a href="
+        {% url agenda:get_subject subject.id %}">{{ subject }}</a>
+    </td>
+	<td>
+        <a href="{% url agenda:get_cursus subject.study_period.cursus.id %}">
+                 {{ subject.study_period.cursus.name }}
+        </a>
+    </td>
+	<td>
+        <a href="{% url agenda:get_studyperiod subject.study_period.id %}">
+                 {{ subject.study_period.name }}
+        </a>
+    </td>
+    <td>
+        <a class="awesome small red button" href="
+        {% url agenda:delete_subject subject.id %}">delete</a>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{% trans "there is no subject, yet." %}
+{% endif %}
+{% endblock %}
