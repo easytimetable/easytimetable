@@ -25,7 +25,7 @@ def add_studyperiod(request):
 	
 @login_required
 def delete_studyperiod(request, studyperiod_id):
-	studyperiod = get_object_or_404(StudyPeriod, pk=cursus_id)
+	studyperiod = get_object_or_404(StudyPeriod, pk=studyperiod_id)
 	studyperiod.delete()
 	return redirect('agenda:list_studyperiods')
 	
@@ -52,23 +52,27 @@ def list_studyperiods(request):
 """Subject
 
 """
-
+@login_required
 def add_subject(request):
 	"""
 	"""
 
+@login_required
 def delete_subject(request, subject_id):
 	"""
 	"""
 
+@login_required
 def update_subject(request, subject_id):
 	"""
 	"""
-	
+
+@login_required	
 def get_subject(request):
 	"""
 	"""
 
+@login_required
 def list_subjects(request):
 	"""
 	"""
@@ -76,22 +80,28 @@ def list_subjects(request):
 """Subject modality
 
 """
+
+@login_required
 def add_subject_modality(request):
 	"""
 	"""
 
+@login_required
 def delete_subject_modality(request, subject_modality_id):
 	"""
 	"""
 
+@login_required
 def update_subject_modality(request, subject_modality_id):
 	"""
 	"""
-	
+
+@login_required
 def get_subject_modality(request):
 	"""
 	"""
 
+@login_required
 def list_subject_modalities(request):
 	"""
 	"""
