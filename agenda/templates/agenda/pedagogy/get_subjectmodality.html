@@ -1,0 +1,9 @@
+{% extends "agenda/pedagogy/base.html" %}
+{% load i18n %}
+{% block title %}{{ subjectmodality.type }} {% trans "Subject" %}{% endblock %}
+{% block content %}
+<h2>{{ subjectmodality.type }} {% trans "subjectmodality" %}</h2>
+<p> {% trans "Type : " %} {{subjectmodality.type}} </p>
+<p> {% trans "Subject : " %} {{subjectmodality.subject}} </p>
+<p> {% trans "Planned Hours : " %} {{subjectmodality.planned_hours}} </p>
+{% endblock %}

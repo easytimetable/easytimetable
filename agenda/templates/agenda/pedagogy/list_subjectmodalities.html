@@ -1,0 +1,38 @@
+{% extends "agenda/pedagogy/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "List SubjectModalities" %}{% endblock %}
+{% block content %}
+<h2>{% trans "The list of the subjectmodalities " %}</h2>
+{% if subjectmodalities %}
+<table id="subjectmodalities">
+<thead>
+    <tr>
+        <th>{% trans "Subject Modality " %}</th>
+        <th>{% trans "Subject " %}</th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for subjectmodality in subjectmodalities %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>
+        <a href="
+        {% url agenda:get_subjectmodality subjectmodality.id %}">{{ subjectmodality }}</a>
+    </td>
+	<td>
+        <a href="{% url agenda:get_cursus subjectmodality.subject.id %}">
+                 {{ subjectmodality.subject.name }}
+        </a>
+    </td>
+    <td>
+        <a class="awesome small red button" href="
+        {% url agenda:delete_subjectmodality subjectmodality.id %}">delete</a>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{% trans "there is no subject, yet." %}
+{% endif %}
+{% endblock %}

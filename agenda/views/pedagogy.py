@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
  
 # app import
 from agenda.views import render_to_response
-from agenda.models import Cursus, StudyPeriod, Subject
-from agenda.forms import CursusForm, StudyPeriodForm, SubjectForm
+from agenda.models import Cursus, StudyPeriod, Subject, SubjectModality
+from agenda.forms import CursusForm, StudyPeriodForm, SubjectForm, SubjectModalityForm
 
 """Study Period
 """
@@ -95,29 +95,42 @@ def list_subjects(request):
 """
 
 @login_required
-def add_subject_modality(request):
+def add_subjectmodality(request):
+	if request.POST:
+		form = SubjectModalityForm(data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('agenda:list_subjectmodalities')
+	else:
+		form = SubjectModalityForm()
+	return render_to_response('agenda/pedagogy/add_subjectmodality.html', {
+		'form' : form,
+	}, request)
+
+@login_required
+def delete_subjectmodality(request, subjectmodality_id):
+	subjectmodality = get_object_or_404(SubjectModality, pk=subjectmodality_id)
+	subjectmodality.delete()
+	return redirect('agenda:list_subjectmodalities')
+
+@login_required
+def update_subjectmodality(request, subjectmodality_id):
 	"""
 	"""
 
 @login_required
-def delete_subject_modality(request, subject_modality_id):
-	"""
-	"""
+def get_subjectmodality(request, subjectmodality_id):
+	subjectmodality = get_object_or_404(SubjectModality, pk=subjectmodality_id)
+	return render_to_response("agenda/pedagogy/get_subjectmodality.html", {
+		'subjectmodality': subjectmodality,
+	}, request)
 
 @login_required
-def update_subject_modality(request, subject_modality_id):
-	"""
-	"""
-
-@login_required
-def get_subject_modality(request):
-	"""
-	"""
-
-@login_required
-def list_subject_modalities(request):
-	"""
-	"""
+def list_subjectmodalities(request):
+	subjectmodalities = SubjectModality.objects.all()
+	return render_to_response("agenda/pedagogy/list_subjectmodalities.html", {
+		'subjectmodalities': subjectmodalities,
+	}, request)
 
 """Cursus
 """

@@ -35,6 +35,12 @@ urlpatterns += patterns('agenda.views.pedagogy',
     (r'^subjects/(?P<subject_id>\d+)$', 'get_subject', {}, 'get_subject'),
     (r'^subjects/(?P<subject_id>\d+)/delete/$',
        'delete_subject', {}, 'delete_subject'),
+	   
+	(r'^subjectmodalities/add/$', 'add_subjectmodality', {}, 'add_subjectmodality'),
+    (r'^subjectmodalities/$', 'list_subjectmodalities', {}, 'list_subjectmodalities'),
+    (r'^subjectmodalities/(?P<subjectmodality_id>\d+)$', 'get_subjectmodality', {}, 'get_subjectmodality'),
+    (r'^subjectmodalities/(?P<subjectmodality_id>\d+)/delete/$',
+       'delete_subjectmodality', {}, 'delete_subjectmodality'),
 )
 
 urlpatterns += patterns('agenda.views.classgroups',
