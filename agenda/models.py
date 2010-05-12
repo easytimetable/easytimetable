@@ -19,6 +19,14 @@ class When(models.Model):
     
     def __unicode__(self):
         return self.date.strftime('%d-%B-%Y')
+    
+    def to_fullcalendar_dict(self):
+        dct = { 'title' : self.event.name,
+                'id' : self.event_id,
+                'start' : self.date,
+                'end' : self.date - datetime.time(self.event.duration),
+                'editable' : 'false' }
+        return dct
 
 class Who(models.Model):
     """The Who model has some references to different others models.
