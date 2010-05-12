@@ -2,6 +2,10 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from agenda.models import When
+from django.utils import simplejson as json
+from agenda.managers import EventManager
 
 # app import
 from agenda.views import render_to_response
@@ -17,8 +21,10 @@ def get_planning(request, what=None, extra_context={}, **kwargs):
     Special parameters can be set in `extra_parameters`.
 
     """
-    pass
-
+    if what == "test":
+        w = When.objects.all()
+        d = [p.to_fullcalendar_dict() for p in w]
+        return HttpResponse(json.dumps(d))
 
 
 def add_event(request):
