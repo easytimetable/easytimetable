@@ -1,0 +1,10 @@
+{% extends "agenda/pedagogy/base.html" %}
+{% load i18n %}
+{% block title %}{{ studyperiod.name }} {% trans "StudyPeriod" %}{% endblock %}
+{% block content %}
+<h2>{{ studyperiod.name }} {% trans "studyperiod" %}</h2>
+<p> {% trans "Name : " %} {{studyperiod.name}} </p>
+<p> {% trans "Cursus : " %} {{studyperiod.cursus.name}} </p>
+<p> {% trans "Start date : " %} {{studyperiod.start_date}} </p>
+<p> {% trans "End date : " %} {{studyperiod.end_date}} </p>
+{% endblock %}

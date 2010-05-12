@@ -6,12 +6,16 @@
 {% if universities %}
 <table id="universities">
 <thead>
-    <tr><th>{% trans "Universities" %}</th><th>{% trans "Actions" %}</th></tr>
+    <tr><th>{% trans "Universities" %}</th>
+        <th> {% trans "Campuses" %} </th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
 </thead>
 <tbody>
 {% for university in universities %}
 <tr class="{% cycle "even" "odd" %}">
     <td>{{ university }}</td>
+    <td>{{ university.campus_set.count }}</td>
     <td>
         <a class="awesome small red button" href="{% url agenda:delete_university university.id %}">delete</a></li>
     </td>

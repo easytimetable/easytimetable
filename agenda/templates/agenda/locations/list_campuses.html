@@ -1,0 +1,25 @@
+{% extends "agenda/locations/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "List Campuses" %}{% endblock %}
+{% block content %}
+<h2>{% trans "The list of campuses" %}</h2>
+{% if campuses %}
+<table id="campuses">
+<thead>
+    <tr><th>{% trans "Campuses" %}</th><th>{% trans "Actions" %}</th></tr>
+</thead>
+<tbody>
+{% for campus in campuses %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>{{ campus }}</td>
+    <td>
+        <a class="awesome small red button" href="{% url agenda:delete_campus campus.id %}">delete</a></li>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{% trans "there is no campuses, yet." %}
+{% endif %}
+{% endblock %}

@@ -57,7 +57,7 @@ class Campus(models.Model):
     university = models.ForeignKey('University')
     
     def __unicode__(self):
-        return u"Campus"
+        return self.name
 
 class University(models.Model):
     name = models.CharField(blank=False, max_length=150)
@@ -103,7 +103,7 @@ class StudyPeriod(models.Model):
     end_date = models.DateField()
     
     def __unicode__(self):
-        return u"StudyPeriod"
+        return self.name
 
 
 class Subject(models.Model):
