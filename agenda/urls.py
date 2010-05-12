@@ -20,7 +20,8 @@ urlpatterns += patterns('agenda.views.pedagogy',
        'delete_cursus', {}, 'delete_cursus'),
 	(r'^studyperiods/add/$', 'add_studyperiod', {}, 'add_studyperiod'),
     (r'^studyperiods/$', 'list_studyperiods', {}, 'list_studyperiods'),
-    (r'^studyperiods/(?P<studyperiod_id>\d+)$', 'get_studyperiod', {}, 'get_studyperiod'),
+    (r'^studyperiods/(?P<studyperiod_id>\d+)$', 'get_studyperiod', {},
+        'get_studyperiod'),
     (r'^studyperiods/(?P<studyperiod_id>\d+)/delete/$',
        'delete_studyperiod', {}, 'delete_studyperiod'),
 	(r'^subjects/add/$', 'add_subject', {}, 'add_subject'),
@@ -37,4 +38,21 @@ urlpatterns += patterns('agenda.views.classgroups',
         'get_classgroup', {}, 'get_classgroup'),
     (r'^classes/(?P<classgroup_id>\d+)/delete/$',
        'delete_classgroup', {}, 'delete_classgroup'),
+)
+
+urlpatterns += patterns('agenda.views.planning',
+    (r'^planning/users/me$', 'get_planning', {'what': 'me' }, 
+        'get_user_planning'),
+
+    (r'^planning/classes/(?P<classgroup_id>\d+)$', 'get_planning', 
+        {'what':'classgroup' }, 'get_class_planning'),
+
+    (r'^planning/campuses/(?P<campus_id>\d+)$', 'get_planning', 
+        {'what': 'campus' }, 'get_user_planning'),
+
+    (r'^planning//me$', 'get_planning', {'what': 'me' }, 
+        'get_user_planning'),
+
+    (r'^planning/users/me$', 'get_planning', {'what': 'me' }, 
+        'get_user_planning'),
 )

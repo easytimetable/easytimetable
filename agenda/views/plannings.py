@@ -2,6 +2,7 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
+from django.utils import simplejson
 
 # app import
 from agenda.views import render_to_response
@@ -18,8 +19,9 @@ def get_planning(request, what=None, extra_context={}, **kwargs=None):
     Special parameters can be set in `extra_parameters`.
 
     """
-
-
+    if request.META:
+        pass
+    pass
 
 def add_event(request):
     pass
