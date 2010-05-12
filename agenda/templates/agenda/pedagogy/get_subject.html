@@ -1,0 +1,9 @@
+{% extends "agenda/pedagogy/base.html" %}
+{% load i18n %}
+{% block title %}{{ subject.name }} {% trans "Subject" %}{% endblock %}
+{% block content %}
+<h2>{{ subject.name }} {% trans "subject" %}</h2>
+<p> {% trans "Name : " %} {{subject.name}} </p>
+<p> {% trans "Study Period : " %} {{subject.study_period}} </p>
+<p> {% trans "Planned Hours : " %} {{subject.panned_hours}} </p>
+{% endblock %}

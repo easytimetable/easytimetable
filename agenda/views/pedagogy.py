@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
  
 # app import
 from agenda.views import render_to_response
-from agenda.models import Cursus, StudyPeriod
-from agenda.forms import CursusForm, StudyPeriodForm
+from agenda.models import Cursus, StudyPeriod, Subject
+from agenda.forms import CursusForm, StudyPeriodForm, SubjectForm
 
 """Study Period
 """
@@ -54,13 +54,22 @@ def list_studyperiods(request):
 """
 @login_required
 def add_subject(request):
-	"""
-	"""
+	if request.POST:
+		form = SubjectForm(data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('agenda:list_subjects')
+	else:
+		form = SubjectForm()
+	return render_to_response('agenda/pedagogy/add_subject.html', {
+		'form' : form,
+	}, request)
 
 @login_required
 def delete_subject(request, subject_id):
-	"""
-	"""
+	subject = get_object_or_404(Subject, pk=subject_id)
+	subject.delete()
+	return redirect('agenda:list_subjects')
 
 @login_required
 def update_subject(request, subject_id):
@@ -69,13 +78,17 @@ def update_subject(request, subject_id):
 
 @login_required	
 def get_subject(request):
-	"""
-	"""
+	subject = get_object_or_404(Subject, pk=subject_id)
+	return render_to_response("agenda/pedagogy/get_studyperiod.html", {
+		'subject': subject,
+	}, request)
 
 @login_required
 def list_subjects(request):
-	"""
-	"""
+	subjects = Subject.objects.all()
+	return render_to_response("agenda/pedagogy/list_subjects.html", {
+		'subjects': subjects,
+	}, request)
 
 """Subject modality
 
