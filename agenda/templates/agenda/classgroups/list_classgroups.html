@@ -6,15 +6,25 @@
 {% if classgroups %}
 <table id="classgroups">
 <thead>
-    <tr><th>{% trans "Classes " %}</th><th>{% trans "Actions" %}</th></tr>
+    <tr>
+        <th>{% trans "Classes " %}</th>
+        <th>{% trans "Students " %}</th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
 </thead>
 <tbody>
 {% for classgroup in classgroups %}
 <tr class="{% cycle "even" "odd" %}">
-    <td>{{ classgroup }}</td>
+    <td>
+        <a href="
+        {% url agenda:get_classgroup classgroup.id %}">{{ classgroup }}</a>
+    </td>
+    <td>
+        {{ classgroup.profile_set.count  }}
+    </td>
     <td>
         <a class="awesome small red button" href="
-        {% url agenda:delete_classgroup classgroup.id %}">delete</a></li>
+        {% url agenda:delete_classgroup classgroup.id %}">delete</a>
     </td>
 </tr>
 {% endfor %}
