@@ -1,9 +1,14 @@
-from django.db import models
-from django.contrib.auth.models import User
+# python imports
 import datetime
 
+# django imports
+from django.db import models
+from django.contrib.auth.models import User
 
-# TODO Add managers
+# app imports
+from managers import *
+
+# planning related models
 
 class When(models.Model):
     """Reprensents the "when" of an event. 
@@ -13,7 +18,39 @@ class When(models.Model):
     event = models.ForeignKey('Event')
     
     def __unicode__(self):
-        return u"When"
+        return self.date.strftime('%d-%B-%Y')
+
+class Who(models.Model):
+    """The Who model has some references to different others models.
+
+    To know who is concerned by an event, it have a method that return this
+    informations.
+    """
+    event = models.ForeignKey('Event')
+    user = models.ForeignKey(User, null=True)
+    classgroup = models.ForeignKey('ClassGroup', null=True)
+    cursus = models.ForeignKey('Cursus', null=True)
+    campus = models.ForeignKey('Campus', null=True)
+    university = models.ForeignKey('University', null=True)
+
+    # set to true if it concerns everyone.
+    is_universal = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return u"Who"
+
+class Event(models.Model):
+    name = models.CharField(blank=False, max_length=150)
+    duration = models.PositiveIntegerField(blank=False, null=False)
+    places = models.ManyToManyField('Place', null=True)
+    subject_modality = models.ForeignKey('SubjectModality', null=True)
+    force_display = models.BooleanField(default=False)
+    place_text = models.CharField(max_length=255, blank=True)
+    
+    def __unicode__(self):
+        return self.name
+
+# localisation models
 
 class Campus(models.Model):
     name = models.CharField(blank=False, max_length=150)
@@ -36,22 +73,6 @@ class ClassGroup(models.Model):
     def __unicode__(self):
         return self.name
     
-class Who(models.Model):
-    """The Who model has some references to different others models.
-
-    To know who is concerned by an event, it have a method that return this
-    informations.
-    """
-    user = models.ForeignKey(User)
-    classgroup = models.ForeignKey(ClassGroup)
-    cursus = models.ForeignKey('Cursus')
-    campus = models.ForeignKey(Campus)
-    event = models.ForeignKey('Event')
-    university = models.ForeignKey('University')
-    is_universal = models.BooleanField(default=False)
-
-    def __unicode__(self):
-        return u"Who"
 
 class Place(models.Model):
     name = models.CharField(blank=False, max_length=150)
@@ -62,6 +83,8 @@ class Place(models.Model):
     
     def __unicode__(self):
         return self.name
+
+# pedagogy models
 
 class Cursus(models.Model):
     """A cursus can be Master of Science 2011, it's just like a promotion
@@ -85,7 +108,7 @@ class StudyPeriod(models.Model):
 
 class Subject(models.Model):
     name = models.CharField(blank=False, max_length=150)
-    study_period = models.ForeignKey(StudyPeriod)
+    study_period = models.ForeignKey('StudyPeriod')
     panned_hours = models.PositiveIntegerField(blank=False, null=False)
     
     def __unicode__(self):
@@ -107,18 +130,9 @@ class SubjectModality(models.Model):
     def __unicode__(self):
         return u"SubjectModality"
 
-class Event(models.Model):
-    name = models.CharField(blank=False, max_length=150)
-    duration = models.PositiveIntegerField(blank=False, null=False)
-    places = models.ManyToManyField(Place, null=True)
-    subject_modality = models.ForeignKey(SubjectModality)
-    force_display = models.BooleanField(default=False)
-    place_text = models.CharField(max_length=255, blank=True)
-    
-    def __unicode__(self):
-        return self.name
+# other models
 
 class Profile(models.Model):
     """A user profile. Can be useful for students, to define classgroups."""
     user = models.ForeignKey(User, unique=True)
-    classgroup = models.ForeignKey(ClassGroup, null=True)
+    classgroup = models.ForeignKey('ClassGroup', null=True)
