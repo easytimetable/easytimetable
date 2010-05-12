@@ -1,0 +1,38 @@
+{% extends "agenda/pedagogy/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "List StudyPeriods" %}{% endblock %}
+{% block content %}
+<h2>{% trans "The list of the studyperiods " %}</h2>
+{% if studyperiods %}
+<table id="studyperiods">
+<thead>
+    <tr>
+        <th>{% trans "StudyPeriod " %}</th>
+        <th>{% trans "Cursus " %}</th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for studyperiod in studyperiods %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>
+        <a href="
+        {% url agenda:get_studyperiod studyperiod.id %}">{{ studyperiod }}</a>
+    </td>
+	<td>
+        <a href="{% url agenda:get_cursus studyperiod.cursus.id %}">
+                 {{ studyperiod.cursus.name }}
+        </a>
+    </td>
+    <td>
+        <a class="awesome small red button" href="
+        {% url agenda:delete_studyperiod studyperiod.id %}">delete</a>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{% trans "there is no studyperiod, yet." %}
+{% endif %}
+{% endblock %}
