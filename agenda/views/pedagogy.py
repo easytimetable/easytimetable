@@ -77,9 +77,9 @@ def update_subject(request, subject_id):
 	"""
 
 @login_required	
-def get_subject(request):
+def get_subject(request, subject_id):
 	subject = get_object_or_404(Subject, pk=subject_id)
-	return render_to_response("agenda/pedagogy/get_studyperiod.html", {
+	return render_to_response("agenda/pedagogy/get_subject.html", {
 		'subject': subject,
 	}, request)
 
