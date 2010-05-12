@@ -135,4 +135,7 @@ class SubjectModality(models.Model):
 class Profile(models.Model):
     """A user profile. Can be useful for students, to define classgroups."""
     user = models.ForeignKey(User, unique=True)
+    first_name = models.CharField(blank=False, max_length=150)
+    last_name = models.CharField(blank=False, max_length=150)
+    birth_date = models.DateField(default=datetime.datetime.today)
     classgroup = models.ForeignKey('ClassGroup', null=True)
