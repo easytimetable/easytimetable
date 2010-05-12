@@ -1,0 +1,22 @@
+{% extends "agenda/base.html" %}
+{% block additional_js %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/fullcalendar.min.js"></script>
+<script type="text/javascript"> 
+$(document).ready(function(){
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        }
+    });
+}); 
+</script>
+{% endblock %}
+{% block additional_css %}
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/fullcalendar.css" type="text/css" media="screen, projection">
+{% endblock %}
+{% block content %}
+<h2>Calendar</h2>
+<div id='calendar'></div> 
+{% endblock %}
