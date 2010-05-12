@@ -51,3 +51,12 @@ urlpatterns += patterns('agenda.views.classgroups',
     (r'^classes/(?P<classgroup_id>\d+)/delete/$',
        'delete_classgroup', {}, 'delete_classgroup'),
 )
+
+urlpatterns += patterns('agenda.views.plannings',
+    (r'^plannings/users/me$', 'get_planning', {'what' : 'me'},
+    'get_own_planning'),
+    (r'^plannings/users/?P<user_id>\d+$', 'get_planning', {'what' : 'user'},
+    'get_own_planning'),
+    (r'^plannings/$', 'display_calendar', {},
+    'display_calendar'),
+)
