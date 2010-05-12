@@ -1,5 +1,5 @@
 from django import forms
-from agenda.models import Cursus, StudyPeriod
+from agenda.models import Cursus, StudyPeriod, Subject
 
 class CursusForm(forms.ModelForm):
     """The cursus Administration form"""
@@ -12,3 +12,9 @@ class StudyPeriodForm(forms.ModelForm):
     
     class Meta:
         model = StudyPeriod
+
+class SubjectForm(forms.ModelForm):
+    """The Subject Administration form"""
+    
+    class Meta:
+        model = Subject
