@@ -5,32 +5,50 @@ from django.contrib.auth.decorators import login_required
  
 # app import
 from agenda.views import render_to_response
-from agenda.models import Cursus
-from agenda.forms import CursusForm
+from agenda.models import Cursus, StudyPeriod
+from agenda.forms import CursusForm, StudyPeriodForm
 
 """Study Period
 """
-
+@login_required
 def add_studyperiod(request):
-	"""
-	"""
-
+	if request.POST:
+		form = StudyPeriodForm(data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('agenda:list_studyperiods')
+	else:
+		form = StudyPeriodForm()
+	return render_to_response('agenda/pedagogy/add_studyperiod.html', {
+		'form' : form,
+	}, request)
+	
+@login_required
 def delete_studyperiod(request, studyperiod_id):
-	"""
-	"""
-
+	studyperiod = get_object_or_404(StudyPeriod, pk=cursus_id)
+	studyperiod.delete()
+	return redirect('agenda:list_studyperiods')
+	
+@login_required
 def update_studyperiod(request, studyperiod_id):
 	"""
 	"""
 	
-def get_studyperiod(request):
-	"""
-	"""
-
+@login_required
+def get_studyperiod(request, studyperiod_id):
+	studyperiod = get_object_or_404(StudyPeriod, pk=studyperiod_id)
+	return render_to_response("agenda/pedagogy/get_studyperiod.html", {
+		'studyperiod': studyperiod,
+	}, request)
+	
+@login_required
 def list_studyperiods(request):
-	"""
-	"""
+	studyperiods = StudyPeriod.objects.all()
+	return render_to_response("agenda/pedagogy/list_studyperiods.html", {
+		'studyperiods': studyperiods,
+	}, request)
 
+	
 """Subject
 
 """

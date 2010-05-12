@@ -11,7 +11,7 @@ def get_planning(request, what=None, extra_context={}):
 def add_event(request):
     pass
 
-def update_event(reques
+def update_event(request):
     """Add an avent for a class
     
     """

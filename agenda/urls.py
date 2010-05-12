@@ -18,6 +18,11 @@ urlpatterns += patterns('agenda.views.pedagogy',
     (r'^cursuses/(?P<cursus_id>\d+)$', 'get_cursus', {}, 'get_cursus'),
     (r'^cursuses/(?P<cursus_id>\d+)/delete/$',
        'delete_cursus', {}, 'delete_cursus'),
+	(r'^studyperiods/add/$', 'add_studyperiod', {}, 'add_studyperiod'),
+    (r'^studyperiods/$', 'list_studyperiods', {}, 'list_studyperiods'),
+    (r'^studyperiods/(?P<studyperiod_id>\d+)$', 'get_studyperiod', {}, 'get_studyperiod'),
+    (r'^studyperiods/(?P<studyperiod_id>\d+)/delete/$',
+       'delete_studyperiod', {}, 'delete_studyperiod'),
 )
 
 urlpatterns += patterns('agenda.views.classgroups',
