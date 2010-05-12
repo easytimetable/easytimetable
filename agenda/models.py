@@ -119,7 +119,7 @@ class SubjectModality(models.Model):
         ('presential', 'Presential'),
         ('elearning', 'E-learning'),
         ('tp', 'TP'),
-        ('theorical_valuation', 'Theorical Evaluation'),
+        ('theorical_evaluation', 'Theorical Evaluation'),
         ('practical_evaluation', 'Practical Evaluation'),
         ('soutenance', 'Soutenance'),
     )
@@ -128,7 +128,7 @@ class SubjectModality(models.Model):
     type = models.CharField(blank=False, max_length=100, choices=TYPE_CHOICES)
 
     def __unicode__(self):
-        return u"SubjectModality"
+        return dict(self.TYPE_CHOICES)[self.type]
 
 # other models
 
