@@ -1,5 +1,5 @@
 from django import forms
-from agenda.models import University, Campus
+from agenda.models import University, Campus, Place
 
 class UniversityForm(forms.ModelForm):
     """The university form"""
@@ -12,3 +12,10 @@ class CampusForm(forms.ModelForm):
     
     class Meta:
         model = Campus
+
+class PlaceForm(forms.ModelForm):
+
+    """The place form"""
+
+    class Meta:
+        model = Place

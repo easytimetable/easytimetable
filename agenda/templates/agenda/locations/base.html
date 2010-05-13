@@ -3,9 +3,8 @@
 {% block menu %}
 <h2>{% trans "Locations" %}</h2>
 <ul>
-    <li><a href="{% url agenda:add_university %}">{% trans "add university" %}</a></li>
-    <li><a href="{% url agenda:list_universities %}">{% trans "list universities" %}</a></li>
-    <li><a href="{% url agenda:add_campus%}">{% trans "add a campus" %}</a></li>
-    <li><a href="{% url agenda:list_campuses%}">{% trans "list campuses" %}</a></li>
+    <li><a href="{% url agenda:list_universities %}">{% trans "manage universities" %}</a></li>
+    <li><a href="{% url agenda:list_campuses %}">{% trans "manage campuses" %}</a></li>
+    <li><a href="{% url agenda:list_places %}">{% trans "manage places" %}</a></li>
 </ul>
 {% endblock %}

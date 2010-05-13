@@ -1,0 +1,35 @@
+{% extends "agenda/locations/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "List Place" %}{% endblock %}
+{% block content %}
+<h2>{% trans "The list of places" %}</h2>
+{% if places %}
+<table id="places">
+<thead>
+    <tr>
+        <th>{% trans "Places" %}</th>
+        <th>{% trans "Campus" %}</th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for place in places %}
+<tr class="{% cycle "even" "odd" %}">
+    <td><a href="{% url agenda:get_place place.id %}">{{ place }}</a></td>
+    <td>{{ place.campus.name }}</td>
+    <td>
+        <a class="awesome small blue button" href="{% url agenda:get_place place.id %}">view</a>
+        <a class="awesome small green button" href="{% url agenda:update_place place.id %}">update</a>
+        <a class="awesome small red button" href="{% url agenda:delete_place place.id %}">delete</a></li>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{% trans "there is no places, yet." %}
+{% endif %}
+         <br />
+         <br />
+         <a class="awesome small blue button" href="{% url agenda:add_place %}">add a place</a>
+{% endblock %}
