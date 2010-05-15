@@ -63,20 +63,3 @@ urlpatterns += patterns('agenda.views.pedagogy',
 urlpatterns += patterns('agenda.views.index',
     (r'^$', 'index', {}, 'index'),
 )
-
-urlpatterns += patterns('agenda.views.planning',
-    (r'^planning/users/me$', 'get_planning', {'what': 'me' }, 
-        'get_user_planning'),
-
-    (r'^planning/classes/(?P<classgroup_id>\d+)$', 'get_planning', 
-        {'what':'classgroup' }, 'get_class_planning'),
-
-    (r'^planning/campuses/(?P<campus_id>\d+)$', 'get_planning', 
-        {'what': 'campus' }, 'get_user_planning'),
-
-    (r'^planning//me$', 'get_planning', {'what': 'me' }, 
-        'get_user_planning'),
-
-    (r'^planning/users/me$', 'get_planning', {'what': 'me' }, 
-        'get_user_planning'),
-)
