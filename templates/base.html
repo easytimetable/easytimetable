@@ -21,6 +21,7 @@
 
     <!-- Other styles -->
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/superfish.css" media="screen">
 
     <!-- Javascript -->
     <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
@@ -37,6 +38,62 @@
     {% block header %}
     <a href="/"><h1>EasyTimeTable <span class="small">an easy loutre
     calendar system</h1></a>
+
+
+		<ul class="sf-menu">
+			<li class="current">
+				<a href="{% url agenda:index %}">{% trans "Home" %}</a>
+			</li>
+			<li>
+				<a href="">Locations</a>
+				<ul>
+					<li>
+						<a href="{% url agenda:list_campuses %}">{% trans "Campuses" %}</a>
+					</li>
+					<li>
+						<a href="{% url agenda:list_places %}">{% trans "Places" %}</a>
+					</li>
+					<li>
+						<a href="{% url agenda:list_universities %}">{% trans "Universities" %}</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">Pedagogy</a>
+				<ul>
+					<li>
+						<a href="{% url agenda:list_classgroups %}">{% trans "Class Groups" %}</a>
+					</li>
+					<li>
+						<a href="{% url agenda:list_cursuses %}">{% trans "Cursuses" %}</a>
+					</li>
+					<li>
+						<a href="{% url agenda:list_studyperiods %}">{% trans "Study Periods" %}</a>
+					</li>
+					<li>
+						<a href="{% url agenda:list_subjects %}">{% trans "Subjects" %}</a>
+					</li>
+					<li>
+						<a href="{% url agenda:list_subjectmodalities %}">{% trans "Subject Modalities" %}</a>
+					</li>
+				</ul>
+
+			</li>
+            <li>
+                <a href="">Time Organisation</a>
+                <ul>
+		    	    <li>
+		        		<a href="url agenda:list_events">{% trans "Events" %}</a>
+		        	</li>
+			        <li>
+			    	    <a href="url agenda:list_plannings">{% trans "Plannings" %}</a>
+			        </li>
+                 </ul>
+            </li>
+
+		</ul>
+    
+
     <hr />
     {% endblock %}
     {% block messages %}

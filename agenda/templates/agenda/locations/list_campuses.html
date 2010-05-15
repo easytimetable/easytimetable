@@ -6,14 +6,21 @@
 {% if campuses %}
 <table id="campuses">
 <thead>
-    <tr><th>{% trans "Campuses" %}</th><th>{% trans "Actions" %}</th></tr>
+    <tr>
+        <th>{% trans "Campuses" %}</th>
+        <th>{% trans "University" %}<th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
 </thead>
 <tbody>
 {% for campus in campuses %}
 <tr class="{% cycle "even" "odd" %}">
-    <td>{{ campus }}</td>
+    <td><a href="{% url agenda:get_campus campus.id %}">{{ campus }}</a></td>
+    <td>{{ campus.university.name }}</td>
     <td>
-        <a class="awesome small red button" href="{% url agenda:delete_campus campus.id %}">delete</a></li>
+        <a class="awesome small blue button" href="{% url agenda:get_campus campus.id %}">view</a>
+        <a class="awesome small green button" href="{% url agenda:update_campus campus.id %}">update</a>
+        <a class="awesome small red button" href="{% url agenda:delete_campus campus.id %}">delete</a>
     </td>
 </tr>
 {% endfor %}
@@ -22,4 +29,7 @@
 {% else %}
 {% trans "there is no campuses, yet." %}
 {% endif %}
+         <br />
+         <br />
+         <a class="awesome small blue button" href="{% url agenda:add_campus %}">add a campus</a>
 {% endblock %}
