@@ -19,6 +19,16 @@ class When(models.Model):
     
     def __unicode__(self):
         return self.date.strftime('%d-%B-%Y')
+    
+    def to_fullcalendar_dict(self):
+        dct = { 'title' : self.event.name,
+                'id' : self.event_id,
+                'allDay' : False,
+                'start' : self.date.isoformat(),
+                'end' : (self.date +
+                datetime.timedelta(hours=self.event.duration)).isoformat(),
+                'editable' : False }
+        return dct
 
 class Who(models.Model):
     """The Who model has some references to different others models.
@@ -42,8 +52,9 @@ class Who(models.Model):
 class Event(models.Model):
     name = models.CharField(blank=False, max_length=150)
     duration = models.PositiveIntegerField(blank=False, null=False)
-    places = models.ManyToManyField('Place', null=True)
-    subject_modality = models.ForeignKey('SubjectModality', null=True)
+    places = models.ManyToManyField('Place', null=True, blank=True)
+    subject_modality = models.ForeignKey('SubjectModality', null=True,
+    blank=True)
     force_display = models.BooleanField(default=False)
     place_text = models.CharField(max_length=255, blank=True)
     
