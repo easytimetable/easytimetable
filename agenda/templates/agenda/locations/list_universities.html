@@ -18,8 +18,8 @@
     <td>{{ university.campus_set.count }}</td>
     <td>
         <a class="awesome small blue button" href="{% url agenda:get_university university.id %}">view</a></li>
-        <a class="awesome small green button" href="{% url agenda:update_university university.id %}">update</a></li>
-        <a class="awesome small red button" href="{% url agenda:delete_university university.id %}">delete</a></li>
+        <a class="awesome small green button" href="{% url agenda:update_university university.id %}">update</a>
+        <a class="awesome small red button" href="{% url agenda:delete_university university.id %}">delete</a>
     </td>
 </tr>
 {% endfor %}

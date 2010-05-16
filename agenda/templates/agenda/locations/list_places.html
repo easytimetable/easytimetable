@@ -15,12 +15,16 @@
 <tbody>
 {% for place in places %}
 <tr class="{% cycle "even" "odd" %}">
-    <td><a href="{% url agenda:get_place place.id %}">{{ place }}</a></td>
-    <td>{{ place.campus.name }}</td>
+    <td>
+		<a href="{% url agenda:get_place place.id %}">{{ place }}</a>
+	</td>
+    <td>
+		{{ place.campus.name }}
+	</td>
     <td>
         <a class="awesome small blue button" href="{% url agenda:get_place place.id %}">view</a>
         <a class="awesome small green button" href="{% url agenda:update_place place.id %}">update</a>
-        <a class="awesome small red button" href="{% url agenda:delete_place place.id %}">delete</a></li>
+        <a class="awesome small red button" href="{% url agenda:delete_place place.id %}">delete</a>
     </td>
 </tr>
 {% endfor %}
@@ -29,7 +33,7 @@
 {% else %}
 {% trans "there is no places, yet." %}
 {% endif %}
-         <br />
-         <br />
-         <a class="awesome small blue button" href="{% url agenda:add_place %}">add a place</a>
+	<br />
+	<br />
+	<a class="awesome small blue button" href="{% url agenda:add_place %}">add a place</a>
 {% endblock %}
