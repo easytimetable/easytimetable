@@ -86,7 +86,7 @@ def delete_university(request, university_id):
     request.user.message_set.create(message=_("%s university has been deleted.") % university.name)
     return redirect('agenda:list_universities')
 
-@login_required	
+@login_required    
 def get_university(request, university_id):
     university = get_object_or_404(University, pk=university_id)
     return render_to_response('agenda/locations/get_university.html',
