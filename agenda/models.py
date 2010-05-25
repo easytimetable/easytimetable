@@ -1,20 +1,19 @@
-# python imports
-import datetime
+"""Models for the agenda application. Here lives all the data related logic of
+EasyTimeTable.
 
-# django imports
+All logic is contained here, and not in views, because it makes it simpler to
+maintain afterwards.
+
+"""
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
-
-# app imports
 from managers import *
 
-# planning related models
+# -- Event related models ----------------------------------------------------
 
 class When(models.Model):
-    """Reprensents the "when" of an event. 
-
-    """
-    date = models.DateTimeField(blank=True, default=datetime.datetime.now)    
+    date = models.DateTimeField(blank=True, default=datetime.datetime.now)
     event = models.ForeignKey('Event')
     
     def __unicode__(self):
@@ -53,9 +52,6 @@ class Who(models.Model):
     # set to true if it concerns everyone.
     is_universal = models.BooleanField(default=False)
 
-    def __unicode__(self):
-        return u"Who"
-
 class Event(models.Model):
     name = models.CharField(blank=False, max_length=150)
     duration = models.PositiveIntegerField(blank=False, null=False)
@@ -68,7 +64,7 @@ class Event(models.Model):
     def __unicode__(self):
         return self.name
 
-# localisation models
+# -- localisation models ------------------------------------------------------
 
 class Campus(models.Model):
     name = models.CharField(blank=False, max_length=150)
@@ -84,7 +80,7 @@ class University(models.Model):
         return self.name
 
 class ClassGroup(models.Model):
-    name = models.CharField(blank=False, max_length=150)    
+    name = models.CharField(blank=False, max_length=150)
     campus = models.ForeignKey('Campus')
     cursus = models.ForeignKey('Cursus')
 
@@ -102,7 +98,7 @@ class Place(models.Model):
     def __unicode__(self):
         return self.name
 
-# pedagogy models
+# -- pedagogy models ----------------------------------------------------------
 
 class Cursus(models.Model):
     """A cursus can be Master of Science 2011, it's just like a promotion
@@ -123,12 +119,11 @@ class StudyPeriod(models.Model):
     def __unicode__(self):
         return self.name
 
-
 class Subject(models.Model):
     name = models.CharField(blank=False, max_length=150)
     study_period = models.ForeignKey('StudyPeriod')
     panned_hours = models.PositiveIntegerField(blank=False, null=False)
-    
+
     def __unicode__(self):
         return self.name
 
@@ -148,7 +143,7 @@ class SubjectModality(models.Model):
     def __unicode__(self):
         return dict(self.TYPE_CHOICES)[self.type]
 
-# other models
+# -- other models -------------------------------------------------------------
 
 class Profile(models.Model):
     """A user profile. Can be useful for students, to define classgroups."""

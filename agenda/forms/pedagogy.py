@@ -2,7 +2,6 @@ from django import forms
 from agenda.models import Cursus, StudyPeriod, Subject, SubjectModality, ClassGroup
 
 class CursusForm(forms.ModelForm):
-    """The cursus Administration form"""
     start_date = forms.DateField(
         widget=forms.DateInput(attrs={'class':'datepicker'})
     )
@@ -11,8 +10,6 @@ class CursusForm(forms.ModelForm):
         model = Cursus
 
 class StudyPeriodForm(forms.ModelForm):
-    """The Study Period Administration form"""
-    
     start_date = forms.DateField(
         widget=forms.DateInput(attrs={'class':'datepicker'})
     )
@@ -23,26 +20,38 @@ class StudyPeriodForm(forms.ModelForm):
         model = StudyPeriod
 
 class SubjectForm(forms.ModelForm):
-    """The Subject Administration form"""
     name = forms.CharField()
     study_period = forms.ModelChoiceField(queryset=StudyPeriod.objects.all())
 
     def __init__(self, *args, **kwargs):
+        """Overwrite the default init method to add as many as needed subject
+        modalities.
+
+        """
         super(SubjectForm, self).__init__(*args, **kwargs)
         for (modality_name, real_name) in SubjectModality.TYPE_CHOICES:
             self.fields[modality_name] = forms.CharField()
+
+    def save(self, *args, **kwargs):
+        """Save the form and create the subject modality objects
+        
+        """
+        subject = super(SubjectForm, self).save(*args, **kwargs)
+        for (modality, null) in SubjectModality.TYPE_CHOICES:
+            sm = SubjectModality(
+                planned_hours=self.cleaned_data[modality],
+                subject = subject,
+                type = modality
+            )
+            sm.save()
 
     class Meta:
         model = Subject
 
 class SubjectModalityForm(forms.ModelForm):
-    """The Subject Modality Administration form"""
-    
     class Meta:
         model = SubjectModality
 
 class ClassGroupForm(forms.ModelForm):
-    """The classgroup form"""
-    
     class Meta:
         model = ClassGroup

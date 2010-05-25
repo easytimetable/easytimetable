@@ -7,10 +7,9 @@ from django.contrib.auth.decorators import login_required
 from agenda.views import render_to_response
 from agenda.models import Cursus, StudyPeriod, Subject, SubjectModality, ClassGroup
 from agenda.forms import CursusForm, StudyPeriodForm, SubjectForm, SubjectModalityForm, ClassGroupForm
-from ipdb import set_trace
 
-"""Study Period
-"""
+# -- Study Period related views ----------------------------------------------
+
 @login_required
 def add_studyperiod(request):
     if request.POST:
@@ -58,15 +57,15 @@ def list_studyperiods(request):
     }, request)
 
     
-"""Subject
+# -- Subject related views ----------------------------------------------------
 
-"""
 @login_required
 def add_subject(request):
     if request.POST:
         form = SubjectForm(data=request.POST)
         if form.is_valid():
-            print "tptp"
+            from ipdb import set_trace
+            set_trace()
             form.save()
             return redirect('agenda:list_subjects')
     else:
@@ -108,9 +107,7 @@ def list_subjects(request):
         'subjects': subjects,
     }, request)
 
-"""Subject modality
-
-"""
+# -- Subject modality ---------------------------------------------------------
 
 @login_required
 def add_subjectmodality(request):
@@ -158,8 +155,8 @@ def list_subjectmodalities(request):
         'subjectmodalities': subjectmodalities,
     }, request)
 
-"""Cursus
-"""
+# -- Cursus -------------------------------------------------------------------
+
 @login_required
 def add_cursus(request):
     if request.POST:
@@ -207,8 +204,7 @@ def update_cursus(request, cursus_id):
     }, request)
 
 
-""" Class Groups
-"""
+# -- Class --------------------------------------------------------------------
 
 @login_required
 def add_classgroup(request):
