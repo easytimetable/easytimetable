@@ -7,6 +7,7 @@ from agenda.models import When
 from django.utils import simplejson as json
 from agenda.managers import EventManager
 
+import functools
 # app import
 from agenda.views import render_to_response
 
@@ -21,9 +22,14 @@ def get_planning(request, what=None, extra_context={}, **kwargs):
     Special parameters can be set in `extra_parameters`.
 
     """
+    def define_is_editable(request, when):
+        return (when.id % 2 == 0)
+    
+    # partial to not give the request to the model.
+    partial_is_editable = functools.partial(define_is_editable, request)
     if what == "test":
         w = When.objects.all()
-        d = [p.to_fullcalendar_dict() for p in w]
+        d = [p.to_fullcalendar_dict(partial_is_editable) for p in w]
         return HttpResponse(json.dumps(d))
 
 def add_event(request):

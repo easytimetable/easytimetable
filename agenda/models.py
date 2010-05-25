@@ -20,7 +20,12 @@ class When(models.Model):
     def __unicode__(self):
         return self.date.strftime('%d-%B-%Y')
     
-    def to_fullcalendar_dict(self):
+    def to_fullcalendar_dict(self, is_editable=lambda when:False):
+        """Return this object under a FullCalendar compatible dict format.
+
+        The is_editable callable is called with the 
+
+        """
         dct = { 'title' : self.event.name,
                 'id' : self.id,
                 'event_id': self.event_id,
@@ -28,7 +33,8 @@ class When(models.Model):
                 'start' : self.date.isoformat(),
                 'end' : (self.date +
                 datetime.timedelta(hours=self.event.duration)).isoformat(),
-                'editable' : True }
+                'editable' : is_editable(self),
+            }
         return dct
 
 class Who(models.Model):
@@ -150,4 +156,4 @@ class Profile(models.Model):
     first_name = models.CharField(blank=False, max_length=150)
     last_name = models.CharField(blank=False, max_length=150)
     birth_date = models.DateField(default=datetime.datetime.today)
-    classgroup = models.ForeignKey('ClassGroup', null=True)
+    classgroup = models.ForeignKey('ClassGroup', null=True, blank=True)
