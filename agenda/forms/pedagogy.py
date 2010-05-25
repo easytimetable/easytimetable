@@ -24,7 +24,14 @@ class StudyPeriodForm(forms.ModelForm):
 
 class SubjectForm(forms.ModelForm):
     """The Subject Administration form"""
-    
+    name = forms.CharField()
+    study_period = forms.ModelChoiceField(queryset=StudyPeriod.objects.all())
+
+    def __init__(self, *args, **kwargs):
+        super(SubjectForm, self).__init__(*args, **kwargs)
+        for (modality_name, real_name) in SubjectModality.TYPE_CHOICES:
+            self.fields[modality_name] = forms.CharField()
+
     class Meta:
         model = Subject
 
