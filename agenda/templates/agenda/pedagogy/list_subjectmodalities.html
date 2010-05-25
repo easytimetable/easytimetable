@@ -16,23 +16,24 @@
 {% for subjectmodality in subjectmodalities %}
 <tr class="{% cycle "even" "odd" %}">
     <td>
-        <a href="
-        {% url agenda:get_subjectmodality subjectmodality.id %}">{{ subjectmodality }}</a>
+        <a href="{% url agenda:get_subjectmodality subjectmodality.id %}">{{ subjectmodality }}</a>
     </td>
 	<td>
-        <a href="{% url agenda:get_cursus subjectmodality.subject.id %}">
-                 {{ subjectmodality.subject.name }}
-        </a>
+        <a href="{% url agenda:get_cursus subjectmodality.subject.id %}">{{ subjectmodality.subject.name }}</a>
     </td>
     <td>
-        <a class="awesome small red button" href="
-        {% url agenda:delete_subjectmodality subjectmodality.id %}">delete</a>
+        <a class="awesome small blue button" href="{% url agenda:get_subjectmodality subjectmodality.id %}">view</a>
+        <a class="awesome small green button" href="{% url agenda:update_subjectmodality subjectmodality.id %}">update</a>
+        <a class="awesome small red button" href="{% url agenda:delete_subjectmodality subjectmodality.id %}">delete</a>
     </td>
 </tr>
 {% endfor %}
 </tbody>
 </table>
 {% else %}
-{% trans "there is no subject, yet." %}
+{% trans "there is no subjectmodality, yet." %}
 {% endif %}
+	<br />
+	<br />
+	<a class="awesome small blue button" href="{% url agenda:add_subjectmodality %}">add a subjectmodality</a>
 {% endblock %}

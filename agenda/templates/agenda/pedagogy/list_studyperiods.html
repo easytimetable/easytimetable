@@ -16,17 +16,15 @@
 {% for studyperiod in studyperiods %}
 <tr class="{% cycle "even" "odd" %}">
     <td>
-        <a href="
-        {% url agenda:get_studyperiod studyperiod.id %}">{{ studyperiod }}</a>
+        <a href="{% url agenda:get_studyperiod studyperiod.id %}">{{ studyperiod }}</a>
     </td>
 	<td>
-        <a href="{% url agenda:get_cursus studyperiod.cursus.id %}">
-                 {{ studyperiod.cursus.name }}
-        </a>
+        <a href="{% url agenda:get_cursus studyperiod.cursus.id %}">{{ studyperiod.cursus.name }}</a>
     </td>
     <td>
-        <a class="awesome small red button" href="
-        {% url agenda:delete_studyperiod studyperiod.id %}">delete</a>
+        <a class="awesome small blue button" href="{% url agenda:get_studyperiod studyperiod.id %}">view</a>
+        <a class="awesome small green button" href="{% url agenda:update_studyperiod studyperiod.id %}">update</a>
+        <a class="awesome small red button" href="{% url agenda:delete_studyperiod studyperiod.id %}">delete</a>
     </td>
 </tr>
 {% endfor %}
@@ -35,4 +33,7 @@
 {% else %}
 {% trans "there is no studyperiod, yet." %}
 {% endif %}
+	<br />
+	<br />
+	<a class="awesome small blue button" href="{% url agenda:add_studyperiod %}">add a studyperiod</a>
 {% endblock %}
