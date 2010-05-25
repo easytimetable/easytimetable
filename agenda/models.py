@@ -22,12 +22,13 @@ class When(models.Model):
     
     def to_fullcalendar_dict(self):
         dct = { 'title' : self.event.name,
-                'id' : self.event_id,
+                'id' : self.id,
+                'event_id': self.event_id,
                 'allDay' : False,
                 'start' : self.date.isoformat(),
                 'end' : (self.date +
                 datetime.timedelta(hours=self.event.duration)).isoformat(),
-                'editable' : False }
+                'editable' : True }
         return dct
 
 class Who(models.Model):

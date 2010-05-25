@@ -1,21 +1,38 @@
-{% extends "agenda/base.html" %}
-{% block additional_js %}
-<script type="text/javascript" src="{{ MEDIA_URL }}js/fullcalendar.min.js"></script>
+{% extends "agenda/base_fullcalendar.html" %}
+{% block fullcalendar_init %}
 <script type="text/javascript"> 
 $(document).ready(function(){
-    $('#calendar').fullCalendar({
+    
+    var calendar = $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay',
         },
-        events: '{% url agenda:get_test_planning %}'
+        events: '{% url agenda:get_test_planning %}',
+        selectable: true,
+        selectHelper: true,
+        editable: true,
+        select: function(start, end, allDay) {
+            var title = prompt("Yeha ?");
+            calendar.fullCalendar('renderEvent', 
+            {
+                title: title,
+                start: start,
+                end: end,
+                allDay: allDay,
+
+            }, true);
+        },
+        eventClick: function(calEvent, jsEvent, view) {
+            alert('clicked');
+        },
+        eventDrop: function(calEvent, delta) {
+            alert('dropped');
+        }
     });
-}); 
+});
 </script>
-{% endblock %}
-{% block additional_css %}
-<link rel="stylesheet" href="{{ MEDIA_URL }}css/fullcalendar.css" type="text/css" media="screen, projection">
 {% endblock %}
 {% block content %}
 <h2>Calendar</h2>

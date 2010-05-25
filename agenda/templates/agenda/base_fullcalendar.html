@@ -1,0 +1,19 @@
+{% extends "agenda/base.html" %}
+{% block additional_js %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/fullcalendar/main.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/fullcalendar/grid.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/fullcalendar/agenda.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/fullcalendar/view.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/fullcalendar/selection_util.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/fullcalendar/util.js"></script>
+{% block fullcalendar_init %}{% endblock %}
+{% endblock %}
+{% block additional_css %}
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/fullcalendar/main.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/fullcalendar/grid.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/fullcalendar/agenda.css" type="text/css" media="screen, projection">
+{% endblock %}
+{% block content %}
+<h2>Calendar</h2>
+<div id='calendar'></div> 
+{% endblock %}
