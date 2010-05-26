@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from agenda.models import When
 from django.utils import simplejson as json
-from agenda.managers import EventManager
 
 import functools
 # app import

@@ -3,11 +3,6 @@ import datetime
 from django.db import models
 
 class WhenManager(models.Manager):
-    
-
-
-    
-    
     def user_planning(self, user, what):
         if what == "classgroup":
             return  self.classgroup_planning(user.get_profile.classgroup.id)

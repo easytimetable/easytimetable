@@ -7,4 +7,9 @@
 <p> {% trans "Study Period : " %} {{subject.study_period}} </p>
 <p> {% trans "Cursus : " %} {{subject.study_period.cursus}} </p>
 <p> {% trans "Planned Hours : " %} {{subject.panned_hours}} </p>
+
+{% trans "Modalities for this subject" %}
+{% for modality in modalities %}
+
+{% endfor %}
 {% endblock %}
