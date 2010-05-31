@@ -3,3 +3,22 @@ thead th    {
     background: #222; 
     color: #eaeaea;
 }
+p {
+    text-align: justify;
+}
+
+form label {
+    color:black;
+    float:left;
+    font-style:normal;
+    font-weight:normal;
+    line-height:26px;
+    padding-right:10px;
+    text-align:right;
+    width:100px;
+}
+
+form button {
+    margin-left: 50px;
+    width: 200px;
+}
