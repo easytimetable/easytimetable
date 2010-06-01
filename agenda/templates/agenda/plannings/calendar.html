@@ -83,4 +83,11 @@ $(document).ready(function(){
 <input type="checkbox" name="what" value="university">
 {% trans "My University Calendar" %}<br />
 </form>
+
+<div id="add_user_event">
+<form id="form_add_user_event">
+   {{user_form.as_p}}
+   <button>{% trans "create" %}</button>
+</form>
+</div>
 {% endblock %}
