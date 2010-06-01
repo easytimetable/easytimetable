@@ -79,7 +79,7 @@ def delete_event(request, event_id):
     pass
 
 def display_calendar(request):
-    user_form = UserEventForm()
+    user_form = UserEventForm(prefix="user")
     return render_to_response('agenda/plannings/calendar.html', {
         'user_form': user_form, 
     }, request)

@@ -2,12 +2,16 @@
 {% load i18n %}
 {% block title %}{{ studyperiod.name }} {% trans "StudyPeriod" %}{% endblock %}
 {% block content %}
-<h2>{{ studyperiod.name }} {% trans "studyperiod" %}</h2>
+<h2>{{ studyperiod.name }}</h2>
 <p> {% trans "Name : " %} {{studyperiod.name}} </p>
 <p> {% trans "Cursus : " %} {{studyperiod.cursus.name}} </p>
 <p> {% trans "Start date : " %} {{studyperiod.start_date}} </p>
 <p> {% trans "End date : " %} {{studyperiod.end_date}} </p>
-
+<a class="awesome small red button" href="{% url agenda:delete_studyperiod studyperiod.id %}">delete</a>
+<a class="awesome small green button" href="{% url agenda:update_studyperiod studyperiod.id %}">update</a> 
+<br />
+<br />
+<br />
 <div id="container" style="width: 700px; height: 400px; margin: 0 auto"></div> 
 
 {% comment %}

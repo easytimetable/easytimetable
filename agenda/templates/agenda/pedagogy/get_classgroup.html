@@ -4,6 +4,11 @@
 {% block content %}
 <h2>{{ classgroup.name }} {% trans "classgroup" %}</h2>
 <p> {% trans "Start date : " %} {{classgroup.start_date}} </p>
+<a class="awesome small red button" href="{% url agenda:delete_classgroup classgroup.id %}">delete</a>
+<a class="awesome small green button" href="{% url agenda:update_classgroup classgroup.id %}">update</a> 
+<br />
+<br />
+<br />
 <h3>{% trans "Students " %}</h3>
 {% if classgroup.profile_set.count %}
 <table id="students">
