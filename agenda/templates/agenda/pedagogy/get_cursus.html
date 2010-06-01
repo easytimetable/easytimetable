@@ -2,8 +2,13 @@
 {% load i18n %}
 {% block title %}{{ cursus.name }} {% trans "Cursus" %}{% endblock %}
 {% block content %}
-<h2>{{ cursus.name }} {% trans "cursus" %}</h2>
+<h2>{{ cursus.name }}</h2>
 <p> {% trans "Start date : " %} {{cursus.start_date}} </p>
+<a class="awesome small red button" href="{% url agenda:delete_cursus cursus.id %}">delete</a>
+<a class="awesome small green button" href="{% url agenda:update_cursus cursus.id %}">update</a> 
+<br />
+<br />
+<br />
 <h3>{% trans "Followers " %}</h3>
 {% if cursus.classgroup_set.count %}
 <table id="classes">

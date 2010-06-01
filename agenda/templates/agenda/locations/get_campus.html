@@ -2,8 +2,7 @@
 {% load i18n %}
 {% block title %}{% trans "Campus" %} {{campus.id}}{% endblock %}
 {% block content %}
-<h2>{% trans "Campus" %} {{campus.id}}</h2>
-        {% trans "Name: " %}{{campus.name}}<br />
+<h2>{{campus.name}}</h2>
         {% trans "This campus belongs to " %}<a href="{% url agenda:get_university campus.university_id %}">{{campus.university.name}}</a> {% trans "university" %}
         <br />
         <br />
