@@ -46,6 +46,7 @@ def get_planning(request, what=None, extra_context={}, **kwargs):
 def add_user_event(request):
     if request.POST:
         form = UserEventForm(data=request.POST)
+        from ipdb import set_trace; set_trace()
         if form.is_valid():
             event = Event(name=form.cleaned_data['name'],
                           duration=form.cleaned_data['duration'], 
@@ -53,7 +54,10 @@ def add_user_event(request):
             event.save()
             who = Who(user=request.user, event=event)
             who.save()
-            when = When(date=form.cleaned_data['date'], event=event)
+            edate = "%s %s:00:00" % (form.cleaned_data['date'],
+                form.cleaned_data['start_hour'])
+            from ipdb import set_trace; set_trace()
+            when = When(date=edate, event=event)
             when.save()
     else:
         form = UserEventForm()
