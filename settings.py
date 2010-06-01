@@ -67,6 +67,7 @@ INSTALLED_APPS = (
 
     # project specific apps
     'agenda', 
+    'utils',
 )
 
 # if a local_settings.py file exists, override current settings with those

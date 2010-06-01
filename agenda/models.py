@@ -20,7 +20,8 @@ class When(models.Model):
     def __unicode__(self):
         return self.date.strftime('%d-%B-%Y')
     
-    def to_fullcalendar_dict(self, is_editable=lambda when:False):
+    def to_fullcalendar_dict(self, is_editable=lambda when:False,
+    css_class='undef'):
         """Return this object under a FullCalendar compatible dict format.
 
         The is_editable callable is called with the 
@@ -34,6 +35,7 @@ class When(models.Model):
                 'end' : (self.date +
                 datetime.timedelta(hours=self.event.duration)).isoformat(),
                 'editable' : is_editable(self),
+                'className' : css_class,
             }
         return dct
 
