@@ -32,18 +32,22 @@ $(document).ready(function(){
     
     $('#cals_to_show>:checkbox').each(function(){
         $(this).click(function(){
-            var action;
-            if (this.checked == true)
-                action = "add";
-            else
-                action = "remove";
-            
-            $('#calendar').fullCalendar(action + 'EventSource', "{% url agenda:get_planning %}"+
-                this.value);
+            update_calendars(this.checked, this.value);
         });
-        $(this).click();
+        update_calendars(this.checked, this.value);
     });
 });
+
+function update_calendars(checked, value){
+    var action = "add";
+    if (checked == true)
+        action = "add";
+    else
+        action = "remove";
+    
+    $('#calendar').fullCalendar(action + 'EventSource', "{% url agenda:get_planning %}"+
+        value);
+}
 
 function pop_add_event_dialog(start, end, allDay)
 {
