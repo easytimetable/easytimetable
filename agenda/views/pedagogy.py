@@ -12,14 +12,14 @@ from agenda.forms import CursusForm, StudyPeriodForm, SubjectForm, SubjectModali
 # -- Study Period related views ----------------------------------------------
 
 @login_required
-def add_studyperiod(request):
+def add_studyperiod(request, cursus_id = None):
     if request.POST:
         form = StudyPeriodForm(data=request.POST)
         if form.is_valid():
             form.save()
             return redirect('agenda:list_studyperiods')
     else:
-        form = StudyPeriodForm()
+        form = StudyPeriodForm(initial={"cursus":Cursus.objects.get(id=cursus_id)})
     return render_to_response('agenda/pedagogy/add_studyperiod.html', {
         'form' : form,
     }, request)

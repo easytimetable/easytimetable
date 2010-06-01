@@ -2,40 +2,18 @@
 {% load i18n %}
 {% block fullcalendar_init %}
 <script type="text/javascript"> 
-$(document).ready(function(){
-    
-    var calendar = $('#calendar').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay',
-        },
-        events: '{% url agenda:get_test_planning %}',
-        selectable: true,
-        selectHelper: true,
-        editable: true,
-        select: function(start, end, allDay) {
-            var title = prompt("Yeha ?");
-            calendar.fullCalendar('renderEvent', 
-            {
-                title: title,
-                start: start,
-                end: end,
-                allDay: allDay,
-
-            }, true);
-        },
-        eventClick: function(calEvent, jsEvent, view) {
-            alert('clicked');
-        },
-        eventDrop: function(calEvent, delta) {
-            alert('dropped');
-        }
-    });
-
-    // automatically load ajax links within a modal dialog box
-    $('a.ajax').click(function() {
-        var url = this.href;
+calendar = null;
+function update_selected_cal()
+{
+    if (this.checked==true)
+        $('#calendar').fullCalendar('addEventSource', "{% url agenda:get_planning %}"+
+                        this.value);
+    else
+        $('#calendar').fullCalendar('removeEventSource', "{% url agenda:get_planning %}"+
+                        this.value);
+}
+function pop_add_event_dialog(start, end, allDay) {
+        var url = "{% url agenda:add_user_event %}";
         var dialog = $('<div style="display:hidden"></div>').appendTo('body');
         // load remote content
         dialog.load(
@@ -50,7 +28,39 @@ $(document).ready(function(){
         );
         //prevent the browser to follow the link
         return false;
+    }
+
+
+$(document).ready(function(){
+    
+    var calendar = $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay',
+        },
+        selectable: true,
+        selectHelper: true,
+        editable: true,
+        select: function(start, end, allDay) {
+           pop_add_event_dialog(start, end, allDay); 
+        },
+        eventClick: function(calEvent, jsEvent, view) {
+            alert('clicked');
+        },
+        eventDrop: function(calEvent, delta) {
+            alert('dropped');
+        }
     });
+
+    // automatically load ajax links within a modal dialog box
+    $('a.ajax').click(function(){return pop_add_event_dialog(null,null,null);});
+    
+    for(w in document.cals_to_show.what)
+    {
+        document.cals_to_show.what[w].onclick = update_selected_cal;
+        document.cals_to_show.what[w].onclick();
+    }
 
 });
 </script>
@@ -63,4 +73,14 @@ $(document).ready(function(){
 <ul>
     <li><a class="ajax" href="{% url agenda:add_user_event %}" />{% trans "Add user event" %}</a></li>
 </ul>
+<form name="cals_to_show">
+<input type="checkbox" name="what" value="me">
+{% trans "My Calendar" %}<br />
+<input type="checkbox" name="what" value="classgroup">
+{% trans "My Class Calendar" %}<br />
+<input type="checkbox" name="what" value="campus">
+{% trans "My Campus Calendar" %}<br />
+<input type="checkbox" name="what" value="university">
+{% trans "My University Calendar" %}<br />
+</form>
 {% endblock %}

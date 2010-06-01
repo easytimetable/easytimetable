@@ -1,7 +1,7 @@
 {% extends "base_ajax.html" %}
 {% load i18n %}
 {% block content %}
-<form method="POST">
+<form method="POST" action="{% url agenda:add_user_event %}">
 {{ form.as_p }}
 <button type="submit">{% trans "Add" %}</button>
 </form>

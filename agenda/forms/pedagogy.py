@@ -1,5 +1,7 @@
 from django import forms
 from agenda.models import Cursus, StudyPeriod, Subject, SubjectModality, ClassGroup
+from django.contrib.formtools.wizard import FormWizard
+
 
 class CursusForm(forms.ModelForm):
     start_date = forms.DateField(
@@ -55,3 +57,4 @@ class SubjectModalityForm(forms.ModelForm):
 class ClassGroupForm(forms.ModelForm):
     class Meta:
         model = ClassGroup
+

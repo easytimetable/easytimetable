@@ -15,6 +15,7 @@ from managers import *
 class When(models.Model):
     date = models.DateTimeField(blank=True, default=datetime.datetime.now)
     event = models.ForeignKey('Event')
+    objects = WhenManager()
     
     def __unicode__(self):
         return self.date.strftime('%d-%B-%Y')
@@ -43,11 +44,11 @@ class Who(models.Model):
     informations.
     """
     event = models.ForeignKey('Event')
-    user = models.ForeignKey(User, null=True)
-    classgroup = models.ForeignKey('ClassGroup', null=True)
-    cursus = models.ForeignKey('Cursus', null=True)
-    campus = models.ForeignKey('Campus', null=True)
-    university = models.ForeignKey('University', null=True)
+    user = models.ForeignKey(User, null=True, blank=True)
+    classgroup = models.ForeignKey('ClassGroup', null=True, blank=True)
+    cursus = models.ForeignKey('Cursus', null=True, blank=True)
+    campus = models.ForeignKey('Campus', null=True, blank=True)
+    university = models.ForeignKey('University', null=True, blank=True)
 
     # set to true if it concerns everyone.
     is_universal = models.BooleanField(default=False)

@@ -3,7 +3,7 @@ from agenda.models import Event
 
 class UserEventForm(forms.Form):
     name = forms.CharField(label="Event name")
-    date = forms.DateField(widget=forms.DateInput(attrs={'class':'datepicker'}))
+    date = forms.DateTimeField(widget=forms.DateInput(attrs={'class':'datepicker'}))
     duration = forms.IntegerField(label="Event duration", help_text="in hours")
     place_text = forms.CharField(label="Place", required=False)
 
