@@ -1,0 +1,44 @@
+{% extends "agenda/base.html" %}
+{% load i18n %}
+{% load agenda_extra %}
+{% block title %}{% blocktrans %} {{obj_name}}'s List{% endblocktrans %}{% endblock %}
+{% block content %}
+<span style="float:left;width:75%">
+   <h2>{% blocktrans %} The list of {{obj_name}} {% endblocktrans %}</h2>    
+</span>
+    <a class="awesome small blue button" style="margin-top:8px !important;" href="{% get_url app_name ":add_" obj_name %}"><big>Add {{obj_name}}</big></a>
+
+{% if elements %}
+<table id="classgroups">
+<thead>
+    <tr>
+        {% for element0 in elements.values.0 %}
+        <th> {{ element0.0 }}</th>
+        {% endfor %}
+        <th>{% trans "Actions" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for id, element in elements.items %}
+<tr class="{% cycle "even" "odd" %}">
+    {% for key, value in element %}
+    <td>
+    {{value}} 
+    </td>
+    {% endfor %}
+    <td>
+        <a class="awesome small blue button" href="{% get_url app_name ":get_" obj_name id %}">view</a>
+        <a class="awesome small green button" href="{% get_url app_name ":update_" obj_name id %}">update</a>
+        <a class="awesome small red button" href="{% get_url app_name ":delete_" obj_name id %}">delete</a>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<br />
+<br />
+<br />
+{% blocktrans %} there is no {{obj_name}}, yet.{% endblocktrans %}
+{% endif %}
+{% endblock %}

@@ -4,7 +4,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 
 # app import
-from agenda.views import render_to_response
+from agenda.views import render_to_response, crud
 from agenda.models import University, Campus, Place
 from agenda.forms import UniversityForm, CampusForm, PlaceForm
 
@@ -42,10 +42,8 @@ def get_campus(request, campus_id):
 
 @login_required
 def list_campuses(request):
-    campuses = Campus.objects.all()
-    return render_to_response("agenda/locations/list_campuses.html", {
-        'campuses': campuses,
-    }, request)
+    fields = [('Campus', 'name'), ('University', 'university.name')]
+    return crud.list(Campus, fields, request)
 
 
 @login_required
@@ -95,10 +93,8 @@ def get_university(request, university_id):
 
 @login_required
 def list_universities(request):
-    universities = University.objects.all()
-    return render_to_response("agenda/locations/list_universities.html", {
-        'universities': universities,
-    }, request)
+    fields = [('University', 'name'), ('Campus', 'campus_set.count')]
+    return crud.list(University, fields, request)
 
 @login_required
 def update_university(request, university_id):
@@ -146,11 +142,8 @@ def get_place(request, place_id):
 
 @login_required
 def list_places(request):
-    places = Place.objects.all()
-    return render_to_response("agenda/locations/list_places.html", {
-        'places': places,
-    }, request)
-
+    fields = [('Place', 'name'), ('Campus', 'campus_set.name')]
+    return crud.list(Place, fields, request)
 
 @login_required
 def update_place(request, place_id):
