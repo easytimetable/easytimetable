@@ -23,8 +23,8 @@ $(document).ready(function(){
         eventClick: function(calEvent, jsEvent, view) {
             alert('clicked');
         },
-        eventDrop: function(calEvent, delta) {
-            alert('dropped');
+        eventDrop: function(calEvent, days, minutes, allDay) {
+            alert(days + " " + minutes + " " + allDay);
         }
     });
 

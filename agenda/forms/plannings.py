@@ -5,8 +5,9 @@ from utils.widgets import SelectableTimeWidget
 class UserEventForm(forms.Form):
     name = forms.CharField(label="Event name")
     date = forms.DateField(widget=forms.DateInput(attrs={'class':'datepicker'}))
-    start_hour = forms.TimeField(widget=SelectableTimeWidget())
-    duration = forms.IntegerField(label="Event duration", help_text="in hours")
+    start_hour = forms.IntegerField(widget=SelectableTimeWidget())
+    duration = forms.IntegerField(widget=SelectableTimeWidget(end_hour=5),
+                    help_text="in hours")
     place_text = forms.CharField(label="Place", required=False)
 
 class ClassEventForm(forms.Form):
