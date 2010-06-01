@@ -1,0 +1,23 @@
+.me,
+.fc-agenda .me .fc-event-time,
+.me a {
+    background-color: green; /* background color */
+    border-color: green;     /* border color */
+    color: yellow;           /* text color */
+    }
+
+.classgroup,
+.fc-agenda .classgroup .fc-event-time,
+.classgroup a {
+    background-color: orange; /* background color */
+    border-color: green;     /* border color */
+    color: yellow;           /* text color */
+    }
+
+.campus,
+.fc-agenda .campus .fc-event-time,
+.campus a {
+    background-color: purple; /* background color */
+    border-color: green;     /* border color */
+    color: yellow;           /* text color */
+    }
