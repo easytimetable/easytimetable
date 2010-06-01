@@ -17,7 +17,8 @@ $(document).ready(function(){
         selectHelper: true,
         editable: true,
         select: function(start, end, allDay) {
-           pop_add_event_dialog(start, end, allDay); 
+           pop_add_event_dialog(start, end, allDay);
+
         },
         eventClick: function(calEvent, jsEvent, view) {
             alert('clicked');
@@ -36,6 +37,20 @@ $(document).ready(function(){
         });
         update_calendars(this.checked, this.value);
     });
+
+    // on form submit, add a the new event  
+    $("#form_add_user_event").submit(function(){
+        calendar.fullCalendar('renderEvent',
+            {
+                title: $("#id_user-name").val(),
+                start: $("#id_user-date").val(),
+                description: $("#id_user-place").val(),
+                // end: end,
+                //allDay: allDay
+            }, true // make the event "stick"
+        ); 
+        return false;
+    });
 });
 
 function update_calendars(checked, value){
@@ -51,9 +66,14 @@ function update_calendars(checked, value){
 
 function pop_add_event_dialog(start, end, allDay)
 {
-    $("#form_add_user_event").dialog()
+    set_form_variables('#form_add_user_event', start, end, allDay);
+    $("#form_add_user_event").dialog();
     //prevent the browser to follow the link
     return false;
+}
+
+function set_form_variables(selector, start, end, allDay){
+    
 }
 </script>
 {% endblock %}
