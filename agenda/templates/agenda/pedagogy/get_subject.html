@@ -2,8 +2,13 @@
 {% load i18n %}
 {% block title %}{{ subject.name }} {% trans "Subject" %}{% endblock %}
 {% block content %}
-<h2>{{ subject.name }} {% trans "subject" %}</h2>
+<h2>{{ subject.name }}</h2>
 <p> {% trans "Planned Hours : " %} {{subject.panned_hours}} </p>
+<a class="awesome small red button" href="{% url agenda:delete_subject subject.id %}">delete</a>
+<a class="awesome small green button" href="{% url agenda:update_subject subject.id %}">update</a> 
+<br />
+<br />
+<br />
 
 <div id="container" style="width: 700px; height: 400px; margin: 0 auto"></div> 
 {% for modality in modalities %}

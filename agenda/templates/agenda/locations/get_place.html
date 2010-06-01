@@ -2,8 +2,7 @@
 {% load i18n %}
 {% block title %}{% trans "Place" %} {{place.id}}{% endblock %}
 {% block content %}
-<h2>{% trans "Place" %} {{place.id}}</h2>
-        {% trans "Name: " %}{{place.name}}<br />
+<h2> {{place.name}}</h2>
         {% trans "Adress: " %}{{place.address}}<br />
         {% trans "Capacity: " %}{{place.capacity}}<br />
         {% trans "This place belongs to " %}<a href="{% url agenda:get_campus place.campus_id%}">{{place.campus.name}}</a> {% trans "campus" %}

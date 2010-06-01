@@ -142,7 +142,7 @@ def get_place(request, place_id):
 
 @login_required
 def list_places(request):
-    fields = [('Place', 'name'), ('Campus', 'campus_set.name')]
+    fields = [('Place', 'name'), ('Campus', 'campus.name')]
     return crud.list(Place, fields, request)
 
 @login_required
