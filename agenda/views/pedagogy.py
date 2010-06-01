@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import simplejson as json
 
 # app import
-from agenda.views import render_to_response
+from agenda.views import render_to_response, crud
 from agenda.models import Cursus, StudyPeriod, Subject, SubjectModality, ClassGroup
 from agenda.forms import CursusForm, StudyPeriodForm, SubjectForm, SubjectModalityForm, ClassGroupForm
 
@@ -72,10 +72,8 @@ def get_studyperiod(request, studyperiod_id):
     
 @login_required
 def list_studyperiods(request):
-    studyperiods = StudyPeriod.objects.all()
-    return render_to_response("agenda/pedagogy/list_studyperiods.html", {
-        'studyperiods': studyperiods,
-    }, request)
+    fields = [('Study Period', 'name'), ('Cursus', 'cursus.name')]
+    return crud.list(StudyPeriod, fields, request)
 
     
 # -- Subject related views ----------------------------------------------------
@@ -122,10 +120,8 @@ def get_subject(request, subject_id):
 
 @login_required
 def list_subjects(request):
-    subjects = Subject.objects.all()
-    return render_to_response("agenda/pedagogy/list_subjects.html", {
-        'subjects': subjects,
-    }, request)
+    fields = [('Subject', 'name'), ('Cursus', 'study_period.cursus.name'), ('Study Period', 'study_period.name')]
+    return crud.list(Subject, fields, request)
 
 # -- Subject modality ---------------------------------------------------------
 
@@ -170,10 +166,8 @@ def get_subjectmodality(request, subjectmodality_id):
 
 @login_required
 def list_subjectmodalities(request):
-    subjectmodalities = SubjectModality.objects.all()
-    return render_to_response("agenda/pedagogy/list_subjectmodalities.html", {
-        'subjectmodalities': subjectmodalities,
-    }, request)
+    fields = [('Subject Modality', 'type'), ('Subject', 'subject.name')]
+    return crud.list(SubjectModality, fields, request)
 
 # -- Cursus -------------------------------------------------------------------
 
@@ -206,10 +200,9 @@ def get_cursus(request, cursus_id):
 
 @login_required
 def list_cursuses(request):
-    cursuses = Cursus.objects.all()
-    return render_to_response("agenda/pedagogy/list_cursuses.html", {
-        'cursuses': cursuses,
-    }, request)
+    fields = [('Cursus','name'), ('Classes', 'classgroup_set.count')]
+    return crud.list(Cursus, fields, request)
+
 
 @login_required
 def update_cursus(request, cursus_id):
@@ -248,10 +241,8 @@ def delete_classgroup(request, classgroup_id):
 
 @login_required
 def list_classgroups(request):
-    classgroups = ClassGroup.objects.all()
-    return render_to_response("agenda/pedagogy/list_classgroups.html", {
-        'classgroups': classgroups,
-    }, request)
+    fields = [('Classe','name'), ('Students', 'profile_set.count')]
+    return crud.list(ClassGroup, fields, request)
 
 @login_required
 def get_classgroup(request, classgroup_id):
