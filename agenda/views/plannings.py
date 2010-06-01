@@ -40,7 +40,7 @@ def get_planning(request, what=None, extra_context={}, **kwargs):
     # partial to not give the request to the model.
     partial_is_editable = functools.partial(define_is_editable, request)
     w = When.objects.user_planning(request.user, what, start_date, end_date)
-    d = [p.to_fullcalendar_dict(partial_is_editable) for p in w]
+    d = [p.to_fullcalendar_dict(partial_is_editable, what) for p in w]
     return HttpResponse(json.dumps(d))
 
 def add_user_event(request):
