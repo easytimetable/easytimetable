@@ -35,7 +35,10 @@ def get_planning(request, what=None, extra_context={}, **kwargs):
         end_date = start_date
 
     def define_is_editable(request, when):
-        return (when.id % 2 == 0)
+        events = when.event.who_set.filter(user=request.user).count()
+        if events >= 1:
+            return True
+        return False
     
     # partial to not give the request to the model.
     partial_is_editable = functools.partial(define_is_editable, request)
@@ -46,7 +49,6 @@ def get_planning(request, what=None, extra_context={}, **kwargs):
 def add_user_event(request):
     if request.POST:
         form = UserEventForm(data=request.POST)
-        from ipdb import set_trace; set_trace()
         if form.is_valid():
             event = Event(name=form.cleaned_data['name'],
                           duration=form.cleaned_data['duration'], 
@@ -56,7 +58,6 @@ def add_user_event(request):
             who.save()
             edate = "%s %s:00:00" % (form.cleaned_data['date'],
                 form.cleaned_data['start_hour'])
-            from ipdb import set_trace; set_trace()
             when = When(date=edate, event=event)
             when.save()
     else:
@@ -65,6 +66,9 @@ def add_user_event(request):
     return render_to_response('agenda/plannings/add_user_event.html', {
         'form': form,
     }, request)
+
+def move_user_event(request):
+    pass    
 
 def update_event(request):
     pass
@@ -79,7 +83,7 @@ def delete_event(request, event_id):
     pass
 
 def display_calendar(request):
-    user_form = UserEventForm(prefix="user")
+    user_form = UserEventForm()
     return render_to_response('agenda/plannings/calendar.html', {
         'user_form': user_form, 
     }, request)
