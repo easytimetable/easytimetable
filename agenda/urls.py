@@ -18,7 +18,6 @@ urlpatterns = patterns('agenda.views.locations',
     (r'^places/(?P<place_id>\d+)$', 'get_place', {}, 'get_place'),
     (r'^places/(?P<place_id>\d+)/delete/$', 'delete_place', {}, 'delete_place'),
     (r'^places/(?P<place_id>\d+)/update/$', 'update_place', {}, 'update_place'),
-
 )
 
 urlpatterns += patterns('agenda.views.pedagogy',
