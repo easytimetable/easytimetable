@@ -93,9 +93,6 @@ function set_form_variables(selector, start, end, allDay){
 <div id='calendar'></div> 
 {% endblock %}
 {% block menu %}
-<ul>
-    <li><a class="ajax" href="{% url agenda:add_user_event %}" />{% trans "Add user event" %}</a></li>
-</ul>
 <form id="cals_to_show">
 <input type="checkbox" name="what" value="me">
 {% trans "My Calendar" %}<br />
@@ -107,7 +104,7 @@ function set_form_variables(selector, start, end, allDay){
 {% trans "My University Calendar" %}<br />
 </form>
 
-<div id="add_user_event">
+<div id="add_user_event" style="display: none;">
 <form id="form_add_user_event">
    {{user_form.as_p}}
 </form>

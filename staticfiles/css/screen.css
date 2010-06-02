@@ -76,6 +76,10 @@ form button {
     width: 200px;
 }
 
+.input{
+    width: 140px;
+    left: 150px;
+}
 /**
  * Some stuff related to the event adds
  *
