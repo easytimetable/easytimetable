@@ -2,12 +2,49 @@
 {% load i18n %}
 {% load agenda_extra %}
 {% block title %}{% blocktrans %} {{obj_name}}'s List{% endblocktrans %}{% endblock %}
-{% block content %}
-<span style="float:left;width:75%">
-   <h2>{% blocktrans %} The list of {{obj_name}} {% endblocktrans %}</h2>    
-</span>
-    <a class="awesome small blue button" style="margin-top:8px !important;" href="{% get_url app_name ":add_" obj_name %}"><big>Add {{obj_name}}</big></a>
+{% block additional_js %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#link_add").click(function(){
+                var add_form = $("#add-object-form");
+                if (add_form.css("display") == "none"){
+                    add_form.show(200);
+                    $(this).html("{% trans "Submit the form !" %}");
+                    $(this).removeClass("green");
+                    $(this).addClass("red");
+                    $(".belongs-form").show();
+                } else {
+                    // we just have clicked to submit the form, so do it.
+                    $("#real-add-form").submit();
+                }
+                
+                return false;
+            });
 
+            $("#link_hide_add").click(function(){
+                var add_form = $("#add-object-form");
+                add_form.hide(200);
+                $("#link_add").html("{% trans "Add "%} {{obj_name}} →");
+                $("#link_add").addClass("green");
+                $("#link_add").removeClass("red");
+                $(".belongs-form").hide();
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+<a id="link_add" class="awesome large green button right" style="margin-top:8px !important;" href="{% get_url app_name ":add_" obj_name %}">{% trans "Add "%} {{obj_name}} →</a>
+{% if form %} 
+<h2 class="belongs-form" style="display: none">{% trans "Add "%} {{obj_name}} </h2>
+<div id="add-object-form" class="clear">
+    <a id="link_hide_add" class="awesome right" >{% trans "hide the form" %}</a>
+    <form id="real-add-form" action="{% get_url app_name ":add_" obj_name %}" method="post" accept-charset="utf-8">
+        {{ form.as_p }}
+    </form>
+    <div class="clear"></div>
+</div>
+{% endif %}
+   <h2 >{% blocktrans %} The list of {{obj_name}} {% endblocktrans %}</h2>    
 {% if elements %}
 <table id="classgroups">
 <thead>

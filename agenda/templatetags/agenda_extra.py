@@ -4,7 +4,7 @@ register = template.Library()
 def do_get_url(parser, token):
     bits = token.split_contents()
     if len(bits) < 4: 
-        raise TemplateSyntaxError("'%s' takes at least one argument"
+        raise template.TemplateSyntaxError("'%s' takes at least one argument"
                                   " (path to a view)" % bits[0])
     app_name = bits[1]
     action_type = bits[2]

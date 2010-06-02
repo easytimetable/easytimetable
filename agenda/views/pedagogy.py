@@ -73,7 +73,9 @@ def get_studyperiod(request, studyperiod_id):
 @login_required
 def list_studyperiods(request):
     fields = [('Study Period', 'name'), ('Cursus', 'cursus.name')]
-    return crud.list(StudyPeriod, fields, request)
+    return crud.list(StudyPeriod, fields, request, extra_context={
+        'form': StudyPeriodForm(),
+    })
 
     
 # -- Subject related views ----------------------------------------------------

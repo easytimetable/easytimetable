@@ -1,6 +1,6 @@
 from agenda.views import render_to_response
 
-def list(obj_class, cols, request, template="list.html", obj_name=None, app_name=None):
+def list(obj_class, cols, request, template="list.html", obj_name=None, app_name=None, extra_context={}):
     objs = obj_class.objects.all()
     list_params = {}
     if objs:
@@ -17,9 +17,13 @@ def list(obj_class, cols, request, template="list.html", obj_name=None, app_name
         obj_name = obj_class.__name__.lower()
     if app_name is None:
         app_name = obj_class.__module__.split('.')[0]
-    return render_to_response(template, {
+
+    return_context = {
         'elements': list_params,
         'obj_name': obj_name,
         'app_name': app_name,
-    }, request)
+    }
 
+    for key, value in extra_context.items():
+        return_context[key] = value
+    return render_to_response(template, return_context, request)

@@ -22,3 +22,26 @@ form button {
     margin-left: 50px;
     width: 200px;
 }
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+#add-button{
+    float: right;
+    right: 20px;
+    top: 30px;
+}
+
+#add-object-form{
+    display: none;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+}
