@@ -35,9 +35,11 @@
 </head>
 <body>
     <div class="container" class="span-24"> 
-    {% block header %}
+    <div class="span-32 last">
     <h1 id="title"><a href="/">Easy Time Table <strong>Online</strong></a></h1>
     <span id="subtitle">an easy loutre calendar system</span>
+    {% block htmltitle %}<h1 id="htmltitle" class="left">Super Title here !</h1>{% endblock %}
+    </div>
 		<ul class="sf-menu">
 			<li class="current">
 				<a href="{% url agenda:index %}">{% trans "Home" %}</a>
@@ -87,10 +89,7 @@
             </li>
 
 		</ul>
-    
-
     <hr />
-    {% endblock %}
     {% block messages %}
        {% if messages %}
             <script type="text/javascript">

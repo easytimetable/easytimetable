@@ -1,12 +1,65 @@
+/**
+ * CSS files for Easy Time Table Online v0.1
+ *
+ * @author Alexis Métaireau, Julien Grande, Guillaume Espanel and Nicolas Morel
+ */
+
+/* @FontFace is avalaible from CSS3. Let's use it! */
+@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(http://fonts.googleapis.com/css?family=Reenie+Beanie);
+
+#htmltitle{
+    font-family: 'Reenie Beanie', arial, serif;
+}
+
+#title{
+    text-align: right;
+    font-family: 'Yanone Kaffeesatz', arial, serif;
+}
+#subtitle{
+    display: none;
+    margin-top: -30px;
+    margin-left: 20px;
+    font-family: 'Reenie Beanie', arial, serif;
+    font-size: 30px;
+}
+
+/** 
+ * Some basic elements skinning
+ */
+
+p {
+    text-align: justify;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+}
+
+/**
+ * Reusable css classes
+ */
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+/**
+ * Tables styles
+ */
 tr.even td  { background: #eaeaea; }
 thead th    { 
     background: #222; 
     color: #eaeaea;
 }
-p {
-    text-align: justify;
-}
 
+/**
+ * Display forms with the label aligned and centered
+ */
 form label {
     color:black;
     float:left;
@@ -23,13 +76,11 @@ form button {
     width: 200px;
 }
 
-.right {
-    float: right;
-}
-
-.left {
-    float: left;
-}
+/**
+ * Some stuff related to the event adds
+ *
+ * Maybe to move to another file ?
+ */
 
 #add-button{
     float: right;
@@ -39,9 +90,4 @@ form button {
 
 #add-object-form{
     display: none;
-}
-
-a{
-    text-decoration: none;
-    color: #000;
 }
