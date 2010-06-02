@@ -123,7 +123,9 @@ def get_subject(request, subject_id):
 @login_required
 def list_subjects(request):
     fields = [('Subject', 'name'), ('Cursus', 'study_period.cursus.name'), ('Study Period', 'study_period.name')]
-    return crud.list(Subject, fields, request)
+    return crud.list(Subject, fields, request, extra_context={
+        'form': SubjectForm(),
+    })
 
 # -- Subject modality ---------------------------------------------------------
 
@@ -169,7 +171,9 @@ def get_subjectmodality(request, subjectmodality_id):
 @login_required
 def list_subjectmodalities(request):
     fields = [('Subject Modality', 'type'), ('Subject', 'subject.name')]
-    return crud.list(SubjectModality, fields, request)
+    return crud.list(SubjectModality, fields, request, extra_context={
+        'form': SubjectModalityForm(),
+    })
 
 # -- Cursus -------------------------------------------------------------------
 
@@ -203,7 +207,9 @@ def get_cursus(request, cursus_id):
 @login_required
 def list_cursuses(request):
     fields = [('Cursus','name'), ('Classes', 'classgroup_set.count')]
-    return crud.list(Cursus, fields, request)
+    return crud.list(Cursus, fields, request, extra_context={
+        'form': CursusForm(),
+    })
 
 
 @login_required
@@ -244,7 +250,9 @@ def delete_classgroup(request, classgroup_id):
 @login_required
 def list_classgroups(request):
     fields = [('Classe','name'), ('Students', 'profile_set.count')]
-    return crud.list(ClassGroup, fields, request)
+    return crud.list(ClassGroup, fields, request, extra_context={
+        'form': ClassGroupForm(),
+    })
 
 @login_required
 def get_classgroup(request, classgroup_id):

@@ -43,7 +43,9 @@ def get_campus(request, campus_id):
 @login_required
 def list_campuses(request):
     fields = [('Campus', 'name'), ('University', 'university.name')]
-    return crud.list(Campus, fields, request)
+    return crud.list(Campus, fields, request, extra_context={
+        'form': CampusForm(),
+    })
 
 
 @login_required
@@ -94,7 +96,9 @@ def get_university(request, university_id):
 @login_required
 def list_universities(request):
     fields = [('University', 'name'), ('Campus', 'campus_set.count')]
-    return crud.list(University, fields, request)
+    return crud.list(University, fields, request, extra_context={
+        'form': UniversityForm(),
+    })
 
 @login_required
 def update_university(request, university_id):
@@ -143,7 +147,9 @@ def get_place(request, place_id):
 @login_required
 def list_places(request):
     fields = [('Place', 'name'), ('Campus', 'campus.name')]
-    return crud.list(Place, fields, request)
+    return crud.list(Place, fields, request, extra_context={
+        'form': PlaceForm(),
+    })
 
 @login_required
 def update_place(request, place_id):

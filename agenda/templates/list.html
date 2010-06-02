@@ -3,6 +3,7 @@
 {% load agenda_extra %}
 {% block title %}{% blocktrans %} {{obj_name}}'s List{% endblocktrans %}{% endblock %}
 {% block additional_js %}
+{% if form %}
     <script type="text/javascript">
         $(document).ready(function(){
             $("#link_add").click(function(){
@@ -31,6 +32,7 @@
             });
         });
     </script>
+{% endif %}
 {% endblock %}
 {% block content %}
 <a id="link_add" class="awesome large green button right" style="margin-top:8px !important;" href="{% get_url app_name ":add_" obj_name %}">{% trans "Add "%} {{obj_name}} →</a>
