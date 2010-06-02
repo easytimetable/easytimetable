@@ -40,18 +40,21 @@ $(document).ready(function(){
 
     // on form submit, add a the new event  
     $("#form_add_user_event").submit(function(){
-        year, month, day = $("#id_user-date").val().split("-");
-        hour = $("#id_user-start-hour").val();
-        start_date = Date(year, month, day, hour);
-        end_date = Date(year, month, day, int(hour) + int(id_user-duration));
+        var datearray = $("#id_user-date").val().split("-");
+        var year = datearray[0];
+        var month = datearray[1];
+        var day = datearray[2];
+        hour = $("#id_user-start_hour").val();
+        duration = $("#id_user-duration").val();
+        start_date = new Date(year, month, day, hour);
+        end_date = new Date(year, month, day, parseInt(hour) + parseInt(duration));
         calendar.fullCalendar('renderEvent',
             {
                 title: $("#id_user-name").val(),
-                start: event_date,
-                description: $("#id_user-place").val(),
+                start: start_date,
+                description: $("#id_user-place_text").val(),
                 end: end_date,
-                //allDay: allDay
-            }, true // make the event "stick"
+            }
         ); 
         return false;
     });
