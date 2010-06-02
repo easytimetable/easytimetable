@@ -48,7 +48,7 @@ def get_planning(request, what=None, extra_context={}, **kwargs):
 
 def add_user_event(request):
     if request.POST:
-        form = UserEventForm(data=request.POST)
+        form = UserEventForm(data=request.POST, prefix="user")
         if form.is_valid():
             event = Event(name=form.cleaned_data['name'],
                           duration=form.cleaned_data['duration'], 
@@ -60,12 +60,8 @@ def add_user_event(request):
                 form.cleaned_data['start_hour'])
             when = When(date=edate, event=event)
             when.save()
-    else:
-        form = UserEventForm()
+        # return true or false (json) and treat this in js code.
 
-    return render_to_response('agenda/plannings/add_user_event.html', {
-        'form': form,
-    }, request)
 
 def move_user_event(request):
     pass    
@@ -83,7 +79,7 @@ def delete_event(request, event_id):
     pass
 
 def display_calendar(request):
-    user_form = UserEventForm()
+    user_form = UserEventForm(prefix="user")
     return render_to_response('agenda/plannings/calendar.html', {
         'user_form': user_form, 
     }, request)
