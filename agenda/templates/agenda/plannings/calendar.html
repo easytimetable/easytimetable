@@ -48,18 +48,9 @@ $(document).ready(function(){
         duration = $("#id_user-duration").val();
         start_date = new Date(year, month, day, hour);
         end_date = new Date(year, month, day, parseInt(hour) + parseInt(duration));
-        calendar.fullCalendar('renderEvent',
-            {
-                title: $("#id_user-name").val(),
-                start: start_date,
-                description: $("#id_user-place_text").val(),
-                end: end_date,
-                allDay: false,
-            }
-        );
-
         // make a post ajax request with the data to save
-        $.post("{% url agenda:add_user_event %}", $(this).serialize());
+        $.post("{% url agenda:add_user_event %}", $(this).serialize(), 
+             function(data) {calendar.fullCalendar('renderEvent', data)}, "json");
         return false;
     });
 });

@@ -12,7 +12,7 @@ from django.utils import simplejson as json
 
 # python imports
 import functools
-from datetime import date
+from datetime import date, datetime
 
 # app imports
 from agenda.views import render_to_response
@@ -56,11 +56,15 @@ def add_user_event(request):
             event.save()
             who = Who(user=request.user, event=event)
             who.save()
-            edate = "%s %s:00:00" % (form.cleaned_data['date'],
+            edate = "%s %s" % (form.cleaned_data['date'],
                 form.cleaned_data['start_hour'])
+            edate = datetime.strptime(edate, "%Y-%m-%d %H")
             when = When(date=edate, event=event)
             when.save()
-        # return true or false (json) and treat this in js code.
+            j = when.to_fullcalendar_dict(lambda when:True, "me")
+            return HttpResponse(json.dumps(j))
+        else:
+            return False
 
 
 def move_user_event(request):
