@@ -63,4 +63,6 @@ urlpatterns += patterns('agenda.views.plannings',
     (r'^plannings/users/(?P<user_id>\d+)$', 'get_planning', {'what' : 'user'}, 'get_user_planning'),
     (r'^plannings/$', 'display_calendar', {}, 'display_calendar'),
     (r'^plannings/user/add/$', 'add_user_event', {}, 'add_user_event'),
+    (r'^plannings/user/move/(?P<when_id>\d+)?$', 'move_user_event', {},
+    'move_user_event'),
 )

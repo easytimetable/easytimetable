@@ -14,3 +14,8 @@ class ClassEventForm(forms.Form):
         university=None, *args, **kwargs):
         if classgroup:
             pass
+
+class MoveEventForm(forms.Form):
+    days = forms.IntegerField()
+    minutes = forms.IntegerField()
+    all_day = forms.BooleanField()

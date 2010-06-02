@@ -12,12 +12,19 @@ from django.utils import simplejson as json
 
 # python imports
 import functools
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 # app imports
 from agenda.views import render_to_response
-from agenda.forms.plannings import UserEventForm 
+from agenda.forms.plannings import UserEventForm, MoveEventForm 
 from agenda.managers import WhenManager
+    
+def is_event_editable(user, when):
+    events = when.event.who_set.filter(user=user).count()
+    if events >= 1:
+        return True
+    return False
+    
 
 def get_planning(request, what=None, extra_context={}, **kwargs):
     """Return the planning for `what`. What determines the method we will use
@@ -34,14 +41,8 @@ def get_planning(request, what=None, extra_context={}, **kwargs):
     if (end_date - start_date).days > 50:
         end_date = start_date
 
-    def define_is_editable(request, when):
-        events = when.event.who_set.filter(user=request.user).count()
-        if events >= 1:
-            return True
-        return False
-    
     # partial to not give the request to the model.
-    partial_is_editable = functools.partial(define_is_editable, request)
+    partial_is_editable = functools.partial(is_event_editable, request.user)
     w = When.objects.user_planning(request.user, what, start_date, end_date)
     d = [p.to_fullcalendar_dict(partial_is_editable, what) for p in w]
     return HttpResponse(json.dumps(d))
@@ -67,8 +68,22 @@ def add_user_event(request):
             return False
 
 
-def move_user_event(request):
-    pass    
+def move_user_event(request, when_id):
+    if request.POST:
+        when = When.objects.get(id=when_id)
+        if not is_event_editable(request.user, when):
+            return False
+        form = MoveEventForm(data=request.POST)
+        if form.is_valid():
+            offset = timedelta(days=form.cleaned_data['days'],
+                                minutes=form.cleaned_data['minutes'])
+            n_date = when.date + offset
+            when.date = n_date
+            when.save()
+            j = when.to_fullcalendar_dict(lambda when:True, "me")
+            return HttpResponse(json.dumps(j))
+        else:
+            return False
 
 def update_event(request):
     pass
