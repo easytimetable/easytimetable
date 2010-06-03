@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'uni_form',
 
     # django apps
     'django_extensions',

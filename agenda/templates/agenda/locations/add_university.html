@@ -1,10 +1,11 @@
 {% extends "agenda/locations/base.html" %}
+{% load uni_form_tags %}
 {% load i18n %}
 {% block title %}{% trans "Add an university" %}{% endblock %}
 {% block content %}
 <h2>{% trans "Add an university" %}</h2>
 <form action="" method="post" accept-charset="utf-8">
-{{ form.as_p }}
+{{ form|as_uni_form }}
 <p><input type="submit" value="Continue &rarr;"></p>
 </form>
 {% endblock %}

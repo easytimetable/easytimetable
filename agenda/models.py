@@ -6,8 +6,11 @@ maintain afterwards.
 
 """
 import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
+
 from managers import *
 
 # -- Event related models ----------------------------------------------------
@@ -77,7 +80,7 @@ class Campus(models.Model):
         return self.name
 
 class University(models.Model):
-    name = models.CharField(blank=False, max_length=150)
+    name = models.CharField(blank=False, max_length=150, help_text=_("University full name"))
     
     def __unicode__(self):
         return self.name
@@ -114,7 +117,7 @@ class Cursus(models.Model):
         return self.name
 
 class StudyPeriod(models.Model):
-    name = models.CharField(blank=False, max_length=150)
+    name = models.CharField(blank=False, max_length=150, help_text=_("ex. Semester 1, Trimester 2, etc."))
     cursus = models.ForeignKey('Cursus')
     start_date = models.DateField(default=datetime.datetime.today)
     end_date = models.DateField()

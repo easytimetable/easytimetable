@@ -80,6 +80,19 @@ form button {
     width: 140px;
     left: 150px;
 }
+
+.formHint{
+    padding-left: 150px;
+}
+
+input:focus {
+      background: #eaeaea;
+}
+
+.ui-datepicker-inline{
+    display: none;
+}
+
 /**
  * Some stuff related to the event adds
  *

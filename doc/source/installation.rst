@@ -3,9 +3,33 @@ Procédure d'installation
 
 Voici la procédure d'installation de EasyTimeTable Online.
 
+Pour résumer
+~~~~~~~~~~~~
+
+Voici les commandes que vous pouvez taper dans un terminal afin d'avoir un 
+projet plainement fonctionnel::
+
+    $ easy_install virtualenv
+    $ virtualenv --no-site-packages django
+    $ cd django
+    $ source bin/activate
+    $ easy_install django
+    $ easy_install django-extensions
+    $ easy_install django-uni-form
+    $ git clone git@github.com:easytimetable/easytimetable.git
+    $ cd easytimetable
+    $ python manage.py syncdb
+    $ python manage.py runserver
+
+Et vous pouvez aller voir le site ici: http://localhost:8000
+
+Pas à pas détaillé
+~~~~~~~~~~~~~~~~~~~
+
 Prérequis
 ==========
 
+* Une station unix, linux, mac ou équivalent
 * Python >= 2.5
 * Git 
 
@@ -38,7 +62,7 @@ Et l'activer::
     $ source bin/activate
     (django)
 
-Le (django) signifie que l'on utilise le virtualenv "django".
+Le `(django)` signifie que l'on utilise le virtualenv "django".
 
 Installation de django
 ======================
@@ -48,6 +72,15 @@ utilisons la version 1.1, qui est actuellement la version stable::
 
     $ easy_install django
     (django)
+
+Dépendances du projet
+=====================
+
+Le projet à une dépendance aux applications `django_extensions` et `django-uniform`, voici comment les 
+installer, via pip. La procédure serait la même avec easy_install::
+
+    $ pip install django-extensions
+    $ pip install django-uni-form
 
 Dépot GIT
 ==========
@@ -71,16 +104,6 @@ Vous pouvez par exemple récupérer le projet en faisant::
     (django)
 
 
-Dépendances du projet
-=====================
-
-Le projet à une dépendance vers l'application `django_extensions`, voici comment l'installer::
-
-    $ cd ..
-    $ git clone http://github.com/django-extensions/django-extensions.git
-    $ cd django-extensions
-    $ python setup.py install
-    $ cd ..
    
 Lancer le projet
 ================
@@ -88,6 +111,5 @@ Lancer le projet
 Le projet est maintenant installé, il est possible de lancer le projet comme suit::
 
     $ cd easytimetable/
-    (django)
     $ python manage.py syncdb
     $ python manage.py runserver 
