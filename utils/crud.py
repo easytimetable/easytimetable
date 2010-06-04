@@ -1,6 +1,8 @@
-from agenda.views import render_to_response
+from utils.shortcuts import render_to_response
+from utils.settings import DEFAULT_LIST_TEMPLATE
 
-def list(obj_class, cols, request, template="list.html", obj_name=None, app_name=None, extra_context={}):
+def list(obj_class, cols, request, template=DEFAULT_LIST_TEMPLATE, 
+        obj_name=None, app_name=None, extra_context={}):
     objs = obj_class.objects.all()
     list_params = {}
     if objs:

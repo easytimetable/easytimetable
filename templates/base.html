@@ -47,19 +47,19 @@
     </div>
 		<ul class="sf-menu">
 			<li class="current">
-				<a href="{% url agenda:index %}">{% trans "Home" %}</a>
+				<a href="{% url index %}">{% trans "Home" %}</a>
 			</li>
 			<li>
 				<a href="">Locations</a>
 				<ul>
 					<li>
-						<a href="{% url agenda:list_campuses %}">{% trans "Campuses" %}</a>
+						<a href="{% url locations:list_campuses %}">{% trans "Campuses" %}</a>
 					</li>
 					<li>
-						<a href="{% url agenda:list_places %}">{% trans "Places" %}</a>
+						<a href="{% url locations:list_places %}">{% trans "Places" %}</a>
 					</li>
 					<li>
-						<a href="{% url agenda:list_universities %}">{% trans "Universities" %}</a>
+						<a href="{% url locations:list_universities %}">{% trans "Universities" %}</a>
 					</li>
 				</ul>
 			</li>
@@ -67,19 +67,19 @@
 				<a href="#">Pedagogy</a>
 				<ul>
 					<li>
-						<a href="{% url agenda:list_classgroups %}">{% trans "Class Groups" %}</a>
+						<a href="{% url profiles:list_classgroups %}">{% trans "Class Groups" %}</a>
 					</li>
 					<li>
-						<a href="{% url agenda:list_cursuses %}">{% trans "Cursuses" %}</a>
+						<a href="{% url pedagogy:list_cursuses %}">{% trans "Cursuses" %}</a>
 					</li>
 					<li>
-						<a href="{% url agenda:list_studyperiods %}">{% trans "Study Periods" %}</a>
+						<a href="{% url pedagogy:list_studyperiods %}">{% trans "Study Periods" %}</a>
 					</li>
 					<li>
-						<a href="{% url agenda:list_subjects %}">{% trans "Subjects" %}</a>
+						<a href="{% url pedagogy:list_subjects %}">{% trans "Subjects" %}</a>
 					</li>
 					<li>
-						<a href="{% url agenda:list_subjectmodalities %}">{% trans "Subject Modalities" %}</a>
+						<a href="{% url pedagogy:list_subjectmodalities %}">{% trans "Subject Modalities" %}</a>
 					</li>
 				</ul>
 
@@ -88,7 +88,7 @@
                 <a href="">Time Organisation</a>
                 <ul>
 		    	    <li>
-		        		<a href="{% url agenda:display_calendar %}">{% trans "Events" %}</a>
+		        		<a href="{% url events:display_calendar %}">{% trans "Events" %}</a>
 		        	</li>
                  </ul>
             </li>

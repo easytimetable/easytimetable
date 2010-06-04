@@ -62,12 +62,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'uni_form',
-
-    # django apps
     'django_extensions',
 
     # project specific apps
-    'agenda', 
+    'pedagogy',
+    'locations',
+    'events',
+    'profiles',
     'utils',
 )
 

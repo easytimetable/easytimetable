@@ -4,8 +4,16 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    
+    (r'^$', 'django.views.generic.simple.direct_to_template', {
+        'template': 'index.html',
+    }, 'index'),
     (r'^admin/', include(admin.site.urls)),
-    (r'^', include('agenda.urls', namespace='agenda')),
+    (r'^pedagogy/', include('pedagogy.urls', namespace='pedagogy')),
+    (r'^events/', include('events.urls', namespace='events')),
+    (r'^locations/', include('locations.urls', namespace='locations')),
+    (r'^profiles/', include('profiles.urls', namespace='profiles')),
+    
     (r'^accounts/login/$', 'django.contrib.auth.views.login', {}, 'login'),
     (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {}, 'logout'),
 )
