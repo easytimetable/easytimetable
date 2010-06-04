@@ -30,3 +30,7 @@ partie metier de notre application) que l'on à défini à partir des besoins du
 projet.
 
 .. image:: pictures/model.png
+
+Egalement, pour avoir une vue un peu plus globale, nous avons enlevé les champs:
+
+.. image:: pictures/model-simple.png
