@@ -11,9 +11,15 @@ def list(obj_class, cols, request, template=DEFAULT_LIST_TEMPLATE,
             for (key, attrs) in cols:
                 item = obj
                 for attr in attrs.split('.'):
-                    item = getattr(item, attr)
-                    if callable(item):
-                        item = item()
+                    if hasattr(item, attr):
+                        item = getattr(item, attr)
+                        if callable(item):
+                            try:
+                                item = item()
+                            except Exception:
+                                item = ""
+                    else:
+                        item = ""
                 list_params[obj.id].append((key, item))
     if obj_name is None:
         obj_name = obj_class.__name__.lower()
