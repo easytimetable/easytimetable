@@ -13,7 +13,7 @@ projet plainement fonctionnel::
     $ virtualenv --no-site-packages django
     $ cd django
     $ source bin/activate
-    $ easy_install django
+    $ easy_install django==1.1
     $ easy_install django-extensions
     $ easy_install django-uni-form
     $ git clone git@github.com:easytimetable/easytimetable.git
