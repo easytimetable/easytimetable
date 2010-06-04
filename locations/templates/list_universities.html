@@ -1,0 +1,34 @@
+{% extends "base_locations.html" %}
+{% load i18n %}
+{% block title %}{% trans "List Universities" %}{% endblock %}
+{% block content %}
+<h2>{% trans "The list of universities" %}</h2>
+{% if universities %}
+<table id="universities">
+<thead>
+    <tr><th>{% trans "Universities" %}</th>
+        <th> {% trans "Campuses" %} </th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for university in universities %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>{{ university }}</td>
+    <td>{{ university.campus_set.count }}</td>
+    <td>
+        <a class="awesome small blue button" href="{% url locations:get_university university.id %}">view</a></li>
+        <a class="awesome small green button" href="{% url locations:update_university university.id %}">update</a>
+        <a class="awesome small red button" href="{% url locations:delete_university university.id %}">delete</a>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{% trans "there is no universities, yet." %}
+{% endif %}
+        <br />
+        <br />
+         <a class="awesome large blue button" href="{% url locations:add_university %}">add an university</a>
+{% endblock %}

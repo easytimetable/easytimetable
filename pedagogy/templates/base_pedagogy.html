@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block menu %}
+<h2>{% trans "Pedagogy : " %}</h2>
+<ul>
+    <li><a href="{% url pedagogy:add_cursus %}">{% trans "add a cursus" %}</a></li>
+    <li><a href="{% url pedagogy:list_cursuses %}">{% trans "list cursuses" %}</a></li>
+	<li><a href="{% url pedagogy:add_studyperiod %}">{% trans "add a studyperiod" %}</a></li>
+    <li><a href="{% url pedagogy:list_studyperiods %}">{% trans "list studyperiods" %}</a></li>
+	<li><a href="{% url pedagogy:add_subject %}">{% trans "add a subject" %}</a></li>
+    <li><a href="{% url pedagogy:list_subjects %}">{% trans "list subjects" %}</a></li>
+	<li><a href="{% url pedagogy:add_subjectmodality %}">{% trans "add a subjectmodality" %}</a></li>
+    <li><a href="{% url pedagogy:list_subjectmodalities %}">{% trans "list subjectmodalities" %}</a></li>
+</ul>
+{% endblock %}

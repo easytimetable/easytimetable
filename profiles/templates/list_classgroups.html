@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "List Classes" %}{% endblock %}
+{% block content %}
+<span style="float:left;width:75%">
+   <h2>{% trans "The list of the classes" %}</h2>    
+</span>
+    <a class="awesome small blue button" style="margin-top:8px !important;" href="{% url profiles:add_classgroup %}"><big>add a classgroup</big></a>
+
+{% if classgroups %}
+<table id="classgroups">
+<thead>
+    <tr>
+        <th>{% trans "Classes " %}</th>
+        <th>{% trans "Students " %}</th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for classgroup in classgroups %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>
+        <a href="{% url profiles:get_classgroup classgroup.id %}">{{ classgroup }}</a>
+    </td>
+    <td>
+        {{ classgroup.profile_set.count  }}
+    </td>
+    <td>
+        <a class="awesome small blue button" href="{% url profiles:get_classgroup classgroup.id %}">view</a>
+        <a class="awesome small green button" href="{% url profiles:update_classgroup classgroup.id %}">update</a>
+        <a class="awesome small red button" href="{% url profiles:delete_classgroup classgroup.id %}">delete</a>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{% trans "there is no class, yet." %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base_pedagogy.html" %}
+{% load i18n %}
+{% block title %}{{ studyperiod.name }} {% trans "StudyPeriod" %}{% endblock %}
+{% block content %}
+<h2>{{ studyperiod.name }}</h2>
+<p> {% trans "Name : " %} {{studyperiod.name}} </p>
+<p> {% trans "Cursus : " %} {{studyperiod.cursus.name}} </p>
+<p> {% trans "Start date : " %} {{studyperiod.start_date}} </p>
+<p> {% trans "End date : " %} {{studyperiod.end_date}} </p>
+<a class="awesome small red button" href="{% url pedagogy:delete_studyperiod studyperiod.id %}">delete</a>
+<a class="awesome small green button" href="{% url pedagogy:update_studyperiod studyperiod.id %}">update</a> 
+<br />
+<br />
+<br />
+<div id="container" style="width: 700px; height: 400px; margin: 0 auto"></div> 
+
+{% comment %}
+loop on subject_modalities here to build the graph
+{% endcomment %}
+{% endblock %}
+
+{% block additional_js %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/highcharts.js"></script> 
+<!--[if IE]>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/excanvas.compiled.js"></script>
+<![endif]-->
+<script type="text/javascript"> 
+        var chart;
+        $(document).ready(function() {
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container',
+                    defaultSeriesType: 'bar'
+                },
+                title: {
+                    text: '{{ studyperiod.cursus.name }}: {{ studyperiod.name }} {% trans "subject modalities" %}'
+                },
+                xAxis: {
+                    categories: [{% for subject in subjects %}'{{ subject }}',{% endfor %}]
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '{% trans "Total planned hours" %}'
+                    }
+                },
+                legend: {
+                    style: {
+                        left: 'auto',
+                        bottom: 'auto',
+                        right: '70px',
+                        top: '35px'
+                    },
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    reversed: true,
+                    shadow: false
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>'+ this.x +'</b><br/>'+
+                             this.series.name +': '+ this.y +'h ';
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                    series:[
+                    {% for serie in series %}
+                    {
+                        name: '{{ serie.name }}',
+                        data: [{% for value in serie.data %}{{ value }},{% endfor %}]
+                    },
+                    {% endfor %}
+                ]
+            });
+            
+            
+        });
+        </script>  
+{% endblock %}

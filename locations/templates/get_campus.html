@@ -1,0 +1,11 @@
+{% extends "base_locations.html" %}
+{% load i18n %}
+{% block title %}{% trans "Campus" %} {{campus.id}}{% endblock %}
+{% block content %}
+<h2>{{campus.name}}</h2>
+        {% trans "This campus belongs to " %}<a href="{% url locations:get_university campus.university_id %}">{{campus.university.name}}</a> {% trans "university" %}
+        <br />
+        <br />
+        <a class="awesome small green button" href="{% url locations:update_campus campus.id %}">update</a>
+        <a class="awesome small red button" href="{% url locations:delete_campus campus.id %}">delete</a>
+{% endblock %}

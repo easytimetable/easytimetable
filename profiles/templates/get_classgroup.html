@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ classgroup.name }} {% trans "Cursus" %}{% endblock %}
+{% block content %}
+<h2>{{ classgroup.name }} {% trans "classgroup" %}</h2>
+<p> {% trans "Start date : " %} {{classgroup.start_date}} </p>
+<a class="awesome small red button" href="{% url profiles:delete_classgroup classgroup.id %}">delete</a>
+<a class="awesome small green button" href="{% url profiles:update_classgroup classgroup.id %}">update</a> 
+<br />
+<br />
+<br />
+<h3>{% trans "Students " %}</h3>
+{% if classgroup.profile_set.count %}
+<table id="students">
+<thead>
+    <tr>
+        <th>{% trans "First name " %}</th>
+        <th>{% trans "Last name" %}</th>
+        <th>{% trans "Birth date " %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for profile in classgroup.profile_set.all %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>
+                 {{ profile.first_name }}
+    </td>
+    <td>
+                 {{ profile.last_name }}
+    </td>
+    <td>{{ profile.birth_date }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{% trans "there is no student for this class, yet." %}
+{% endif %}
+{% endblock %}

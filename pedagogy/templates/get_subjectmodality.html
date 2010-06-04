@@ -1,0 +1,15 @@
+{% extends "pedagogy/pedagogy/base.html" %}
+{% load i18n %}
+{% block title %}{{ subjectmodality.type }}:{{subjectmodality.subject}}{% endblock %}
+{% block content %}
+<h2>{{ subjectmodality.type }}:{{subjectmodality.subject}}</h2>
+<p> {% trans "Type : " %} {{subjectmodality.type}} </p>
+<p> {% trans "Subject : " %} {{subjectmodality.subject}} </p>
+<p> {% trans "Planned Hours : " %} {{subjectmodality.planned_hours}} </p>
+<a class="awesome small red button" href="{% url pedagogy:delete_subjectmodality subjectmodality.id %}">delete</a>
+<a class="awesome small green button" href="{% url pedagogy:update_subjectmodality subjectmodality:wq
+.id %}">update</a> 
+<br />
+<br />
+<br />
+{% endblock %}

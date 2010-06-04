@@ -1,0 +1,13 @@
+{% extends "base_locations.html" %}
+{% load i18n %}
+{% block title %}{% trans "Place" %} {{place.id}}{% endblock %}
+{% block content %}
+<h2> {{place.name}}</h2>
+        {% trans "Adress: " %}{{place.address}}<br />
+        {% trans "Capacity: " %}{{place.capacity}}<br />
+        {% trans "This place belongs to " %}<a href="{% url locations:get_campus place.campus_id%}">{{place.campus.name}}</a> {% trans "campus" %}
+        <br />
+        <br />
+        <a class="awesome small red button" href="{% url locations:delete_place place.id %}">delete</a>
+        <a class="awesome small green button" href="{% url locations:update_place place.id %}">update</a> 
+{% endblock %}
