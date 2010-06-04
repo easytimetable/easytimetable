@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from profiles.models import ClassGroup
 import datetime
+
 
 class Cursus(models.Model):
     """A cursus can be "Master of Science 2011", it's just like a promotion
@@ -8,6 +10,11 @@ class Cursus(models.Model):
     """
     name = models.CharField(blank=False, max_length=150)
     start_date = models.DateField(default=datetime.datetime.today)
+    
+    @property
+    def classgroup_set(self):
+        """Return the classgroup that are foloowing the active cursus"""
+        return ClassGroup.objects.filter(cursus=self)
     
     def __unicode__(self):
         return self.name

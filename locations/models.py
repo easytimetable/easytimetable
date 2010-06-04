@@ -5,6 +5,15 @@ class Campus(models.Model):
     name = models.CharField(blank=False, max_length=150)
     university = models.ForeignKey('University')
     
+    @property
+    def address(self):
+        """return the address, if specified somewhere"""
+        try:
+            place = Place.objects.get(campus=self, is_main_place=True) 
+            return place.address
+        except Place.DoesNotExists:
+            return None
+
     def __unicode__(self):
         return self.name
 
