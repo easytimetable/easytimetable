@@ -3,7 +3,7 @@
 {% block title %}Log in{% endblock %}
 {% block content %}
 <h2>Log in</h2>
-<p class="info">{% trans "It seems that you need to be logged in to access the requested page. Please process" %}</p>
+<p class="info">{% trans "It seems that you need to be logged in to access the requested page. Please process. <br /> For the demo need, you can connect yourself with the <strong>user</strong> user, using <strong>password</strong> as password." %}</p>
 <form action="" method="post" accept-charset="utf-8">
 {{ form.as_p }} 
 <p><input class="awesome input" type="submit" value="{% trans "Login" %}"></p>

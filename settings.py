@@ -53,6 +53,7 @@ TEMPLATE_DIRS = (
 )
 
 AUTH_PROFILE_MODULE = 'agenda.Profile'
+LOGIN_REDIRECT_URL = '/events/'
 
 INSTALLED_APPS = (
     # django contribs

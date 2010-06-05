@@ -18,7 +18,7 @@ projet plainement fonctionnel::
     $ easy_install django-uni-form
     $ git clone git@github.com:easytimetable/easytimetable.git
     $ cd easytimetable
-    $ python manage.py syncdb
+    $ python manage.py syncdb --noinput
     $ python manage.py runserver
 
 Et vous pouvez aller voir le site ici: http://localhost:8000
@@ -108,8 +108,10 @@ Vous pouvez par exemple récupérer le projet en faisant::
 Lancer le projet
 ================
  
-Le projet est maintenant installé, il est possible de lancer le projet comme suit::
+Le projet est maintenant installé, il est possible de lancer le projet comme suit. 
+Les étapes décrites ci dessous ont pour effet de créer la base de données et de lui 
+fournir un jeu de données de tests. ::
 
     $ cd easytimetable/
-    $ python manage.py syncdb
+    $ python manage.py syncdb --noinput
     $ python manage.py runserver 
