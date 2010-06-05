@@ -1,23 +1,23 @@
 .me,
 .fc-agenda .me .fc-event-time,
 .me a {
-    background-color: green; /* background color */
-    border-color: green;     /* border color */
-    color: yellow;           /* text color */
-    }
+    background-color: #e33100; /* background color */
+    border-color: #fff;     /* border color */
+    color: #000;           /* text color */
+}
 
 .classgroup,
 .fc-agenda .classgroup .fc-event-time,
 .classgroup a {
-    background-color: orange; /* background color */
-    border-color: green;     /* border color */
-    color: yellow;           /* text color */
-    }
+    background-color: #0A50FF; /* background color */
+    border-color: #fff;     /* border color */
+    color: #000;           /* text color */
+}
 
 .campus,
 .fc-agenda .campus .fc-event-time,
 .campus a {
-    background-color: purple; /* background color */
-    border-color: green;     /* border color */
-    color: yellow;           /* text color */
-    }
+    background-color: #3ACC00; /* background color */
+    border-color: #fff;     /* border color */
+    color: #000;           /* text color */
+}

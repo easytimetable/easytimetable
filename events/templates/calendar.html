@@ -90,13 +90,14 @@ function set_form_variables(selector, start, end, allDay){
 {% endblock %}
 {% block content %}
 <h2>Calendar</h2>
+<p class="info">{% trans "Here you can <strong>view, add or edit the different plannings</strong>, depending on the rights you have. Click on the calendar to create a new event on your agenda !" %}</p>
 <div id='calendar'></div> 
 {% endblock %}
 {% block menu %}
 <form id="cals_to_show">
-<input type="checkbox" name="what" value="me">
+<input type="checkbox" name="what" value="me" checked="1">
 {% trans "My Calendar" %}<br />
-<input type="checkbox" name="what" value="classgroup">
+<input type="checkbox" name="what" value="classgroup" checked="1">
 {% trans "My Class Calendar" %}<br />
 <input type="checkbox" name="what" value="campus">
 {% trans "My Campus Calendar" %}<br />
