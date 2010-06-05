@@ -44,6 +44,8 @@ def list_campuses(request):
     fields = [('Campus', 'name'), ('University', 'university.name')]
     return crud.list(Campus, fields, request, extra_context={
         'form': CampusForm(),
+        'message': _("If you specify an address here, it will automatically" \
+            "create a new place and set it the main place for this campus")
     })
 
 @login_required

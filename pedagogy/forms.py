@@ -32,7 +32,7 @@ class SubjectForm(forms.ModelForm):
         """
         super(SubjectForm, self).__init__(*args, **kwargs)
         for (modality_name, real_name) in SubjectModality.TYPE_CHOICES:
-            self.fields[modality_name] = forms.CharField()
+            self.fields[modality_name] = forms.CharField(required=False)
 
     def save(self, *args, **kwargs):
         """Save the form and create the subject modality objects

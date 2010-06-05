@@ -125,6 +125,11 @@ def list_subjects(request):
     fields = [('Subject', 'name'), ('Cursus', 'study_period.cursus.name'), ('Study Period', 'study_period.name')]
     return crud.list(Subject, fields, request, extra_context={
         'form': SubjectForm(),
+        'message': _("As you can see, you can specify here all the subject" \
+            "modalities hours planned for the subject you want to create, if " \
+            "you don't specify them for now, you can do it later. Once a time " \
+            "those specified, you can access the subject detailled view to see" \
+            "a simple graphic about the subject modality repartition"),
     })
 
 # -- Subject modality ---------------------------------------------------------
