@@ -16,6 +16,14 @@
     text-align: right;
     font-family: 'Yanone Kaffeesatz', arial, serif;
 }
+
+#title a{
+    text-decoration: none;
+    color: #000;
+    background: url(note.gif) no-repeat top right;
+    padding-right: 44px;
+}
+
 #subtitle{
     display: none;
     margin-top: -30px;
