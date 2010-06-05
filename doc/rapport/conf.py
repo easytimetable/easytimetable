@@ -22,7 +22,7 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = []
+extensions = ['rst2pdf.pdfbuilder']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -164,16 +164,16 @@ htmlhelp_basename = 'EasyTimeTable-Rapportdoc'
 # -- Options for LaTeX output --------------------------------------------------
 
 # The paper size ('letter' or 'a4').
-#latex_paper_size = 'letter'
+latex_paper_size = 'a4'
 
 # The font size ('10pt', '11pt' or '12pt').
-#latex_font_size = '10pt'
+latex_font_size = '9pt'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'EasyTimeTable-Rapport.tex', u'Easy Time Table - Rapport Documentation',
-   u'Guillaume Espanel, Julien Grande, Nicolas Morel, Alexis Metaireau', 'manual'),
+  ('index', 'EasyTimeTable-Rapport.tex', u'Easy Time Table - Rapport',
+   u'GREAT TEAM DEVELOPMENTS', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

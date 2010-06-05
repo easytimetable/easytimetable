@@ -1,8 +1,12 @@
 Présentation du projet et répartition des taches
 #################################################
 
-:Authors:
-    Guillaume Espanel
+:Auteurs:
+    * Guillaume Espanel
+    * Alexis Metaireau
+    * Nicolas Morel
+    * Julien Grande
+
 :Version:
     1.0
 
