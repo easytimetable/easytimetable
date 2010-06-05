@@ -25,7 +25,7 @@ def is_event_editable(user, when):
         return True
     return False
     
-
+@login_required
 def get_planning(request, what=None, extra_context={}, **kwargs):
     """Return the planning for `what`. What determines the method we will use
     to fetch the informations through the model manager.
@@ -47,6 +47,7 @@ def get_planning(request, what=None, extra_context={}, **kwargs):
     d = [p.to_fullcalendar_dict(partial_is_editable, what) for p in w]
     return HttpResponse(json.dumps(d))
 
+@login_required
 def add_user_event(request):
     if request.POST:
         form = UserEventForm(data=request.POST, prefix="user")
@@ -67,7 +68,7 @@ def add_user_event(request):
         else:
             return False
 
-
+@login_required
 def move_user_event(request, when_id):
     if request.POST:
         when = When.objects.get(id=when_id)
@@ -97,6 +98,7 @@ def update_course_event(request, class_event_id):
 def delete_event(request, event_id):
     pass
 
+@login_required
 def display_calendar(request):
     user_form = UserEventForm(prefix="user")
     return render_to_response('calendar.html', {
