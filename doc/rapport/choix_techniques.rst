@@ -33,6 +33,14 @@ Et également utilisé les frameworks on bibliothèques suivantes:
     * La bibliothèque javascript FullCalendar
     * Les APIs google maps
 
+Nous avons également utilisé, pour faciliter notre travail collaboratif, le 
+système de gestionnaire de versions git.
+
+Git est un gestionnaire de versions décentralisé, dont la principale
+fonctionalité est de bien savoir "merger". Cela signifie qu'il est possible de
+travailler en même temps à plusieurs sur le même fichier, sans que cela pose
+énormement de problèmes.
+
 Pour ce qui est de la solution d'hebergement, il est possible d'heberger notre
 solution sur des machines dédiées, sur des Systèmes d'exploitations tels que
 Microsoft Windows, des Unixs (la famille des BSD) et des Linux.
