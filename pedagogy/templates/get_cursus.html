@@ -10,6 +10,7 @@
 <br />
 <br />
 <h3>{% trans "Followers " %}</h3>
+<p class="info">{% trans "Here is a list of classgroups that are currently following this cursus." %}</p>
 {% if cursus.classgroup_set.count %}
 <table id="classes">
 <thead>
@@ -23,12 +24,12 @@
 {% for classgroup in cursus.classgroup_set.all %}
 <tr class="{% cycle "even" "odd" %}">
     <td>
-        <a href="{% url pedagogy:get_classgroup classgroup.id %}">
+        <a href="{% url profiles:get_classgroup classgroup.id %}">
                  {{ classgroup.name }}
         </a>
     </td>
     <td>
-        <a href="{% url pedagogy:get_campus classgroup.campus.id %}">
+        <a href="{% url locations:get_campus classgroup.campus.id %}">
                  {{ classgroup.campus.name }}
         </a>
     </td>

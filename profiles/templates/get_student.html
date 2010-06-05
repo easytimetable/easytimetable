@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ student.first_name }} {{ student.last_name }}{% endblock %}
+{% block content %}
+<h2>{{ student.first_name }} {{ student.last_name }}</h2>
+{% trans "is actually in the" %} {{ student.profile_set.get.classgroup.name }} {% trans "class group" %}
+{% trans "You can view all comrades" %} of {{ student.first_name }} on <a href="{% url profiles:get_classgroup student.profile_set.get.classgroup.id %}">his class page</a>.
+{% endblock %}

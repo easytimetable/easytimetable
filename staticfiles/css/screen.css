@@ -53,6 +53,12 @@ p {
     float: left;
 }
 
+.info {
+    background: url(tip.gif) no-repeat;
+    width: 500px;
+    margin: 20px;
+    padding: 2px 20px 5px 45px; 
+}
 /**
  * Tables styles
  */
@@ -112,4 +118,8 @@ input:focus {
 
 #add-object-form{
     display: none;
+}
+
+#real-add-form{
+    margin-bottom: 30px;
 }

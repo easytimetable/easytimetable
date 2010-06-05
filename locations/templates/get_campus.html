@@ -8,6 +8,36 @@
         <a class="awesome small red button" href="{% url locations:delete_campus campus.id %}">delete</a>
     </div>
         <p>{% trans "This campus belongs to " %}<a href="{% url locations:get_university campus.university_id %}">{{campus.university.name}}</a> {% trans "university" %}</p>
+
+    {% if campus.classgroup_set %}
+<h3>{% trans "Lis of classes for this campus" %}</h3>
+<table id="classes">
+<thead>
+    <tr>
+        <th>{% trans "Name " %}</th>
+        <th>{% trans "Campus " %}</th>
+        <th>{% trans "Students " %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for classgroup in campus.classgroup_set.all %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>
+        <a href="{% url profiles:get_classgroup classgroup.id %}">
+                 {{ classgroup.name }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url locations:get_campus classgroup.campus.id %}">
+                 {{ classgroup.campus.name }}
+        </a>
+    </td>
+    <td>{{ classgroup.profile_set.count }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+    {% endif %}
     {% if campus.address %}
         <h3>{% trans "Localisation" %}</h3>
         <img src="http://maps.google.com/maps/api/staticmap?size=512x512&maptype=roadmap&markers=size:mid|color:red|{{ campus.address }}&sensor=false" />

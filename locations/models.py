@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from profiles.models import ClassGroup
+
 
 class Campus(models.Model):
     name = models.CharField(blank=False, max_length=150)
@@ -13,6 +15,9 @@ class Campus(models.Model):
             return place.address
         except Place.DoesNotExists:
             return None
+
+    def classgroup_set(self):
+        return ClassGroup.objects.filter(campus=self)
 
     def __unicode__(self):
         return self.name

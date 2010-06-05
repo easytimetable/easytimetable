@@ -64,7 +64,11 @@ def list_students(request):
     return crud.list(User.objects.filter(profile__classgroup__isnull=False), 
         fields, request, obj_name="student", app_name="profiles", 
         extra_context={
-            'form': StudentForm()
+            'form': StudentForm(),
+            'message': _("When adding a student, the username is " \
+            "automatically the first letter of his first name, and" \
+            " the rest from this last name. Also, the password is" \
+            " always 'password', by default"),
     })
 
 @login_required
