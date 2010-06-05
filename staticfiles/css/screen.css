@@ -32,9 +32,14 @@ p {
     text-align: justify;
 }
 
-a{
-    text-decoration: none;
+#content a{
+    text-decoration: underline;
     color: #000;
+}
+
+#content a:hover {
+    background-color: #222;
+    color: #fff;
 }
 
 /**

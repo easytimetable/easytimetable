@@ -16,5 +16,8 @@ class ClassGroup(models.Model):
     campus = models.ForeignKey('locations.Campus', related_name="campus")
     cursus = models.ForeignKey('pedagogy.Cursus', related_name="cursus")
 
+    def profile_set(self):
+        return Profile.objects.filter(classgroup=self)
+
     def __unicode__(self):
         return self.name

@@ -1,9 +1,16 @@
 from utils.shortcuts import render_to_response
 from utils.settings import DEFAULT_LIST_TEMPLATE
+from django.db.models.query import QuerySet
+from django.db.models.base import ModelBase
 
-def list(obj_class, cols, request, template=DEFAULT_LIST_TEMPLATE, 
+def list(queryset, cols, request, template=DEFAULT_LIST_TEMPLATE, 
         obj_name=None, app_name=None, extra_context={}):
-    objs = obj_class.objects.all()
+
+    if isinstance(queryset, QuerySet):
+        objs = queryset
+    elif isinstance(queryset, ModelBase):
+        objs = queryset.objects.all()
+
     list_params = {}
     if objs:
         for obj in objs:
@@ -22,9 +29,9 @@ def list(obj_class, cols, request, template=DEFAULT_LIST_TEMPLATE,
                         item = ""
                 list_params[obj.id].append((key, item))
     if obj_name is None:
-        obj_name = obj_class.__name__.lower()
+        obj_name = queryset.__name__.lower()
     if app_name is None:
-        app_name = obj_class.__module__.split('.')[0]
+        app_name = queryset.__module__.split('.')[0]
 
     return_context = {
         'elements': list_params,

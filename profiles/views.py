@@ -2,12 +2,13 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # app import
 from utils.shortcuts import render_to_response
 from utils import crud
 from profiles.models import ClassGroup
-from profiles.forms import ClassGroupForm
+from profiles.forms import ClassGroupForm, StudentForm
 
 @login_required
 def add_classgroup(request):
@@ -15,10 +16,10 @@ def add_classgroup(request):
         form = ClassGroupForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('agenda:list_classgroups')
+            return redirect('profiles:list_classgroups')
     else:
         form = ClassGroupForm()
-    return render_to_response("agenda/pedagogy/add_classgroup.html", {
+    return render_to_response("add_classgroup.html", {
         'form': form,
     }, request)
 
@@ -27,7 +28,7 @@ def delete_classgroup(request, classgroup_id):
     classgroup = get_object_or_404(ClassGroup, pk=classgroup_id)
     classgroup.delete()
     request.user.message_set.create(message=_("%s classgroup has been deleted.") % classgroup.name)
-    return redirect('agenda:list_classgroups')
+    return redirect('profiles:list_classgroups')
 
 @login_required
 def list_classgroups(request):
@@ -39,7 +40,7 @@ def list_classgroups(request):
 @login_required
 def get_classgroup(request, classgroup_id):
     classgroup = get_object_or_404(ClassGroup, pk=classgroup_id)
-    return render_to_response("agenda/pedagogy/get_classgroup.html", {
+    return render_to_response("get_classgroup.html", {
         'classgroup' : classgroup,
     }, request)
 
@@ -49,8 +50,59 @@ def update_classgroup(request, classgroup_id):
     if request.POST:
         form = ClassGroupForm(data=request.POST, instance=classgroup)
         form.save()
-        return redirect('agenda:list_classgroups')
+        return redirect('profiles:list_classgroups')
     form = ClassGroupForm(instance=classgroup)
-    return render_to_response("agenda/pedagogy/add_classgroup.html", {
+    return render_to_response("add_classgroup.html", {
         'form': form,
     }, request)
+
+
+# -- User creation --------------------------------------------------
+
+def list_students(request):
+    fields = [('Name', 'username'), ('Class', 'profile_set.get.classgroup.name')]
+    return crud.list(User.objects.filter(profile__classgroup__isnull=False), 
+        fields, request, obj_name="student", app_name="profiles", 
+        extra_context={
+            'form': StudentForm()
+    })
+
+@login_required
+def add_student(request):
+    if request.POST:
+        form = StudentForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profiles:list_students')
+    else:
+        form = StudentForm()
+    return render_to_response("add_student.html", {
+        'form': form,
+    }, request)
+
+@login_required
+def delete_student(request, student_id):
+    student = get_object_or_404(User, pk=student_id)
+    student.delete()
+    request.user.message_set.create(message=_("%s student has been deleted.") % student.username)
+    return redirect('profiles:list_students')
+
+@login_required
+def get_student(request, student_id):
+    student = get_object_or_404(User, pk=student_id)
+    return render_to_response("get_student.html", {
+        'student' : student,
+    }, request)
+
+@login_required
+def update_student(request, student_id):
+    student = get_object_or_404(User, pk=student_id)
+    if request.POST:
+        form = StudentForm(data=request.POST, instance=student)
+        form.save()
+        return redirect('profiles:list_students')
+    form = StudentForm(instance=student)
+    return render_to_response("add_student.html", {
+        'form': form,
+    }, request)
+
