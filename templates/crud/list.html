@@ -39,7 +39,11 @@
 {% endif %}
 {% endblock %}
 {% block content %}
+{% block toplinks %}
 <a id="link_add" class="awesome large green button right" style="margin-top:8px !important;" href="{% get_url app_name ":add_" obj_name %}">{% trans "Add "%} {{obj_name}} →</a>
+{% endblock %}
+{% block creation_form %}
+
 {% if form %} 
 <h2 class="belongs-form" style="display: none">{% trans "Add "%} {{obj_name}} </h2>
 <div id="add-object-form" class="clear">
@@ -53,6 +57,7 @@
     <div class="clear"></div>
 </div>
 {% endif %}
+{% endblock %}
    <h2 >{% blocktrans %} The list of {{obj_name}} {% endblocktrans %}</h2>    
 {% if elements %}
 <table id="classgroups">
@@ -73,9 +78,14 @@
     </td>
     {% endfor %}
     <td>
+    {% block item_actions %}
         <a class="awesome small blue button" href="{% get_url app_name ":get_" obj_name id %}">view</a>
         <a class="awesome small green button" href="{% get_url app_name ":update_" obj_name id %}">update</a>
         <a class="awesome small red button" href="{% get_url app_name ":delete_" obj_name id %}">delete</a>
+    {% endblock %}
+    {% block additional_item_actions %}
+    
+    {% endblock %}
     </td>
 </tr>
 {% endfor %}

@@ -214,8 +214,7 @@ def list_cursuses(request):
     fields = [('Cursus','name'), ('Classes', 'classgroup_set.count')]
     return crud.list(Cursus, fields, request, extra_context={
         'form': CursusForm(),
-    })
-
+    }, template='list_cursuses.html')
 
 @login_required
 def update_cursus(request, cursus_id):
