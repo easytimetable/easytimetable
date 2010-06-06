@@ -7,8 +7,6 @@ class WhenManager(models.Manager):
             return self.personal_planning(user,
             start_date, end_date)
         if what == "classgroup":
-            from ipdb import set_trace
-            set_trace()
             return  self.classgroup_planning(user.get_profile().classgroup,
             start_date, end_date)
         if what == "campus":
