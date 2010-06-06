@@ -52,7 +52,7 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT_PATH, 'templates'),
 )
 
-AUTH_PROFILE_MODULE = 'agenda.Profile'
+AUTH_PROFILE_MODULE = 'profiles.Profile'
 LOGIN_REDIRECT_URL = '/events/'
 
 INSTALLED_APPS = (

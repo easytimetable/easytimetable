@@ -135,3 +135,11 @@ input:focus {
 #cals_to_show{
     margin-top: 100px;
 }
+
+/**
+ * Calendar
+ */
+.fc-header-title{
+    margin-left: 20px; 
+    line-height: 1.2em;
+}
