@@ -2,6 +2,8 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('profiles.views',
     (r'^classes/add/$', 'add_classgroup', {}, 'add_classgroup'),
+    (r'^classes/add/to_campus/(?P<campus_id>\d+)$', 'add_classgroup',
+    {}, 'add_classgroup_to_campus'),
     (r'^classes/$', 'list_classgroups', {}, 'list_classgroups'),
     (r'^classes/(?P<classgroup_id>\d+)$', 'get_classgroup', {}, 'get_classgroup'),
     (r'^classes/(?P<classgroup_id>\d+)/delete/$', 'delete_classgroup', {}, 'delete_classgroup'),

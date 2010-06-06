@@ -11,14 +11,14 @@ from profiles.models import ClassGroup
 from profiles.forms import ClassGroupForm, StudentForm
 
 @login_required
-def add_classgroup(request):
+def add_classgroup(request, campus_id=None):
     if request.POST:
         form = ClassGroupForm(data=request.POST)
         if form.is_valid():
             form.save()
             return redirect('profiles:list_classgroups')
     else:
-        form = ClassGroupForm()
+        form = ClassGroupForm({'campus':campus_id})
     return render_to_response("add_classgroup.html", {
         'form': form,
     }, request)
@@ -32,7 +32,8 @@ def delete_classgroup(request, classgroup_id):
 
 @login_required
 def list_classgroups(request):
-    fields = [('Classe','name'), ('Students', 'profile_set.count')]
+    fields = [('Classe','name'), ('Students', 'profile_set.count'), ('Campus',
+    'campus.name')]
     return crud.list(ClassGroup, fields, request, extra_context={
         'form': ClassGroupForm(),
     })
