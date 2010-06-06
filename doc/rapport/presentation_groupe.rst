@@ -1,4 +1,4 @@
-Présentation du projet et répartition des taches
+Présentation du projet et répartition des tâches
 #################################################
 
 Composition du grouge
