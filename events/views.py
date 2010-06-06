@@ -16,7 +16,8 @@ from datetime import date, datetime, timedelta
 
 # app imports
 from utils.shortcuts import render_to_response
-from events.forms import UserEventForm, MoveEventForm 
+from events.forms import UserEventForm, CampusEventForm, ClassgroupEventForm,\
+MoveEventForm, ClassgroupSelectorForm 
 from events.managers import WhenManager
     
 def is_event_editable(user, when):
@@ -26,7 +27,7 @@ def is_event_editable(user, when):
     return False
     
 @login_required
-def get_planning(request, what=None, extra_context={}, **kwargs):
+def get_planning(request, what=None, what_arg=None, extra_context={}, **kwargs):
     """Return the planning for `what`. What determines the method we will use
     to fetch the informations through the model manager.
 
@@ -43,7 +44,9 @@ def get_planning(request, what=None, extra_context={}, **kwargs):
 
     # partial to not give the request to the model.
     partial_is_editable = functools.partial(is_event_editable, request.user)
-    w = When.objects.user_planning(request.user, what, start_date, end_date)
+    w = When.objects.user_planning(request.user, what, start_date, end_date,\
+    what_arg)
+    
     d = [p.to_fullcalendar_dict(partial_is_editable, what) for p in w]
     return HttpResponse(json.dumps(d))
 
@@ -103,4 +106,15 @@ def display_calendar(request):
     user_form = UserEventForm(prefix="user")
     return render_to_response('calendar.html', {
         'user_form': user_form, 
+    }, request)
+
+@login_required
+def display_campus_mgr_calendar(request):
+    campus_form = CampusEventForm(prefix="campus")
+    classgroup_form = ClassgroupEventForm(prefix="classgroup")
+    classgroup_selector_form = ClassgroupSelectorForm(user=request.user, prefix="cg_selector")
+    return render_to_response('campus_manager_calendar.html', {
+        'campus_form': campus_form, 
+        'classgroup_form': classgroup_form, 
+        'classgroup_selector_form': classgroup_selector_form,
     }, request)

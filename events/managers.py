@@ -1,21 +1,33 @@
 import datetime
 from django.db import models
+from locations.models import Campus
+from profiles.models import ClassGroup
 
 class WhenManager(models.Manager):
-    def user_planning(self, user, what, start_date, end_date):
-        if what == "me":
+    def user_planning(self, user, what, start_date, end_date, what_arg=None):
+        if what == "my_user":
             return self.personal_planning(user,
             start_date, end_date)
-        if what == "classgroup":
+        if what == "my_classgroup":
             return  self.classgroup_planning(user.get_profile().classgroup,
             start_date, end_date)
-        if what == "campus":
+        if what == "my_campus":
             return self.campus_planning(user.get_profile().classgroup.campus,
             start_date, end_date)
-        if what == "university":
+        if what == "my_university":
             return self.university_planning(user.get_profile().classgroup.\
             campus.university,
             start_date, end_date)
+       
+       #If we don't have a what arg, we won't be able to go further
+        if what_arg is None:
+            return []
+        
+        if what == "campus":
+            return self.classgroup_planning(Campus.objects.get(id=what_arg))
+        if what == "classgroup":
+            return self.classgroup_planning(ClassGroup.objects.get(id=what_arg),
+                                            start_date, end_date)
 
     # -- User planning access methods -------------------------------------
     

@@ -1,9 +1,0 @@
-{% extends "base_ajax.html" %}
-{% load uni_form_tags %}
-{% load i18n %}
-{% block content %}
-<form method="POST" action="{% url events:add_user_event %}">
-{{ form|as_uni_form }}
-<button type="submit">{% trans "Add" %}</button>
-</form>
-{% endblock %}

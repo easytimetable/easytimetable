@@ -1,11 +1,12 @@
 {% extends "base_fullcalendar.html" %}
 {% load i18n %}
 {% block fullcalendar_init %}
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript"> 
 calendar = null;
+last_class_event_source = null;
 
 $(document).ready(function(){
-    
     var calendar = $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -55,6 +56,22 @@ $(document).ready(function(){
              function(data) {calendar.fullCalendar('renderEvent', data)}, "json");
         return false;
     });
+
+    $("#id_cg_selector-classgroup").change(function () {
+          $('#calendar').fullCalendar(
+                'removeEventSource',  last_class_event_source)
+          last_class_event_source = null;
+          $("#id_cg_selector-classgroup option:selected").each(function () {
+            if($(this).val()!="")
+            {
+                last_class_event_source =  "{% url events:get_planning 'classgroup' %}"
+                    + "/" + $(this).val();
+                $('#calendar').fullCalendar(
+                    'addEventSource',  last_class_event_source)
+            }
+          });
+        })
+        .change();
 });
 
 function update_calendars(checked, value){
@@ -63,40 +80,56 @@ function update_calendars(checked, value){
         action = "add";
     else
         action = "remove";
-    
     $('#calendar').fullCalendar(action + 'EventSource', "{% url events:get_planning %}"+
         value);
 }
 
 function pop_add_event_dialog(start, end, allDay)
 {
-    set_form_variables('#form_add_user_event', start, end, allDay);
-    $("#form_add_user_event").dialog({
-        modal: true, buttons: {
-            Ok: function() {
-                $("#form_add_user_event").submit();
-                $(this).dialog('close');
-            }
-        }
-    });
-    //prevent the browser to follow the link
+    $("#add_event_dialog").dialog({
+        modal: true,
+        open: function(){$("#tabs").tabs(); init_all_forms(start, end, allDay);}});
     return false;
 }
 
-function set_form_variables(selector, start, end, allDay){
+function init_all_forms(start, end, allDay){
     
 }
+
+
+
+
 </script>
 {% endblock %}
 {% block content %}
 <h2>Calendar</h2>
 <p class="info">{% trans "Here you can <strong>view, add or edit the different plannings</strong>, depending on the rights you have. Click on the calendar to create a new event on your agenda !" %}</p>
 <div id='calendar'></div> 
+
+
+<div id="add_event_dialog" style="display: none;">
+    <div id="tabs">
+    <ul>
+        <li><a href="#fragment-1"><span>Class</span></a></li>
+        <li><a href="#fragment-2"><span>Campus</span></a></li>
+    </ul>
+    <div id="fragment-1">
+        <form id="form_add_classgroup_event">
+           {{classgroup_form.as_p}}
+        </form>
+    </div>
+    <div id="fragment-2">
+        <form id="form_add_campus_event">
+           {{campus_form.as_p}}
+        </form>
+    </div>
+    </div>
+</div>
+
+
 {% endblock %}
 {% block menu %}
 <form id="cals_to_show">
-<input type="checkbox" name="what" value="my_user" checked="1">
-{% trans "My Calendar" %}<br />
 <input type="checkbox" name="what" value="my_classgroup" checked="1">
 {% trans "My Class Calendar" %}<br />
 <input type="checkbox" name="what" value="my_campus">
@@ -104,10 +137,7 @@ function set_form_variables(selector, start, end, allDay){
 <input type="checkbox" name="what" value="my_university">
 {% trans "My University Calendar" %}<br />
 </form>
-
-<div id="add_user_event" style="display: none;">
-<form id="form_add_user_event">
-   {{user_form.as_p}}
+<form id="classgroup_selector"> 
+ {{ classgroup_selector_form.classgroup }}
 </form>
-</div>
 {% endblock %}
