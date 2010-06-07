@@ -21,10 +21,8 @@ $(document).ready(function(){
 
         },
         eventClick: function(calEvent, jsEvent, view) {
-            alert('clicked');
         },
         eventDrop: function(calEvent, days, minutes, allDay) {
-            alert(calEvent.id + " " + days + " " + minutes + " " + allDay);
             $.post("{% url events:move_user_event %}"+calEvent.id,
             {"days" : days, "minutes" : minutes, "all_day": allDay});
         }

@@ -2,6 +2,7 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
+from django.utils import simplejson as json
 
 # app import
 from utils.shortcuts import render_to_response
@@ -141,7 +142,10 @@ def get_place(request, place_id):
                               request)
 
 @login_required
-def list_places(request):
+def list_places(request, campus_id=None):
+    if request.is_ajax():
+        fields = [('Value','id'),('Text', 'name')]
+        return crud.list(Place.objects.filter(campus_id=campus_id), fields, request)
     fields = [('Place', 'name'), ('Campus', 'campus.name')]
     return crud.list(Place, fields, request, extra_context={
         'form': PlaceForm(),

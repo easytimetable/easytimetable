@@ -51,6 +51,8 @@ class WhenManager(models.Manager):
         pass
 
     def classgroup_planning(self, classgroup, start_date, end_date):
+        if classgroup is None:
+            return []
         return super(WhenManager, self).get_query_set().\
                      filter(event__who__classgroup=classgroup).\
                      filter(date__gte=start_date).\

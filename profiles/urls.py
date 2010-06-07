@@ -8,6 +8,8 @@ urlpatterns = patterns('profiles.views',
     (r'^classes/(?P<classgroup_id>\d+)$', 'get_classgroup', {}, 'get_classgroup'),
     (r'^classes/(?P<classgroup_id>\d+)/delete/$', 'delete_classgroup', {}, 'delete_classgroup'),
     (r'^classes/(?P<classgroup_id>\d+)/update/$', 'update_classgroup', {}, 'update_classgroup'),
+    (r'^classes/(?P<classgroup_id>\d+)/subjects/$', 'list_classgroup_subjects',
+    {}, 'list_classgroup_subjects'),
 
     (r'^students/add/$', 'add_student', {}, 'add_student'),
     (r'^students/$', 'list_students', {}, 'list_students'),

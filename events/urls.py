@@ -11,6 +11,10 @@ urlpatterns = patterns('events.views',
     (r'^user/move/(?P<when_id>\d+)?$', 'move_user_event', {},
     'move_user_event'),
     
+    
     (r'^campus_manager/$', 'display_campus_mgr_calendar', {},
     'display_campus_mgr_calendar'),
+    (r'^campus_manager/campus/add/$', 'add_campus_event', {}, 'add_campus_event'),
+    (r'^campus_manager/class/add/$', 'add_classgroup_event', {}, 
+                                     'add_classgroup_event'),
 )

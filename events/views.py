@@ -7,7 +7,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from events.models import When, Who, Event
 from django.utils import simplejson as json
 
 # python imports
@@ -15,6 +14,8 @@ import functools
 from datetime import date, datetime, timedelta
 
 # app imports
+from events.models import When, Who, Event
+from pedagogy.models import SubjectModality
 from utils.shortcuts import render_to_response
 from events.forms import UserEventForm, CampusEventForm, ClassgroupEventForm,\
 MoveEventForm, ClassgroupSelectorForm 
@@ -110,11 +111,44 @@ def display_calendar(request):
 
 @login_required
 def display_campus_mgr_calendar(request):
-    campus_form = CampusEventForm(prefix="campus")
-    classgroup_form = ClassgroupEventForm(prefix="classgroup")
+    campus_form = CampusEventForm(prefix="campus", user=request.user)
+    classgroup_form = ClassgroupEventForm(prefix="classgroup", user=request.user)
     classgroup_selector_form = ClassgroupSelectorForm(user=request.user, prefix="cg_selector")
     return render_to_response('campus_manager_calendar.html', {
         'campus_form': campus_form, 
         'classgroup_form': classgroup_form, 
         'classgroup_selector_form': classgroup_selector_form,
     }, request)
+
+
+@login_required
+def add_campus_event(request):
+    pass
+
+@login_required
+def add_classgroup_event(request):
+    if request.POST:
+        form = ClassgroupEventForm(user=request.user, data=request.POST,
+                                   prefix="classgroup")
+        if form.is_valid():
+            f = form.cleaned_data
+            subject_modality = SubjectModality.objects.filter(
+                               subject=f['subject']).filter(
+                               type=f['modality']).get()
+            event = Event(name=f['name'],
+                          duration=f['duration'], 
+                          place_text=f['place_text'],
+                          subject_modality=subject_modality)
+            event.save()
+            event.places.add(f['place'])
+            who = Who(classgroup=f['classgroup'], event=event)
+            who.save()
+            edate = "%s %s" % (f['date'],
+                f['start_hour'])
+            edate = datetime.strptime(edate, "%Y-%m-%d %H")
+            when = When(date=edate, event=event)
+            when.save()
+            j = when.to_fullcalendar_dict(lambda when:True, "classgroup")
+            return HttpResponse(json.dumps(j))
+        else:
+            return False

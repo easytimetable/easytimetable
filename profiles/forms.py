@@ -10,8 +10,7 @@ class StudentForm(forms.Form):
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
-    classgroup = forms.ChoiceField(
-        choices=[(c.id, c.name) for c in ClassGroup.objects.all()])
+    classgroup = forms.ModelChoiceField(queryset=ClassGroup.objects.all())
 
     def save(self):
         if self.is_valid():
@@ -28,5 +27,6 @@ class StudentForm(forms.Form):
             user.save()
 
             classgroup = self.cleaned_data['classgroup']
-            profile = Profile(classgroup_id=classgroup, user=user)
+            profile = Profile(classgroup=classgroup, user=user,
+            first_name=first_name, last_name=last_name)
             profile.save()

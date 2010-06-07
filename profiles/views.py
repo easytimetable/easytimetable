@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from utils.shortcuts import render_to_response
 from utils import crud
 from profiles.models import ClassGroup
+from pedagogy.models import Subject
 from profiles.forms import ClassGroupForm, StudentForm
 
 @login_required
@@ -37,6 +38,13 @@ def list_classgroups(request):
     return crud.list(ClassGroup, fields, request, extra_context={
         'form': ClassGroupForm(),
     })
+
+@login_required
+def list_classgroup_subjects(request,classgroup_id):
+    fields = [('id','id'), ('name', 'name')]
+    return crud.list(Subject.objects.filter(
+            study_period__cursus__class_group__id=classgroup_id),
+            fields, request, obj_name = "")
 
 @login_required
 def get_classgroup(request, classgroup_id):

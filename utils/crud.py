@@ -2,6 +2,10 @@ from utils.shortcuts import render_to_response
 from utils.settings import DEFAULT_LIST_TEMPLATE
 from django.db.models.query import QuerySet
 from django.db.models.base import ModelBase
+from django.utils import simplejson as json
+from django.http import HttpResponse
+
+
 
 def list(queryset, cols, request, template=DEFAULT_LIST_TEMPLATE, 
         obj_name=None, app_name=None, extra_context={}):
@@ -32,6 +36,11 @@ def list(queryset, cols, request, template=DEFAULT_LIST_TEMPLATE,
         obj_name = queryset.__name__.lower()
     if app_name is None:
         app_name = queryset.__module__.split('.')[0]
+    
+    #Gruik
+    if request.is_ajax():
+        return HttpResponse(json.dumps([dict(list_params[m]) 
+                            for m in list_params]))
 
     return_context = {
         'elements': list_params,

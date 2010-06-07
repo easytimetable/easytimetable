@@ -92,11 +92,76 @@ function pop_add_event_dialog(start, end, allDay)
     return false;
 }
 
+function update_classgroup_event_name()
+{
+new_name = $('#id_classgroup-subject option:selected').text() + ' : ' +
+           $('#id_classgroup-modality option:selected').text();
+$('#id_classgroup-name').val(new_name);
+}
+
 function init_all_forms(start, end, allDay){
+start_date = formatDate(parseDate(start), "yyyy-MM-dd");
+start_hour = formatDate(parseDate(start), "HH");
+end_hour = formatDate(parseDate(end), "HH");
+duration = end_hour - start_hour;
+
+init_classgroup_form(start_date, start_hour, duration);
+init_campus_form(start_date, start_hour, duration);
     
 }
 
 
+
+function init_classgroup_form(start_date, start_hour, duration){
+    $('#id_classgroup-subject').change(function() {
+                                update_classgroup_event_name()});
+    $('#id_classgroup-modality').change(function() {
+                                update_classgroup_event_name()});
+    //First : we load the subjects
+    $('#id_classgroup-classgroup').change(function(){
+    $.getJSON("{% url profiles:list_classgroups %}" +
+        $("#id_classgroup-classgroup").val() +
+                "/subjects/", null, function(data) {
+                $('#id_classgroup-subject').empty();
+                for(line in data)
+                {
+                    itemData = data[line];
+                    var option = new Option(itemData['name'], itemData['id']);
+                    $('#id_classgroup-subject').append(option);
+                }
+            }
+    );
+    });
+    //Then we set the selected class
+    $('#id_classgroup-classgroup').val($("#id_cg_selector-classgroup").val());
+    //Then we set the date
+    $('#id_classgroup-date').val(start_date);
+    $('#id_classgroup-start_hour').val(start_hour);
+    $('#id_classgroup-duration').val(duration);
+    
+    update_classgroup_event_name();
+    //Then we change the submit system
+    $('#form_add_classgroup_event').submit(function() {
+
+        $.post("{% url events:add_classgroup_event %}", $(this).serialize(), 
+            function(data) {$('#calendar').fullCalendar('renderEvent', data)}, "json");
+        return false;
+    });
+
+}
+
+function init_campus_form(start_date, start_hour, duration){
+    //Then we set the date
+    $('#id_campus-date').val(start_date);
+    $('#id_campus-start_hour').val(start_hour);
+    $('#id_campus-duration').val(duration);
+    //Then we change the submit system
+    $('#form_add_campus_event').submit(function() {
+        $.post("{% url events:add_campus_event %}", $(this).serialize(), 
+            function(data) {$('#calendar').fullCalendar('renderEvent', data)}, "json");
+        return false;
+    });
+}
 
 
 </script>
@@ -116,11 +181,13 @@ function init_all_forms(start, end, allDay){
     <div id="fragment-1">
         <form id="form_add_classgroup_event">
            {{classgroup_form.as_p}}
+           <input type="submit" id="sub-classgroup_event" value="toto"/>
         </form>
     </div>
     <div id="fragment-2">
         <form id="form_add_campus_event">
            {{campus_form.as_p}}
+           <input type="submit" id="sub-campus_event" value="toto"/>
         </form>
     </div>
     </div>
