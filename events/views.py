@@ -25,6 +25,8 @@ def is_event_editable(user, when):
     events = when.event.who_set.filter(user=user).count()
     if events >= 1:
         return True
+    if when.event.subject_modality.manager.user == user:
+        return True
     return False
     
 @login_required
@@ -73,7 +75,7 @@ def add_user_event(request):
             return False
 
 @login_required
-def move_user_event(request, when_id):
+def move_event(request, when_id):
     if request.POST:
         when = When.objects.get(id=when_id)
         if not is_event_editable(request.user, when):
@@ -85,7 +87,7 @@ def move_user_event(request, when_id):
             n_date = when.date + offset
             when.date = n_date
             when.save()
-            j = when.to_fullcalendar_dict(lambda when:True, "me")
+            j = when.to_fullcalendar_dict(lambda when:True, "moved")
             return HttpResponse(json.dumps(j))
         else:
             return False

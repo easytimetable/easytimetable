@@ -88,7 +88,11 @@
                 <a href="">Time Organisation</a>
                 <ul>
 		    	    <li>
-		        		<a href="{% url events:display_calendar %}">{% trans "Events" %}</a>
+		        		<a href="{% url events:display_calendar %}">{% trans "My Events" %}</a>
+		        	</li>
+		    	    <li>
+		        		<a href="{% url events:display_campus_mgr_calendar %}">
+                        {% trans "Campus Events" %}</a>
 		        	</li>
                  </ul>
             </li>
