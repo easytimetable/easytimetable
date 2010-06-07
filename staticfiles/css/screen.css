@@ -62,10 +62,14 @@ p {
 }
 
 .info {
-    background: url(tip.gif) no-repeat;
+    background: url(tip.gif) no-repeat #fff;
     width: 500px;
     margin: 20px;
-    padding: 2px 20px 5px 45px; 
+    padding: 2px 20px 5px 45px;
+}
+
+.width-400 {
+    width: 370px;
 }
 /**
  * Tables styles

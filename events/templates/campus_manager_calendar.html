@@ -1,7 +1,7 @@
 {% extends "base_fullcalendar.html" %}
 {% load i18n %}
+{% load uni_form_tags %}
 {% block fullcalendar_init %}
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript"> 
 calendar = null;
 last_class_event_source = null;
@@ -86,7 +86,11 @@ function pop_add_event_dialog(start, end, allDay)
 {
     $("#add_event_dialog").dialog({
         modal: true,
-        open: function(){$("#tabs").tabs(); init_all_forms(start, end, allDay);}});
+        open: function(){$("#tabs").tabs(); init_all_forms(start, end, allDay);},
+        width: 500,
+        height: 500,
+        title: "{% trans "Add an event" %}",
+    });
     return false;
 }
 

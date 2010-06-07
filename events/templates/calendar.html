@@ -1,5 +1,6 @@
 {% extends "base_fullcalendar.html" %}
 {% load i18n %}
+{% load uni_form_tags %}
 {% block fullcalendar_init %}
 <script type="text/javascript"> 
 calendar = null;
@@ -70,12 +71,16 @@ function pop_add_event_dialog(start, end, allDay)
 {
     set_form_variables('#form_add_user_event', start, end, allDay);
     $("#form_add_user_event").dialog({
-        modal: true, buttons: {
+        modal: true, 
+        buttons: {
             Ok: function() {
                 $("#form_add_user_event").submit();
                 $(this).dialog('close');
             }
-        }
+        }, 
+        width: 500,
+        height: 500,
+        title: "{% trans "Add an event to your personnal calendar" %}",
     });
     //prevent the browser to follow the link
     return false;
@@ -105,7 +110,8 @@ function set_form_variables(selector, start, end, allDay){
 
 <div id="add_user_event" style="display: none;">
 <form id="form_add_user_event">
-   {{user_form.as_p}}
+<p class="info width-400">{% trans "Here you can add events to your personal agenda. Just full in the fields, click ok and you event will be created !" %}</p>
+   {{user_form|as_uni_form}}
 </form>
 </div>
 {% endblock %}
