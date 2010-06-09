@@ -1,54 +1,59 @@
 Choix techniques
 ##################
 
-Pour la réalisation de ce projet, comme à notre habitude, nous nous appuyons 
+
+Pour la réalisation de ce projet, nous nous appuyons 
 sur la "force de frappe" des logiciels libres.
 
-"TimeTableEasy" étant particulièrement spécifique, nous avons choisi de nous 
-appuyer sur des composants déjà écrits, et en particulier des frameworks,
-puisque ils nous permettent de s'appuyer sur l'expérience accumulée de milions
-developpeurs et utilisateurs à travers le monde.
+"TimeTableEasy" étant particulièrement spécifique, afin d'accroitre notre vitesse de production nous avons choisi de nous 
+appuyer sur des composants déjà écrits, ainsi que des frameworks.
+Après une analyse du besoin et la modélisation des données, nous avons jugé que le plus productif serai l'utilisation du lanaguage python 
+associer au framework web django 1.1 nous permettent de nous appuyer sur l'expérience accumulée de milions
+developpeurs et utilisateurs à travers le monde, mais aussi de l'appui d'une communoté extrement active.
 
-Nous avons également choisi d'utiliser des comprsants issus du logiciel libre,
-puisque ces derniers sont fortements ancrés dans la culture attachée au Web, et
-par conséquent, il est possible de trouver de nombreuses applications et
-bibliothèques déjà écrites. Par ailleurs, les framework que nous avons choisis
-sont reconnus internationalement et bénéficient de l'appui d'une communauté
-extremement active.
 
-Nous avons donc utilisé les languages suivants:
+Afin de bien pouvoir comprendre nos choix technique, nous allons vous presenter nos choix par rapport à la liste des fonctionnalité:
 
-    * HTML 5
-    * CSS 3
-    * Javascript
-    * Python 2.6
+- Dans le cas de la gestion des utilisateurs nous avons utilisé django.contrib.auth (module du framework django* s'occupant de l'authentification) associé à un système
+personalisé d'ACL(Access Control List).
 
+- Pour l'interface d'administration permettant la gestion des cursus, des campus, des classes et des étudiants nous avons créer une classe 
+python factorisant les fonctionnalités Create Read Update Delete et donc un maximum de traitements nous faisant ainsi gagner en maitenabilité, vitesse de developpement, et propreté.
+    * Pour la gestion des lieux et des campus nous avons utilisé l'API google map afin d'avoir une représentation géographique
+    * Pour les cursus, les periodes d'étude et les sujets nous avons utilisé la bibliothèque graphique javascript "HighCharts"
+      permettant ainsi une représentation graphique afin de bien voir la place de chaque chose.
+- Pour les gestion de vue du planning, nous avont implémenté Fullcalendar*, un calendrier opensource nourri par du JSON, auquel nous avon rajouter des intération en utilisant AJAX via 
+le framework javascript JQuery 1.4.2 .
+- Pour l'exportation ical nous avon utilisé quatre qui à suivant l'exemple de marx, travaille a la chaine, mais comment marche quatre ?, quatre est une api, vous vous connectez à une messagerie
+envoyez la commande "bouge ton cul et converti moi sa en ical" et en moins de 20 minute quatre vous convertie votre calidrier en ical
+
+- Pour l'application mobile, nous avons créer une interface web spéciale au format smartphone afin de garder un maxium de compatibilé sur tous les portables.
+
+
+Pour la présentation nous avons utiliser HTML5 et CSS3 avec des bibliotèque CSS "superfish" (menu), "awasome buttons", et le framework css blueprint.
 Et également utilisé les frameworks on bibliothèques suivantes:
 
-    * Le framework python "Django" 1.1
-    * Le framework javascript "jQuery" 1.4.2
-    * Le framework CSS "blueprint"
-    * La bibliothèque CSS "awesome buttons"
-    * La bibliothèque graphique javascript "HighCharts"
-    * La bibliothèque javascript FullCalendar
-    * Les APIs google maps
-
-Nous avons également utilisé, pour faciliter notre travail collaboratif, le 
-système de gestionnaire de versions git.
-
-Git est un gestionnaire de versions décentralisé, dont la principale
-fonctionalité est de bien savoir "merger". Cela signifie qu'il est possible de
-travailler en même temps à plusieurs sur le même fichier, sans que cela pose
-énormement de problèmes.
 
 Pour ce qui est de la solution d'hebergement, il est possible d'heberger notre
-solution sur des machines dédiées, sur des Systèmes d'exploitations tels que
+solution sur des machines dédiées, sur des Systèmes d'exploitations tels que 
 Microsoft Windows, des Unixs (la famille des BSD) et des Linux.
 
 Nous préconnisons l'utilisation de solutions BSD ou Linux pour le gain en cout
 que cela implique, et pour le cout de maintenance à venir. Il est également
 possible d'heberger notre solution sur le Cloud de Google ou sur Amazon EC2, si
 l'on souhaite pouvoir prévoir les futures montées en charge des serveurs.
+
+
+Nous avons également utilisé, pour faciliter notre travail collaboratif, le 
+système de gestionnaire de versions git.
+
+GIT
+===
+
+Git est un gestionnaire de versions décentralisé, dont la principale
+fonctionalité est de bien savoir "merger". Cela signifie qu'il est possible de
+travailler en même temps à plusieurs sur le même fichier, sans que cela pose
+énormement de problèmes.
 
 Python
 ======

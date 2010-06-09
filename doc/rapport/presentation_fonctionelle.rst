@@ -27,6 +27,8 @@ Besoins / Liste des Fonctionnalité :
     - Gestion et vue du planning d'une période d'études d'un cursus
     - Gestion et vue du planning d'une classe
     - Gestion et vue du planning d'un utilisateur Gestion des informations liées à un événement
-    - Affichage des plannings 
-    - Prise en charge du format iCal Gestion éventuelle de salles pour chaque événement 
+    - Affichage des informations lié à un évènement
+    - Affichage des planning 
+    - Prise en charge du format iCal 
+    - Gestion éventuelle de salles pour chaque événement 
     - Application mobile pour le client

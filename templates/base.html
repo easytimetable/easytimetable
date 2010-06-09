@@ -28,6 +28,27 @@
     <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.ui.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.gritter.min.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery/init.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}js/superfish.js"></script>
+		<script type="text/javascript">
+
+		// initialise plugins
+		jQuery(function(){
+			jQuery('ul.sf-menu').superfish();
+		});
+
+ 
+        $(document).ready(function() { 
+            $('ul.sf-menu').superfish({ 
+                delay:       0,                            // one second delay on mouseout 
+                animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+                speed:       'fast',                          // faster animation speed 
+                autoArrows:  true,                           // disable generation of arrow mark-up 
+                dropShadows: true                            // disable drop shadows 
+            }); 
+        }); 
+ 
+
+		</script>  
 
     <! -- Uniform -->
     <link rel="stylesheet" href="{{ MEDIA_URL }}uni_form/uni-form-generic.css" type="text/css" />
@@ -52,9 +73,11 @@
 					<li>
 						<a href="{% url locations:list_campuses %}">{% trans "Campuses" %}</a>
 					</li>
+                    <hr />
 					<li>
 						<a href="{% url locations:list_places %}">{% trans "Places" %}</a>
 					</li>
+                    <hr />
 					<li>
 						<a href="{% url locations:list_universities %}">{% trans "Universities" %}</a>
 					</li>
@@ -66,12 +89,15 @@
 					<li>
 						<a href="{% url profiles:list_classgroups %}">{% trans "Class Groups" %}</a>
 					</li>
+                    <hr />
 					<li>
 						<a href="{% url pedagogy:list_cursuses %}">{% trans "Cursuses" %}</a>
 					</li>
+                    <hr />
 					<li>
 						<a href="{% url pedagogy:list_studyperiods %}">{% trans "Study Periods" %}</a>
 					</li>
+                    <hr />
 					<li>
 						<a href="{% url pedagogy:list_subjects %}">{% trans "Subjects" %}</a>
 					</li>
@@ -94,6 +120,7 @@
                 <a href="">{% trans "User management" %}</a>
                 <ul>
                     <li><a href="{% url profiles:list_students %}">{% trans "Student's" %}</a></li>
+                    <hr />
                     <li><a href="{% url profiles:list_campus_managers %}">{% trans "Campus managers" %}</a></li>
                     {% comment %}
                     <li><a href="{% url profiles:list_cursus_managers %}">{% trans "Cursus managers" %}</a></li>
