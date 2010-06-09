@@ -11,7 +11,19 @@ class Profile(models.Model):
     last_name = models.CharField(blank=False, max_length=150)
     birth_date = models.DateField(default=datetime.datetime.today)
     classgroup = models.ForeignKey('ClassGroup', null=True, blank=True)
-    
+
+    def list_managed_campuses(self):
+        return ", ".join([campus.name for campus in self.campus_managed.all()])
+
+    def can_manage_campus(self, campus_id):
+       pass 
+        
+    def can_manage_classgroup(self, classgroup_id):
+        pass
+
+    def has_classgroup(self):
+        return (self.classgroup is not None)
+
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
 

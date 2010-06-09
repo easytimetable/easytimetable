@@ -42,7 +42,7 @@ class Place(models.Model):
 
     @property
     def manager(self):
-        """Returns the manger of the campus"""
+        """Returns the manager of the campus"""
         return self.campus.manager
 
     

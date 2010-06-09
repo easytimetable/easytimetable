@@ -79,13 +79,10 @@
     {% endfor %}
     <td>
     {% block item_actions %}
-        <a class="awesome small blue button" href="{% get_url app_name ":get_" obj_name id %}">view</a>
-        <a class="awesome small green button" href="{% get_url app_name ":update_" obj_name id %}">update</a>
-        <a class="awesome small red button" href="{% get_url app_name ":delete_" obj_name id %}">delete</a>
-    {% endblock %}
-    {% block additional_item_actions %}
-    
-    {% endblock %}
+        {% block get_button %}<a class="awesome small blue button" href="{% get_url app_name ":get_" obj_name id %}">view</a>{% endblock %}
+        {% block update_button %}{% endblock %}<a class="awesome small green button" href="{% get_url app_name ":update_" obj_name id %}">update</a>{% endblock %}
+        {% block delete_button %}<a class="awesome small red button" href="{% get_url app_name ":delete_" obj_name id %}">delete</a>{% endblock %}
+    {% block additional_item_actions %}{% endblock %}
     </td>
 </tr>
 {% endfor %}

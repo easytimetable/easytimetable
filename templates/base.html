@@ -96,8 +96,17 @@
 		        	</li>
                  </ul>
             </li>
-            <li><a href="{% url profiles:list_students %}">{% trans "Student's management" %}</a></li>
-
+            <li>
+                <a href="">{% trans "User management" %}</a>
+                <ul>
+                    <li><a href="{% url profiles:list_students %}">{% trans "Student's" %}</a></li>
+                    <li><a href="{% url profiles:list_campus_managers %}">{% trans "Campus managers" %}</a></li>
+                    {% comment %}
+                    <li><a href="{% url profiles:list_cursus_managers %}">{% trans "Cursus managers" %}</a></li>
+                    <li><a href="{% url profiles:list_teachers %}">{% trans "Teachers" %}</a></li>
+                    {% endcomment %}
+                </ul>
+            </li>
 		</ul>
     <hr />
     {% block messages %}
