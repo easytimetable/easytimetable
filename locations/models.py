@@ -6,7 +6,8 @@ from managers import CampusManager, PlaceManager
 class Campus(models.Model):
     name = models.CharField(blank=False, max_length=150)
     university = models.ForeignKey('University')
-    manager = models.ForeignKey('profiles.Profile', related_name="campus_managed")
+    manager = models.ForeignKey('profiles.Profile', 
+        related_name="campus_managed", blank=True, null=True) 
     objects = CampusManager()
 
     @property
@@ -42,7 +43,7 @@ class Place(models.Model):
 
     @property
     def manager(self):
-        """Returns the manger of the campus"""
+        """Returns the manager of the campus"""
         return self.campus.manager
 
     

@@ -7,9 +7,9 @@ from django.contrib.auth.models import User
 # app import
 from utils.shortcuts import render_to_response
 from utils import crud
-from profiles.models import ClassGroup
+from profiles.models import ClassGroup, Profile
 from pedagogy.models import Subject
-from profiles.forms import ClassGroupForm, StudentForm
+from profiles.forms import ClassGroupForm, StudentForm, CampusManagerForm
 
 @login_required
 def add_classgroup(request, campus_id=None):
@@ -66,7 +66,15 @@ def update_classgroup(request, classgroup_id):
     }, request)
 
 
-# -- User creation --------------------------------------------------
+# -- User management --------------------------------------------------
+
+@login_required
+def delete_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    user.delete()
+    request.user.message_set.create(message=_("%s user has been deleted.") % user.username)
+    return redirect('profiles:list_students')
+
 
 def list_students(request):
     fields = [('Name', 'username'), ('Class', 'profile_set.get.classgroup.name')]
@@ -78,7 +86,7 @@ def list_students(request):
             "automatically the first letter of his first name, and" \
             " the rest from this last name. Also, the password is" \
             " always 'password', by default"),
-    })
+    }, template="list_users.html")
 
 @login_required
 def add_student(request):
@@ -93,12 +101,6 @@ def add_student(request):
         'form': form,
     }, request)
 
-@login_required
-def delete_student(request, student_id):
-    student = get_object_or_404(User, pk=student_id)
-    student.delete()
-    request.user.message_set.create(message=_("%s student has been deleted.") % student.username)
-    return redirect('profiles:list_students')
 
 @login_required
 def get_student(request, student_id):
@@ -119,3 +121,59 @@ def update_student(request, student_id):
         'form': form,
     }, request)
 
+# -- Campus managers  -----------------------------------------------------
+
+@login_required
+def list_campus_managers(request):
+    fields = [
+        ('First name', 'get_profile.first_name'), 
+        ('Last name', 'get_profile.last_name'),
+        ('Managed campuses', 'get_profile.list_managed_campuses')]
+    return crud.list(
+        User.objects.filter(profile__campus_managed__isnull=False).distinct(),
+        fields, request, obj_name="campus_manager", app_name="profiles", 
+        extra_context={
+            'form': CampusManagerForm(),
+            'message': _("When adding a campus manager, the username is " \
+            "automatically the first letter of his first name, and" \
+            " the rest from this last name. Also, the password is" \
+            " always 'password', by default"),
+            'obj_verbose_name': "Campus manager"
+    }, template="list_campus_managers.html")
+
+@login_required
+def add_campus_manager(request):
+    if request.POST:
+        form = CampusManagerForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profiles:list_campus_managers')
+    else:
+        form = StudentForm()
+    return render_to_response("add_campus_manager.html", {
+        'form': form,
+    }, request)
+
+@login_required
+def get_campus_manager(request, campus_manager_id):
+    campus_manager = get_object_or_404(User, pk=campus_manager_id)
+    return render_to_response("get_campus_manager.html", {
+        'campus_manager' : campus_manager,
+    }, request)
+
+def delete_campus_manager(request, user_id):
+    profile = Profile.objects.get(user__id=user_id) 
+    profile.campus_managed.clear()
+    return redirect('profile:list_campus_manager')
+
+@login_required
+def update_campus_manager(request, campus_manager_id):
+    campus_manager = get_object_or_404(User, pk=campus_manager_id)
+    if request.POST:
+        form = StudentForm(data=request.POST, instance=campus_manager)
+        form.save()
+        return redirect('profiles:list_campus_managers')
+    form = StudentForm(instance=campus_manager)
+    return render_to_response("add_campus_manager.html", {
+        'form': form,
+    }, request)

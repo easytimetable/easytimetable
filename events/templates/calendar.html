@@ -100,12 +100,14 @@ function set_form_variables(selector, start, end, allDay){
 <form id="cals_to_show">
 <input type="checkbox" name="what" value="my_user" checked="1">
 {% trans "My Calendar" %}<br />
+{% if user.get_profile.is_student %}
 <input type="checkbox" name="what" value="my_classgroup" checked="1">
 {% trans "My Class Calendar" %}<br />
 <input type="checkbox" name="what" value="my_campus">
 {% trans "My Campus Calendar" %}<br />
 <input type="checkbox" name="what" value="my_university">
 {% trans "My University Calendar" %}<br />
+{% endif %}
 </form>
 
 <div id="add_user_event" style="display: none;">

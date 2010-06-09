@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<h2>{{ campus_manager.get_profile.first_name }} {{ campus_manager.get_profile.last_name }}, {% trans "campus manager " %}</h2>
+
+<dl>
+    <dt>{% trans "Managed campuses" %}</dt>
+    <dd>
+    <ul>
+    {% for campus in campus_manager.get_profile.campus_managed.all %}
+         <li><a href="{% url locations:get_campus campus.id %}">{{ campus.name }}</a></li>
+    {% endfor %}
+    </ul>
+    </dd>
+
+    <dt>Related classes</dt>
+    <dd><ul>
+    {% for campus in campus_manager.get_profile.campus_managed.all %}
+        {% for class in campus.class_group.all %}
+            <li><a href="{% url profiles:get_classgroup class.id %}">{{ class.name }}</a></li> 
+        {% endfor %}
+    {% endfor %}
+    </ul></dd>
+</dl>
+{% endblock %}

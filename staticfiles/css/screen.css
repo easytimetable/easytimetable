@@ -5,10 +5,12 @@
  */
 
 /* @FontFace is avalaible from CSS3. Let's use it! */
-/*
- * @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+/* 
+@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
 @import url(http://fonts.googleapis.com/css?family=Reenie+Beanie);
 */
+
+>>>>>>> 56d0a4485dba77ac1c876250390a1a458cce27e6
 #htmltitle{
     font-family: 'Reenie Beanie', arial, serif;
 }

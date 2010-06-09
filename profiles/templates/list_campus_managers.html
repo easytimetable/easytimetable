@@ -1,0 +1,5 @@
+{% extends "crud/list.html" %}
+{% load utils_tags %}
+{% load i18n %}
+{% block update_button %}{% endblock %}
+{% block delete_button %}<a class="awesome small red button" href="{% get_url app_name ":delete_" obj_name id %}">{% trans "Remove rights" %}</a>{% endblock %}
