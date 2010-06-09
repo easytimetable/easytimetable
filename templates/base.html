@@ -46,9 +46,6 @@
     {% block htmltitle %}<h1 id="htmltitle" class="left">Super Title here !</h1>{% endblock %}
     </div>
 		<ul class="sf-menu">
-			<li class="current">
-				<a href="{% url index %}">{% trans "Home" %}</a>
-			</li>
 			<li>
 				<a href="">Locations</a>
 				<ul>
@@ -78,24 +75,21 @@
 					<li>
 						<a href="{% url pedagogy:list_subjects %}">{% trans "Subjects" %}</a>
 					</li>
-					<li>
-						<a href="{% url pedagogy:list_subjectmodalities %}">{% trans "Subject Modalities" %}</a>
-					</li>
 				</ul>
 
 			</li>
             <li>
-                <a href="">Time Organisation</a>
-                <ul>
-		    	    <li>
-		        		<a href="{% url events:display_calendar %}">{% trans "My Events" %}</a>
-		        	</li>
-		    	    <li>
-		        		<a href="{% url events:display_campus_mgr_calendar %}">
-                        {% trans "Campus Events" %}</a>
-		        	</li>
+		        <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a>
+                {% if user.get_profile.can_manage_campus %}
+                 <ul>
+		    	     <li>
+		         		<a href="{% url events:display_campus_mgr_calendar %}">
+                         {% trans "Campus Events" %}</a>
+		         	</li>
                  </ul>
+                {% endif %}
             </li>
+            {% if user.get_profile.can_manage_users %}
             <li>
                 <a href="">{% trans "User management" %}</a>
                 <ul>
@@ -107,6 +101,7 @@
                     {% endcomment %}
                 </ul>
             </li>
+            {% endif %}
 		</ul>
     <hr />
     {% block messages %}
