@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # app import
 from utils.shortcuts import render_to_response
 from utils import crud
-from profiles.models import ClassGroup
+from profiles.models import ClassGroup, Profile
 from pedagogy.models import Subject
 from profiles.forms import ClassGroupForm, StudentForm, CampusManagerForm
 
@@ -138,7 +138,8 @@ def list_campus_managers(request):
             "automatically the first letter of his first name, and" \
             " the rest from this last name. Also, the password is" \
             " always 'password', by default"),
-    }, template="list_users.html")
+            'obj_verbose_name': "Campus manager"
+    }, template="list_campus_managers.html")
 
 @login_required
 def add_campus_manager(request):
@@ -159,6 +160,11 @@ def get_campus_manager(request, campus_manager_id):
     return render_to_response("get_campus_manager.html", {
         'campus_manager' : campus_manager,
     }, request)
+
+def delete_campus_manager(request, user_id):
+    profile = Profile.objects.get(user__id=user_id) 
+    profile.campus_managed.clear()
+    return redirect('profile:list_campus_manager')
 
 @login_required
 def update_campus_manager(request, campus_manager_id):

@@ -13,6 +13,7 @@ urlpatterns = patterns('profiles.views',
     {}, 'list_classgroup_subjects'),
 
     (r'^users/(?P<user_id>\d+)/delete/$', 'delete_user', {}, 'delete_user'),
+    (r'^users/(?P<user_id>\d+)/delete/$', 'delete_user', {}, 'delete_student'),
 
     (r'^students/add/$', 'add_student', {}, 'add_student'),
     (r'^students/$', 'list_students', {}, 'list_students'),
@@ -23,4 +24,5 @@ urlpatterns = patterns('profiles.views',
     (r'^campus_managers/$', 'list_campus_managers', {}, 'list_campus_managers'),
     (r'^campus_managers/(?P<campus_manager_id>\d+)$', 'get_campus_manager', {}, 'get_campus_manager'),
     (r'^campus_managers/(?P<campus_manager_id>\d+)/update/$', 'update_campus_manager', {}, 'update_campus_manager'),
+    (r'^campus_managers/(?P<user_id>\d+)/delete/$', 'delete_campus_manager', {}, 'delete_campus_manager'),
 )

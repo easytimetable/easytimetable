@@ -46,6 +46,8 @@ def list(queryset, cols, request, template=DEFAULT_LIST_TEMPLATE,
         'elements': list_params,
         'obj_name': obj_name,
         'app_name': app_name,
+        'obj_verbose_name': extra_context.setdefault(
+            "obj_verbose_name", obj_name),
     }
 
     for key, value in extra_context.items():

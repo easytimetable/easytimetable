@@ -34,7 +34,7 @@ class StudentForm(UserForm):
             username = first_name[0].lower() + last_name[:10].lower()
             username.replace(" ", "")
             email = self.cleaned_data['email']
-            self._create_user(username, first_name, last_name, email)
+            user = self._create_user(username, first_name, last_name, email)
             
             classgroup = self.cleaned_data['classgroup']
             profile = Profile(classgroup=classgroup, user=user,

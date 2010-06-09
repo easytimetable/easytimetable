@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load utils_tags %}
 {% load uni_form_tags %}
-{% block title %}{% blocktrans %} {{obj_name}}'s List{% endblocktrans %}{% endblock %}
+{% block title %}{% blocktrans %} {{obj_verbose_name}}'s List{% endblocktrans %}{% endblock %}
 {% block additional_js %}
 {% if form %}
     <script type="text/javascript">
@@ -26,7 +26,7 @@
             $("#link_hide_add").click(function(){
                 var add_form = $("#add-object-form");
                 add_form.hide(200);
-                $("#link_add").html("{% trans "Add "%} {{obj_name}} →");
+                $("#link_add").html("{% trans "Add "%} {{obj_verbose_name}} →");
                 $("#link_add").addClass("green");
                 $("#link_add").removeClass("red");
                 $(".belongs-form").hide();
@@ -40,12 +40,13 @@
 {% endblock %}
 {% block content %}
 {% block toplinks %}
-<a id="link_add" class="awesome large green button right" style="margin-top:8px !important;" href="{% get_url app_name ":add_" obj_name %}">{% trans "Add "%} {{obj_name}} →</a>
+<a id="link_add" class="awesome large green button right" style="margin-top:8px !important;" href="{% get_url app_name ":add_" obj_name %}">{% block add_link_name %}
+{% trans "Add "%} {{obj_verbose_name}} →{% endblock %}</a>
 {% endblock %}
 {% block creation_form %}
 
 {% if form %} 
-<h2 class="belongs-form" style="display: none">{% trans "Add "%} {{obj_name}} </h2>
+<h2 class="belongs-form" style="display: none">{% trans "Add "%} {{obj_verbose_name}} </h2>
 <div id="add-object-form" class="clear">
     <a id="link_hide_add" class="awesome right" >{% trans "hide the form" %}</a>
     <form id="real-add-form" action="{% get_url app_name ":add_" obj_name %}" method="post" accept-charset="utf-8">
@@ -58,7 +59,7 @@
 </div>
 {% endif %}
 {% endblock %}
-   <h2 >{% blocktrans %} The list of {{obj_name}} {% endblocktrans %}</h2>    
+   <h2 >{% blocktrans %} The list of {{obj_verbose_name}} {% endblocktrans %}</h2>    
 {% if elements %}
 <table id="classgroups">
 <thead>
@@ -80,8 +81,9 @@
     <td>
     {% block item_actions %}
         {% block get_button %}<a class="awesome small blue button" href="{% get_url app_name ":get_" obj_name id %}">view</a>{% endblock %}
-        {% block update_button %}{% endblock %}<a class="awesome small green button" href="{% get_url app_name ":update_" obj_name id %}">update</a>{% endblock %}
+        {% block update_button %}<a class="awesome small green button" href="{% get_url app_name ":update_" obj_name id %}">update</a>{% endblock %}
         {% block delete_button %}<a class="awesome small red button" href="{% get_url app_name ":delete_" obj_name id %}">delete</a>{% endblock %}
+    {% endblock %}
     {% block additional_item_actions %}{% endblock %}
     </td>
 </tr>
@@ -92,6 +94,6 @@
 <br />
 <br />
 <br />
-{% blocktrans %} there is no {{obj_name}}, yet.{% endblocktrans %}
+{% blocktrans %} there is no {{obj_verbose_name}}, yet.{% endblocktrans %}
 {% endif %}
 {% endblock %}

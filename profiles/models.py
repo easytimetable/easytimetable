@@ -27,6 +27,10 @@ class Profile(models.Model):
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
+    def delete(self, *args, **kwargs):
+        self.campus_managed.clear() 
+        super(Profile, self).delete(*args, **kwargs)
+
 
 class ClassGroup(models.Model):
     name = models.CharField(blank=False, max_length=150)
