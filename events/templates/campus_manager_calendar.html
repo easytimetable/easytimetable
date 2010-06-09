@@ -9,6 +9,9 @@ class_event_sources = [];
 last_campus_event_source = null;
 campus_event_sources = [];
 
+calendar_manager = null;
+
+
 $(document).ready(function(){
     init_forms();
     var calendar = $('#calendar').fullCalendar({
@@ -33,6 +36,12 @@ $(document).ready(function(){
             {"days" : days, "minutes" : minutes, "all_day": allDay});
         }
     });
+    
+    calendar_manager = new CalendarManager($('#calendar'));
+    new CalendarSelector($("#id_cmp_selector-campus"), "campus",
+    calendar_manager, "{% url events:get_planning %}");
+    new CalendarSelector($("#id_cg_selector-classgroup"), "classgroup",
+    calendar_manager, "{% url events:get_planning %}");
 
     // automatically load ajax links within a modal dialog box
     $('a.ajax').click(function(){return pop_add_event_dialog(null,null,null);});
@@ -44,43 +53,6 @@ $(document).ready(function(){
         update_calendars(this.checked, this.value);
     });
     
-    $("#id_cmp_selector-campus").change(function () {
-          for(i in campus_event_sources){
-              $('#calendar').fullCalendar(
-                    'removeEventSource',  campus_event_sources[i])
-          }
-          last_campus_event_source = null;
-          $("#id_cmp_selector-campus option:selected").each(function () {
-            if($(this).val()!="")
-            {
-                last_campus_event_source =  "{% url events:get_planning 'campus' %}"
-                    + "/" + $(this).val();
-                campus_event_sources.push(last_campus_event_source)
-                $('#calendar').fullCalendar(
-                    'addEventSource',  last_campus_event_source)
-            }
-          });
-        })
-        .change();
-
-    $("#id_cg_selector-classgroup").change(function () {
-          for(i in class_event_sources){
-              $('#calendar').fullCalendar(
-                    'removeEventSource',  class_event_sources[i])
-          }
-          last_class_event_source = null;
-          $("#id_cg_selector-classgroup option:selected").each(function () {
-            if($(this).val()!="")
-            {
-                last_class_event_source =  "{% url events:get_planning 'classgroup' %}"
-                    + "/" + $(this).val();
-                class_event_sources.push(last_class_event_source)
-                $('#calendar').fullCalendar(
-                    'addEventSource',  last_class_event_source)
-            }
-          });
-        })
-        .change();
 });
 
 function update_calendars(checked, value){
