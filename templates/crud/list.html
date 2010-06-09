@@ -50,9 +50,12 @@
 <div id="add-object-form" class="clear">
     <a id="link_hide_add" class="awesome right" >{% trans "hide the form" %}</a>
     <form id="real-add-form" action="{% get_url app_name ":add_" object_name %}" method="post" accept-charset="utf-8">
+        {% block form_info %}
         {% if message %}
          <p class="info">{{ message }}</p>
         {% endif %}
+        {% endblock %}
+
         {{ form|as_uni_form }}
     </form>
     <div class="clear"></div>
