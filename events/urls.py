@@ -10,7 +10,8 @@ urlpatterns = patterns('events.views',
     (r'^user/add/$', 'add_user_event', {}, 'add_user_event'),
     (r'^move/(?P<when_id>\d+)?$', 'move_event', {},
     'move_event'),
-    
+    (r'^update/(?P<when_id>\d+)?$', 'update_event', {},
+    'update_event'),
     
     (r'^campus_manager/$', 'display_campus_mgr_calendar', {},
     'display_campus_mgr_calendar'),

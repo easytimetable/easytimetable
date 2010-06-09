@@ -21,3 +21,36 @@
     border-color: #fff;     /* border color */
     color: #000;           /* text color */
 }
+
+.classgroup-0,
+.fc-agenda .classgroup .fc-event-time,
+.classgroup-0 a {
+    background-color: #0A50FF; /* background color */
+    border-color: #fff;     /* border color */
+    color: #000;           /* text color */
+}
+
+.classgroup-1,
+.fc-agenda .classgroup .fc-event-time,
+.classgroup-1 a {
+    background-color: #FA50FF; /* background color */
+    border-color: #fff;     /* border color */
+    color: #000;           /* text color */
+}
+
+.classgroup-2,
+.fc-agenda .classgroup .fc-event-time,
+.classgroup-2 a {
+    background-color: #0A5CFF; /* background color */
+    border-color: #fff;     /* border color */
+    color: #000;           /* text color */
+}
+
+.classgroup-3,
+.fc-agenda .classgroup .fc-event-time,
+.classgroup-3 a {
+    background-color: #0550FF; /* background color */
+    border-color: #fff;     /* border color */
+    color: #000;           /* text color */
+}
+

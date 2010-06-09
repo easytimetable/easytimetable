@@ -44,6 +44,7 @@ class Who(models.Model):
     cursus = models.ForeignKey('pedagogy.Cursus', null=True, blank=True)
     campus = models.ForeignKey('locations.Campus', null=True, blank=True)
     university = models.ForeignKey('locations.University', null=True, blank=True)
+    is_contributor = models.BooleanField(default=False)
 
     # set to true if it concerns everyone.
     is_universal = models.BooleanField(default=False)

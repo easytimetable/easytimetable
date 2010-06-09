@@ -24,7 +24,8 @@ class WhenManager(models.Manager):
             return []
         
         if what == "campus":
-            return self.classgroup_planning(Campus.objects.get(id=what_arg))
+            return self.campus_planning(Campus.objects.get(id=what_arg),
+                                            start_date, end_date)
         if what == "classgroup":
             return self.classgroup_planning(ClassGroup.objects.get(id=what_arg),
                                             start_date, end_date)

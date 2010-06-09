@@ -30,3 +30,4 @@ class StudentForm(forms.Form):
             profile = Profile(classgroup=classgroup, user=user,
             first_name=first_name, last_name=last_name)
             profile.save()
+            return profile

@@ -18,14 +18,14 @@ from events.models import When, Who, Event
 from pedagogy.models import SubjectModality
 from utils.shortcuts import render_to_response
 from events.forms import UserEventForm, CampusEventForm, ClassgroupEventForm,\
-MoveEventForm, ClassgroupSelectorForm 
+MoveEventForm, ClassgroupSelectorForm, CampusSelectorForm
 from events.managers import WhenManager
     
 def is_event_editable(user, when):
     events = when.event.who_set.filter(user=user).count()
     if events >= 1:
         return True
-    if when.event.subject_modality.manager.user == user:
+    if when.event.subject_modality and when.event.subject_modality.manager.user == user:
         return True
     return False
     
@@ -49,7 +49,8 @@ def get_planning(request, what=None, what_arg=None, extra_context={}, **kwargs):
     partial_is_editable = functools.partial(is_event_editable, request.user)
     w = When.objects.user_planning(request.user, what, start_date, end_date,\
     what_arg)
-    
+    if what == "classgroup":
+        what = "%s-%s" % (what, int(what_arg) % 5)
     d = [p.to_fullcalendar_dict(partial_is_editable, what) for p in w]
     return HttpResponse(json.dumps(d))
 
@@ -92,8 +93,6 @@ def move_event(request, when_id):
         else:
             return False
 
-def update_event(request):
-    pass
 
 def add_course_event(request):
     pass
@@ -115,42 +114,67 @@ def display_calendar(request):
 def display_campus_mgr_calendar(request):
     campus_form = CampusEventForm(prefix="campus", user=request.user)
     classgroup_form = ClassgroupEventForm(prefix="classgroup", user=request.user)
-    classgroup_selector_form = ClassgroupSelectorForm(user=request.user, prefix="cg_selector")
+    campus_selector_form = CampusSelectorForm(user=request.user, prefix="cmp_selector")
+    classgroup_selector_form = ClassgroupSelectorForm(user=request.user,
+    prefix="cg_selector")
     return render_to_response('campus_manager_calendar.html', {
         'campus_form': campus_form, 
         'classgroup_form': classgroup_form, 
         'classgroup_selector_form': classgroup_selector_form,
+        'campus_selector_form': campus_selector_form,
     }, request)
 
-
-@login_required
-def add_campus_event(request):
-    pass
 
 @login_required
 def add_classgroup_event(request):
     if request.POST:
         form = ClassgroupEventForm(user=request.user, data=request.POST,
                                    prefix="classgroup")
-        if form.is_valid():
-            f = form.cleaned_data
-            subject_modality = SubjectModality.objects.filter(
-                               subject=f['subject']).filter(
-                               type=f['modality']).get()
-            event = Event(name=f['name'],
-                          duration=f['duration'], 
-                          place_text=f['place_text'],
-                          subject_modality=subject_modality)
-            event.save()
-            event.places.add(f['place'])
-            who = Who(classgroup=f['classgroup'], event=event)
-            who.save()
-            edate = "%s %s" % (f['date'],
-                f['start_hour'])
-            edate = datetime.strptime(edate, "%Y-%m-%d %H")
-            when = When(date=edate, event=event)
-            when.save()
-            j = when.to_fullcalendar_dict(lambda when:True, "classgroup")
-            return HttpResponse(json.dumps(j))
-        else:
-            return False
+        when = form.save()
+        j = when.to_fullcalendar_dict(lambda when:True, "classgroup")
+        return HttpResponse(json.dumps(j))
+    else:
+        return False
+
+@login_required
+def add_campus_event(request):
+    if request.POST:
+        form = CampusEventForm(user=request.user, data=request.POST,
+                                   prefix="campus")
+        when = form.save()
+        j = when.to_fullcalendar_dict(lambda when:True, "campus")
+        return HttpResponse(json.dumps(j))
+    else:
+        return False
+
+def update_event(request, when_id):
+    when = get_object_or_404(When, pk=when_id)
+    if when.event.subject_modality:
+        form = None
+    elif when.event.who_set.filter(user=request.user).count() > 0:
+        data = {'name' : when.event.name,
+                'date' : when.date.strftime("%Y-%m-%d"),
+                'start_hour' : when.date.strftime("%H"),
+                'duration' : when.event.duration,
+                'place_text' : when.event.place_text,
+               }
+        if request.POST:
+            form = UserEventForm(data=request.POST)
+            if form.is_valid():
+                f = form.cleaned_data
+                when.event.name = f['name']
+                when.event.duration = f['duration']
+                when.event.place_text = f['place_text']
+                edate = "%s %s" % (form.cleaned_data['date'],
+                    form.cleaned_data['start_hour'])
+                edate = datetime.strptime(edate, "%Y-%m-%d %H")
+                when.date = edate
+                when.event.save()
+                when.save()
+                j = when.to_fullcalendar_dict(lambda when:True, "moved")
+                return HttpResponse(json.dumps(j))
+            return render_to_response('edit_user_calendar.html', {
+                'form': form,}, request)
+        form = UserEventForm(data=data)
+        return render_to_response('edit_user_calendar.html', {
+            'form': form,}, request)
