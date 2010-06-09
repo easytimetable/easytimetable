@@ -107,6 +107,13 @@ ul.sf-menu li li li.sfHover ul {
     color:          #222;
 }
 
+.sf-menu li > ul > li:hover,  .sf-menu li>ul>li>a:hover,  .sf-menu li>ul>li.sfHover, .sf-menu li>ul>li>a:active, .sf-menu li>ul>li>a:focus,   {
+    -moz-border-radius:0px;
+    -webkit-border-radius:0px;
+	background:		#6ba81e;
+	outline:		0;
+    color:          #222;
+}
 /*** arrows **/
 .sf-menu a.sf-with-ul {
 	padding-right: 	2.25em;
