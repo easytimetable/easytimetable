@@ -1,0 +1,72 @@
+#!/bin/sh 
+
+### BEGIN INIT INFO
+# Provides:       gunicorn
+# Required-Start: $local_fs $syslog
+# Required-Stop:  $local_fs $syslog
+# Default-Start:  2 3 4 5
+# Default-Stop:   0 1 6
+# Short-Description: Gunicorn processes
+### END INIT INFO
+
+USER=srveasy
+NAME="gunicorn"
+DAEMON="gunicorn_django"
+DJANGO=/home/$USER/django
+ROOT=/home/$USER/easytimetable
+PID=$ROOT/gunicorn.pid
+WORKERS=5
+OPTIONS="-D -w $WORKERS -p $PID"
+RETVAL=0
+
+start()
+{
+    echo $"Starting $NAME."
+    cd $DJANGO;
+	if [ -f $PID ]; then
+		echo ": already started!";
+	else
+		su $USER -c "source bin/activate; cd $ROOT; $DAEMON $OPTIONS" && echo "OK";
+	fi;
+    echo "done";
+}
+
+stop()
+{
+    echo $"Stopping $NAME:";
+    cd $DJANGO;
+    if [ -f $PID ]; then
+        kill -QUIT `cat $PID` && echo "OK" || echo ": failed";
+		rm $PID;
+	fi;
+    echo "done";
+}
+
+reload()
+{
+    echo $"Reloading $NAME:";
+    cd $DJANGO;
+    if [ -f $PID ]; then
+        kill -HUP `cat $PID` && echo "OK" || echo ": failed";
+	fi;
+    echo "done";
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop && start
+        ;;
+    reload)
+        reload
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart|reload}"
+        RETVAL=1
+esac
+exit $RETVAL
