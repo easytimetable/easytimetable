@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 # it's possible to specify a default password in the settings
+# if not is provided, use "password" by default.
 DEFAULT_PASSWORD = getattr(settings, 'DEFAULT_PASSWORD', 'password')
 
 class ClassGroupForm(forms.ModelForm):
