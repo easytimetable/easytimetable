@@ -38,32 +38,22 @@ $(document).ready(function(){
     });
     
     calendar_manager = new CalendarManager($('#calendar'));
+    //Calendar Selectors declaration
     new CalendarSelector($("#id_cmp_selector-campus"), "campus",
-    calendar_manager, "{% url events:get_planning %}");
+        calendar_manager, "{% url events:get_planning %}");
     new CalendarSelector($("#id_cg_selector-classgroup"), "classgroup",
-    calendar_manager, "{% url events:get_planning %}");
+        calendar_manager, "{% url events:get_planning %}");
+    $('#cals_to_show>:checkbox').each(function(){
+        new CalendarCheckbox($(this),
+        calendar_manager, "{% url events:get_planning %}");
+    });
 
     // automatically load ajax links within a modal dialog box
     $('a.ajax').click(function(){return pop_add_event_dialog(null,null,null);});
     
-    $('#cals_to_show>:checkbox').each(function(){
-        $(this).click(function(){
-            update_calendars(this.checked, this.value);
-        });
-        update_calendars(this.checked, this.value);
-    });
     
 });
 
-function update_calendars(checked, value){
-    var action = "add";
-    if (checked == true)
-        action = "add";
-    else
-        action = "remove";
-    $('#calendar').fullCalendar(action + 'EventSource', "{% url events:get_planning %}"+
-        value);
-}
 
 function pop_add_event_dialog(start, end, allDay)
 {
@@ -136,9 +126,14 @@ function init_forms(){
     });
 
     //Then we change the submit system
+/*
+    new CalendarSubmiter($('#form_add_classgroup_event'), calendar_manager,
+    "classgroup"
+*/
+
     $('#form_add_classgroup_event').submit(function() {
         $.post("{% url events:add_classgroup_event %}", $(this).serialize(), 
-            function(data) {$('#calendar').fullCalendar('renderEvent', data);
+            function(data) { calendar_manager.add_event(,data);
             $('#add_event_dialog').dialog('close');}, "json");
         return false;
     });

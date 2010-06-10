@@ -3,12 +3,11 @@ function CalendarManager(full_calendar) {
     this.events_sources = [];
     this.lolilol = "lolilol";
 
-    this.EventSource = function(name, url, selector, id) {
-        this.name = name;
+    this.EventSource = function(type, url, id) {
+        this.type = type;
         this.id = id;
         this.url = url;
         this.displayed = false;
-        this.selector = selector;
 
         this.Event = function(fc_event) {
             this.fc_event = fc_event;
@@ -19,9 +18,9 @@ function CalendarManager(full_calendar) {
         };
     }
 
-    this.add_event_source = function (type, url, id, selector) {
+    this.add_event_source = function (type, url, id ) {
         name = type+id;
-        this.events_sources[name] = (new this.EventSource(name, url, selector, id));
+        this.events_sources[name] = (new this.EventSource(type, url,  id));
     };
 
     this.purge_event_source = function (name) {
@@ -57,6 +56,24 @@ function CalendarManager(full_calendar) {
 
 }
 
+function CalendarCheckbox(element, fc_manager, url_base)
+{
+    element.data("fc_mgr", fc_manager);
+    element.data("src_type", element.val());
+    fc_manager.add_event_source(element.val(), url_base + element.val(), "");
+    element.check_function = function() {
+        if(this[0].checked)
+            $(this).data("fc_mgr").display_event_source($(this)
+                                                .data("src_type"))
+        else
+            $(this).data("fc_mgr").hide_event_source($(this)
+                                                .data("src_type"))
+    };
+
+    element.click(function() {element.check_function()});
+    element.check_function();
+}
+
 
 
 function CalendarSelector(element, source_type, fc_manager, url_base)
@@ -82,8 +99,7 @@ function CalendarSelector(element, source_type, fc_manager, url_base)
     element.data("ids", this.ids);
     element.data("fc_mgr", fc_manager);
     element.data("src_type", source_type);
-
-    element.change(function() {
+    element.check_function = function () {
         var ids = $(this).data("ids");
         for(i in ids) {
             mval = $(this).val();
@@ -99,7 +115,29 @@ function CalendarSelector(element, source_type, fc_manager, url_base)
                                                     .data("src_type")+
                                                     $(this).data("ids")[i])
             }
-
         }
+
+    };
+
+    element.change(function() {element.check_function()});
+    element.check_function();
+}
+
+
+function CalendarSubmiter(element, fc_manager, source_name, callback)
+{
+    element.data("url", fc_manager.events_sources[source_name]);
+    element.data("fc_mgr", fc_manager);
+    element.submiter = function () {
+        url = $(this).data("url");
+        fc_mgr = $(this).data("fc_mgr");
+        $.post(url, $(this).serialize(),
+            function(data) {
+               fc_mgr.add_event(data, source.name), "json"});
+        return false;
+        }
+    element.submit(function() {
+        return element.submiter();
     });
 }
+
