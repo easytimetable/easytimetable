@@ -5,12 +5,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from django.views.generic.create_update import get_model_and_form_class, create_object, update_object
 from django.views.generic.list_detail import object_detail
 
 from utils.shortcuts import render_to_response
-from utils.settings import DEFAULT_LIST_TEMPLATE
+from utils.settings import DEFAULT_LIST_TEMPLATE, DEFAULT_RESOURCE_ACCESS, \
+    DEFAULT_RIGHTS_CALLABLE
 
 def create(request, post_save_redirect, *args, **kwargs):
     """thin wrapper around django generic view to support reverse urls
@@ -41,10 +43,27 @@ def delete(request, model, object_id, post_delete_redirect, verbose_name="object
 
 def list(request, fields, model=None, queryset=None, form_class=None, 
         template=DEFAULT_LIST_TEMPLATE, object_name=None, app_name=None, 
-        object_verbose_name=None, extra_context={}):
+        object_verbose_name=None, rights={}, 
+        rights_callable=DEFAULT_RIGHTS_CALLABLE, extra_context={}):
     """A generic List method, that allows to specify the list of what we want
     to display.
+
+    You could either pass a model or a queryset to loop on. 
+    This view also display a creation form, if a form is provided and the user 
+    has the rights to do so.
+
+    The rights are defined with the right arguments, wich is a dict.
+    This is mainly used to know if the current user can do CRUD actions.
+
+    If these are not defined, list uses the rights_callable, if given, to
+    determine wich rights to set for the current user. If not defined, this
+    callable use DEFAULT_RIGHTS_CALLABLE.
+
+    By default, the list action use a template defined by 
+    DEFAULT_LIST_TEMPLATE, but you can change this behavior by setting the
+    `template` parameter.
     """
+
     if model:
         model, form_class = get_model_and_form_class(model, form_class) 
     if queryset is not None:
@@ -90,6 +109,12 @@ def list(request, fields, model=None, queryset=None, form_class=None,
         'form': form_class(),
     }
 
+    # add rights
+    for right in ('create', 'update', 'delete', 'view'):
+        return_context['can_'+right] = rights.get(right,
+            rights_callable(right, request.user)) 
+        
+    # add extra_context
     for key, value in extra_context.items():
         return_context[key] = value
     return render_to_response(template, return_context, request)

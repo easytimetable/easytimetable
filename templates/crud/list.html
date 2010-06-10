@@ -83,9 +83,19 @@
     {% endfor %}
     <td>
     {% block item_actions %}
-        {% block get_button %}<a class="awesome small blue button" href="{% get_url app_name ":get_" object_name id %}">view</a>{% endblock %}
-        {% block update_button %}<a class="awesome small green button" href="{% get_url app_name ":update_" object_name id %}">update</a>{% endblock %}
-        {% block delete_button %}<a class="awesome small red button" href="{% get_url app_name ":delete_" object_name id %}">delete</a>{% endblock %}
+
+        {% block get_button %}{% if can_view %}
+        <a class="awesome small blue button" href="{% get_url app_name ":get_" object_name id %}">view</a>
+        {% endif %}{% endblock %}
+
+        {% block update_button %}{% if can_update %}
+         <a class="awesome small green button" href="{% get_url app_name ":update_" object_name id %}">update</a>
+        {% endif %}{% endblock %}
+
+        {% block delete_button %}{% if can_delete %}
+        <a class="awesome small red button" href="{% get_url app_name ":delete_" object_name id %}">delete</a>
+        {% endif %}{% endblock %}
+
     {% endblock %}
     {% block additional_item_actions %}{% endblock %}
     </td>
