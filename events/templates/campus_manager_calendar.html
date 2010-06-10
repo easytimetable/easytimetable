@@ -4,16 +4,9 @@
 {% block fullcalendar_init %}
 <script type="text/javascript"> 
 calendar = null;
-last_class_event_source = null;
-class_event_sources = [];
-last_campus_event_source = null;
-campus_event_sources = [];
-
 calendar_manager = null;
 
-
 $(document).ready(function(){
-    init_forms();
     var calendar = $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -37,16 +30,17 @@ $(document).ready(function(){
         }
     });
     
-    calendar_manager = new CalendarManager($('#calendar'));
+    calendar_manager = new CalendarManager($('#calendar'), 
+    "{% url events:display_calendar %}");
     //Calendar Selectors declaration
     new CalendarSelector($("#id_cmp_selector-campus"), "campus",
-        calendar_manager, "{% url events:get_planning %}");
+    calendar_manager);
     new CalendarSelector($("#id_cg_selector-classgroup"), "classgroup",
-        calendar_manager, "{% url events:get_planning %}");
+    calendar_manager);
     $('#cals_to_show>:checkbox').each(function(){
-        new CalendarCheckbox($(this),
-        calendar_manager, "{% url events:get_planning %}");
+        new CalendarCheckbox($(this), calendar_manager);
     });
+    init_forms();
 
     // automatically load ajax links within a modal dialog box
     $('a.ajax').click(function(){return pop_add_event_dialog(null,null,null);});
@@ -67,17 +61,14 @@ function pop_add_event_dialog(start, end, allDay)
     return false;
 }
 
-function pop_edit_event_dialog(event_id, jsEvent)
+function pop_edit_event_dialog(event_id)
 {
-    $("#form_edit_event").data("jsEvent", jsEvent);
     $("#edit_event_dialog").dialog({
         modal: true,
         open: function(){$.get("{% url events:update_event %}" + event_id,
         function(data){$("#edit_event_form_div").html(data)});
         $("#form_edit_event").data("url","{% url events:update_event %}" +
         event_id);},
-//        width: 500,
-//        height: 500,
         title: "{% trans "Edit an event" %}",
     });
     return false;
@@ -85,19 +76,19 @@ function pop_edit_event_dialog(event_id, jsEvent)
 
 function update_classgroup_event_name()
 {
-new_name = $('#id_classgroup-subject option:selected').text() + ' : ' +
-           $('#id_classgroup-modality option:selected').text();
-$('#id_classgroup-name').val(new_name);
+    new_name = $('#id_classgroup-subject option:selected').text() + ' : ' +
+               $('#id_classgroup-modality option:selected').text();
+    $('#id_classgroup-name').val(new_name);
 }
 
 function init_all_forms(start, end, allDay){
-start_date = formatDate(parseDate(start), "yyyy-MM-dd");
-start_hour = formatDate(parseDate(start), "HH");
-end_hour = formatDate(parseDate(end), "HH");
-duration = end_hour - start_hour;
+    start_date = formatDate(parseDate(start), "yyyy-MM-dd");
+    start_hour = formatDate(parseDate(start), "HH");
+    end_hour = formatDate(parseDate(end), "HH");
+    duration = end_hour - start_hour;
 
-preload_classgroup_form(start_date, start_hour, duration);
-preload_campus_form(start_date, start_hour, duration);
+    preload_classgroup_form(start_date, start_hour, duration);
+    preload_campus_form(start_date, start_hour, duration);
     
 }
 
@@ -126,36 +117,14 @@ function init_forms(){
     });
 
     //Then we change the submit system
-/*
+
     new CalendarSubmiter($('#form_add_classgroup_event'), calendar_manager,
-    "classgroup"
-*/
-
-    $('#form_add_classgroup_event').submit(function() {
-        $.post("{% url events:add_classgroup_event %}", $(this).serialize(), 
-            function(data) { calendar_manager.add_event(,data);
-            $('#add_event_dialog').dialog('close');}, "json");
-        return false;
-    });
-
-    //Then we change the submit system
-    $('#form_add_campus_event').submit(function() {
-        $.post("{% url events:add_campus_event %}", $(this).serialize(), 
-            function(data) {$('#calendar').fullCalendar('renderEvent', data);
-            $('#add_event_dialog').dialog('close');}, "json");
-        return false;
-    });
-    
-    $('#form_edit_event').submit(function() {
-        $.post($(this).data("url"), $(this).serialize(), 
-            function(data) {
-                $('#calendar').fullCalendar('renderEvent', data);
-                //TODO : Delete the current event
-                alert( $(this).data("jsEvent"));
-                $('#edit_event_dialog').dialog('close');}, "json");
-        return false;
-    });
-    
+        "classgroup", function() {$('#add_event_dialog').dialog('close');});
+    new CalendarSubmiter($('#form_add_campus_event'), calendar_manager,
+        "campus", function() {$('#add_event_dialog').dialog('close');});
+    new CalendarEditor($('#form_edit_event'), calendar_manager, function(){
+        $('#edit_event_dialog').dialog('close');});
+        
 }
 
 function preload_classgroup_form(start_date, start_hour, duration){
@@ -170,6 +139,8 @@ function preload_classgroup_form(start_date, start_hour, duration){
 }
 
 function preload_campus_form(start_date, start_hour, duration){
+    //Then we set the selected class
+    $('#id_campus-campus').val($("#id_cmp_selector-campus").val());
     //Then we set the date
     $('#id_campus-date').val(start_date);
     $('#id_campus-start_hour').val(start_hour);

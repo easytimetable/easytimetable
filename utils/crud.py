@@ -45,7 +45,8 @@ def list(request, fields, model=None, queryset=None, form_class=None,
     """A generic List method, that allows to specify the list of what we want
     to display.
     """
-    model, form_class = get_model_and_form_class(model, form_class) 
+    if model:
+        model, form_class = get_model_and_form_class(model, form_class) 
     if queryset is not None:
         queryset = queryset
     else:
@@ -68,10 +69,13 @@ def list(request, fields, model=None, queryset=None, form_class=None,
                     else:
                         item = ""
                 list_params[obj.id].append((key, item))
-    if object_name is None:
-        object_name = model.__name__.lower()
-    if app_name is None:
-        app_name = model.__module__.split('.')[0]
+    try:
+        if object_name is None:
+            object_name = model.__name__.lower()
+        if app_name is None:
+            app_name = model.__module__.split('.')[0]
+    except AttributeError:
+        object_name, app_name = None, None
     
     #Gruik
     if request.is_ajax():

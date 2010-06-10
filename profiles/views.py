@@ -42,9 +42,10 @@ def list_classgroups(request):
 @login_required
 def list_classgroup_subjects(request,classgroup_id):
     fields = [('id','id'), ('name', 'name')]
-    return crud.list(Subject.objects.filter(
-            study_period__cursus__class_group__id=classgroup_id),
-            fields, request, obj_name = "")
+    return crud.list(request, fields,
+                     queryset = Subject.objects.filter(
+                     study_period__cursus__class_group__id=classgroup_id),
+                     )
 
 @login_required
 def get_classgroup(request, classgroup_id):

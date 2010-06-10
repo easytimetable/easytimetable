@@ -27,6 +27,8 @@ def is_event_editable(user, when):
         return True
     if when.event.subject_modality and when.event.subject_modality.manager.user == user:
         return True
+    if when.event.who_set.filter(campus__manager=user).count() > 0:
+        return True
     return False
     
 @login_required
@@ -55,6 +57,17 @@ def get_planning(request, what=None, what_arg=None, extra_context={}, **kwargs):
     return HttpResponse(json.dumps(d))
 
 @login_required
+def add_event(request, what=None, what_arg=None, extra_context={}, **kwargs):
+    if what == "classgroup":
+        return add_classgroup_event(request)
+    if what == "campus":
+        return add_campus_event(request)
+    if what == "my_user":
+        return add_user_event(request)
+    if what == "my_university":
+        pass
+
+@login_required
 def add_user_event(request):
     if request.POST:
         form = UserEventForm(data=request.POST, prefix="user")
@@ -70,7 +83,7 @@ def add_user_event(request):
             edate = datetime.strptime(edate, "%Y-%m-%d %H")
             when = When(date=edate, event=event)
             when.save()
-            j = when.to_fullcalendar_dict(lambda when:True, "me")
+            j = when.to_fullcalendar_dict(lambda when:True, "my_user")
             return HttpResponse(json.dumps(j))
         else:
             return False
