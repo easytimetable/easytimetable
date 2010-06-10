@@ -5,12 +5,10 @@
 <script type="text/javascript"> 
 calendar = null;
 
-
-
-
 $(document).ready(function(){
     
     var calendar = $('#calendar').fullCalendar({
+        defaultView: 'agendaWeek',
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -83,7 +81,6 @@ function set_form_variables(selector, start, end, allDay){
 </script>
 {% endblock %}
 {% block content %}
-<h2>Calendar</h2>
 <p class="info">{% trans "Here you can <strong>view, add or edit the different plannings</strong>, depending on the rights you have. Click on the calendar to create a new event on your agenda !" %}</p>
 <div id='calendar'></div> 
 {% endblock %}
