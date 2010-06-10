@@ -25,48 +25,12 @@ def add_classgroup(request, campus_id=None):
     }, request)
 
 @login_required
-def delete_classgroup(request, classgroup_id):
-    classgroup = get_object_or_404(ClassGroup, pk=classgroup_id)
-    classgroup.delete()
-    request.user.message_set.create(message=_("%s classgroup has been deleted.") % classgroup.name)
-    return redirect('profiles:list_classgroups')
-
-@login_required
-def list_classgroups(request):
-    fields = [('Classe','name'), ('Students', 'profile_set.count'), ('Campus',
-    'campus.name')]
-    return crud.list(ClassGroup, fields, request, extra_context={
-        'form': ClassGroupForm(),
-    })
-
-@login_required
 def list_classgroup_subjects(request,classgroup_id):
     fields = [('id','id'), ('name', 'name')]
     return crud.list(request, fields,
                      queryset = Subject.objects.filter(
                      study_period__cursus__class_group__id=classgroup_id),
                      )
-
-@login_required
-def get_classgroup(request, classgroup_id):
-    classgroup = get_object_or_404(ClassGroup, pk=classgroup_id)
-    return render_to_response("get_classgroup.html", {
-        'classgroup' : classgroup,
-    }, request)
-
-@login_required
-def update_classgroup(request, classgroup_id):
-    classgroup = get_object_or_404(ClassGroup, pk=classgroup_id)
-    if request.POST:
-        form = ClassGroupForm(data=request.POST, instance=classgroup)
-        form.save()
-        return redirect('profiles:list_classgroups')
-    form = ClassGroupForm(instance=classgroup)
-    return render_to_response("add_classgroup.html", {
-        'form': form,
-    }, request)
-
-
 # -- User management --------------------------------------------------
 
 @login_required

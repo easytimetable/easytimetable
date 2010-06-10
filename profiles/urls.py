@@ -1,17 +1,38 @@
 from django.conf.urls.defaults import *
+from profiles.models import ClassGroup, Profile
+from profiles.forms import StudentForm, CampusManagerForm
 
-urlpatterns = patterns('profiles.views',
+urlpatterns = patterns('utils.crud',
+    
+    # -- Classes ----------------------------------------
+    (r'^classes/(?P<object_id>\d+)/update/$', 'update', {
+        'model': ClassGroup, 
+        'template_name': 'crud/add.html',
+        'post_save_redirect': 'profiles:list_classgroups', 
+    }, 'update_classgroup'),
+
+    (r'^classes/$', 'list', {
+        'model': ClassGroup, 
+        'fields': [('id', 'id'), ('name', 'name')],
+    }, 'list_classgroups'),
+
+    (r'^classes/(?P<object_id>\d+)/delete/$', 'delete', {
+        'model': ClassGroup,
+        'post_delete_redirect': 'profiles:list_classgroups'
+    }, 'delete_classgroup'),
+
+    (r'^classes/(?P<object_id>\d+)/$', 'get', {
+        'queryset': ClassGroup.objects.all(), 
+        'template_name': 'get_classgroup.html',
+        'template_object_name': 'classgroup',
+    }, 'get_classgroup'),
+)
+
+urlpatterns += patterns('profiles.views',
     (r'^classes/add/$', 'add_classgroup', {}, 'add_classgroup'),
     (r'^classes/add/to_campus/(?P<campus_id>\d+)$', 'add_classgroup',
     {}, 'add_classgroup_to_campus'),
-
-    (r'^classes/$', 'list_classgroups', {}, 'list_classgroups'),
-    (r'^classes/(?P<classgroup_id>\d+)$', 'get_classgroup', {}, 'get_classgroup'),
-    (r'^classes/(?P<classgroup_id>\d+)/delete/$', 'delete_classgroup', {}, 'delete_classgroup'),
-    (r'^classes/(?P<classgroup_id>\d+)/update/$', 'update_classgroup', {}, 'update_classgroup'),
-    (r'^classes/(?P<classgroup_id>\d+)/subjects/$', 'list_classgroup_subjects',
-    {}, 'list_classgroup_subjects'),
-
+    
     (r'^users/(?P<user_id>\d+)/delete/$', 'delete_user', {}, 'delete_user'),
     (r'^users/(?P<user_id>\d+)/delete/$', 'delete_user', {}, 'delete_student'),
 
