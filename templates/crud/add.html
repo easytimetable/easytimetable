@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load  i18n %}
+{% load uni_form_tags %}
+{% block content %}
+<form action="" method="get" accept-charset="utf-8">
+{{ form|as_uni_form }}
+<p><input type="submit" value="Continue &rarr;"></p>
+</form>
+{% endblock %}
