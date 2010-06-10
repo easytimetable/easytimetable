@@ -24,6 +24,13 @@ def add_classgroup(request, campus_id=None):
         'form': form,
     }, request)
 
+@login_required
+def list_classgroup_subjects(request,classgroup_id):
+    fields = [('id','id'), ('name', 'name')]
+    return crud.list(request, fields,
+                     queryset = Subject.objects.filter(
+                     study_period__cursus__class_group__id=classgroup_id),
+                     )
 # -- User management --------------------------------------------------
 
 @login_required

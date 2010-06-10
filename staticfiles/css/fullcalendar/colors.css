@@ -1,6 +1,6 @@
-.me,
+.my_user,
 .fc-agenda .me .fc-event-time,
-.me a {
+.my_user a {
     background-color: #bea074; /* background color */
     border-color: #fff;     /* border color */
     color: #000;           /* text color */
@@ -17,7 +17,7 @@
 .campus,
 .fc-agenda .campus .fc-event-time,
 .campus a {
-    background-color: #3ACC00; /* background color */
+    background-color: #C51925; /* background color */
     border-color: #fff;     /* border color */
     color: #000;           /* text color */
 }
@@ -25,15 +25,15 @@
 .classgroup-0,
 .fc-agenda .classgroup .fc-event-time,
 .classgroup-0 a {
-    background-color: #0A50FF; /* background color */
+    background-color: #F4C021; /* background color */
     border-color: #fff;     /* border color */
-    color: #000;           /* text color */
+    color: #CCC;           /* text color */
 }
 
 .classgroup-1,
 .fc-agenda .classgroup .fc-event-time,
 .classgroup-1 a {
-    background-color: #FA50FF; /* background color */
+    background-color: #0A5CFF; /* background color */
     border-color: #fff;     /* border color */
     color: #000;           /* text color */
 }
@@ -41,9 +41,9 @@
 .classgroup-2,
 .fc-agenda .classgroup .fc-event-time,
 .classgroup-2 a {
-    background-color: #0A5CFF; /* background color */
+    background-color: #329613; /* background color */
     border-color: #fff;     /* border color */
-    color: #000;           /* text color */
+    color: #CCC;           /* text color */
 }
 
 .classgroup-3,
