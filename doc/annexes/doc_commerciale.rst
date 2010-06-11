@@ -4,57 +4,56 @@ Documentation commerciale
 TIMETABLEASY
 ~~~~~~~~~~~~
 
-Eleve ? Professeur ? Université ? Vous êtes surement à la recherche d'une 
+Elève ? Professeur ? Université ? Vous êtes surement à la recherche d'une 
 solution simple et performante pour gérer vos planning !  
 
 TimeTableEasy vous propose une solution qui se situe aux limites de la gestion
-de planning et de la gestion des contenus pédagogiques, pour pouvoir avoir une
+de planning et de la gestion des contenus pédagogiques, pour une
 intégration parfaite. 
 
 Au coeur du besoin des universités 
 ==================================
 
-    * Gestion des differents lieux rattachés à vos universités ainsi que
-      les salles de cours.
-    * Gerer le contenu pédagogique des differents cursus.
-    * Accès et gestion des plannings de vos professeurs et elèves, classe par
+    * Gestion des différents lieux rattachés à vos universités ainsi que
+      des salles de cours.
+    * Gestion du contenu pédagogique des différents cursus.
+    * Accès et composition des plannings de vos professeurs et elèves, classe par
       classe, campus par campus
-    * Gérer sur une seule et même plateforme votre planning personnel et
+    * Intégration sur une seule et même plateforme votre planning personnel et
       scolaire
 
-Une Administration à la hauteur de vos attentes
-===============================================
+Une console d'Administration à la hauteur de vos attentes
+=========================================================
 
-    * Une gestion de droits fine (ne donnez pas accès à tout à tout le monde !)
-    * Gérez les differents campus et universités
-    * Gestion multi université
-    * Déléguez la gestion de vos campus
+    * Gestion fine des droits et privilèges 
+    * Management des différents campus et universités
+    * Délégation de la gestion de vos campus
 
 Embarquez avec votre agenda !
 ==============================
 
     * Accedez à votre planning depuis votre mobile
-    * Exportez vos plannings au format ICAL
+    * Exportez vos plannings au format iCal
 
 Une architecture modulaire
 ===========================
 
     * Conçu avec les meilleurs logiciels open source
-    * Une intégration d'outil existants facilitée
+    * Intégration de nouveaux outils facilitée
 
 Vous souhaitez essayer ?
 ========================
 
 Ne perdez pas une minute de plus, et essayez EasyTimeTable sur notre
-plateforme de tests: http://easy.notmyidea.org !
+plateforme de test : http://easy.notmyidea.org !
 
-Nos tarif : Adapté à vos souhaits
-----------------------------------
+Nos tarif : Adaptés à vos contraintes
+-------------------------------------
 
 Nous vous proposons une plusieurs solutions, selon vos besoins:
 
-    * Offre hebergée: ne vous occupez de rien, on s'en occupe pour vous !
-    * Payez au forfait si vous souhaitez
+    * Offre hebergée: ne vous souciez de rien, on s'en occupe pour vous !
+    * Paiement au forfait, si vous souhaitez
     * Aquerez une licence du logiciel (contactez nous pour plus d'informations)
 
 Vous avez une demande particulière ? N'hésitez pas à nous contacter ! 
@@ -65,5 +64,7 @@ Qui Somme nous ?
 GREATTEAMDEVELOPMENT est une jeune entreprise, composée d'une équipe de
 developeurs, de designers et d'une cellule de rechercher et developement.
 
-Nous sommes determinés à apporter des solutions de qualité, qui répondent à des
-besoins précis, grâce à des logiciels évolutifs, et à du code de qualité.
+Nous sommes déterminés à apporter des solutions adaptées à des besoins
+précis, grâce à des logiciels évolutifs, et du code de qualité conformes
+à des standards ouverts.
+
