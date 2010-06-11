@@ -4,39 +4,66 @@ Documentation commerciale
 TIMETABLEASY
 ~~~~~~~~~~~~
 
-Vous êtes élève, professeur, ou encore responsable d'une structure universitaire, et vous souhaiteriai que cette structure est un sytème d'informations plus efficace, vous permettant une accéssibilité tellement performante, jusqu'a consulter votre emploi du temps sur votre téléphone portable ?
-Alors nous vous recommandons ce logiciel.
+Eleve ? Professeur ? Université ? Vous êtes surement à la recherche d'une 
+solution simple et performante pour gérer vos planning !  
 
-Timetableasy est une application web, un site internet qui vous permettra en fonction de votre rôle dans l'université, d'administrer et/ou de consulter les information qui vous conserne.
+TimeTableEasy vous propose une solution qui se situe aux limites de la gestion
+de planning et de la gestion des contenus pédagogiques, pour pouvoir avoir une
+intégration parfaite. 
 
-Pour les propriétaires du logiciel, il est possible d'organiser et de déléguer la gestion la structure de vos campus, vous aurez donc a votre disposition un certain panel de droits tel que administrer des professeurs, des élèves, des intervenants, des campus, ou encore les lieux.
+Au coeur du besoin des universités 
+==================================
 
-Voici une liste exaustive des principaux rôle de l'application :
+    * Gestion des differents lieux rattachés à vos universités ainsi que
+      les salles de cours.
+    * Gerer le contenu pédagogique des differents cursus.
+    * Accès et gestion des plannings de vos professeurs et elèves, classe par
+      classe, campus par campus
+    * Gérer sur une seule et même plateforme votre planning personnel et
+      scolaire
 
-    - Les Campus Manager auront en charge la gestion des lieux relatif a leur campus, de leurs professeurs ainsi que des salles
+Une Administration à la hauteur de vos attentes
+===============================================
 
-    - Les profésseur pourront consulter leur planning ainsi que ceux de leur classes.
+    * Une gestion de droits fine (ne donnez pas accès à tout à tout le monde !)
+    * Gérez les differents campus et universités
+    * Gestion multi université
+    * Déléguez la gestion de vos campus
 
-    - Les élève pourront consulter leur plannings sur internet, depuis un ordinateur ou une téléphone portable.
+Embarquez avec votre agenda !
+==============================
 
-Tous les utilisateurs pourront ajouter des evenements qui n'appraitront que sur leurs plannings.
+    * Accedez à votre planning depuis votre mobile
+    * Exportez vos plannings au format ICAL
 
+Une architecture modulaire
+===========================
 
-Notre logiciel est fait pour tous type de demande, et pour un nombre illimité d'utilisateur.
+    * Conçu avec les meilleurs logiciels open source
+    * Une intégration d'outil existants facilitée
 
+Vous souhaitez essayer ?
+========================
 
-Notre equipe de concepteur, developpeur, ergonome et commerciale ont tous mis en oeuvre pour vous offrir un logiciel intuitif et avec un large panel de fonctionalité.
-Pour plus de details, nous vous recommandons de directement d'essayer le logiciel sur notre plateforme en ligne : http://easy.notmyidea.org
+Ne perdez pas une minute de plus, et essayez EasyTimeTable sur notre
+plateforme de tests: http://easy.notmyidea.org !
 
+Nos tarif : Adapté à vos souhaits
+----------------------------------
 
-Nos tarif : 
------------
+Nous vous proposons une plusieurs solutions, selon vos besoins:
 
-Le licence du logiciel seul coute 2000 euros HT, et selon vos besoin de fonctionalités, de maintenances, d'hebergement, d'installation nous avons un système de forfait adapté à vos besoins.
-Vous avez une demande particulière contactez nous et demandez un devis. 
+    * Offre hebergée: ne vous occupez de rien, on s'en occupe pour vous !
+    * Payez au forfait si vous souhaitez
+    * Aquerez une licence du logiciel (contactez nous pour plus d'informations)
+
+Vous avez une demande particulière ? N'hésitez pas à nous contacter ! 
 
 Qui Somme nous ? 
 ----------------
 
-Nous somme une jeune entreprise composé de 4 ingénieurs en developpement détèrminer à repondre à une demande en constante augmentation par grâce à des logiciel et du code qualité tous en restant multiplateforme.
-Nos produit sont donc disponible, sous Linux, Mac et Windows.
+GREATTEAMDEVELOPMENT est une jeune entreprise, composée d'une équipe de
+developeurs, de designers et d'une cellule de rechercher et developement.
+
+Nous sommes determinés à apporter des solutions de qualité, qui répondent à des
+besoins précis, grâce à des logiciels évolutifs, et à du code de qualité.
