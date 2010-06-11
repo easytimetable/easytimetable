@@ -115,8 +115,10 @@ function CalendarSelector(element, source_type, fc_manager)
     
     for(i in children)
     {
-        fc_manager.add_event_source(source_type, children[i].value);
-        this.ids.push(children[i].value);
+        {
+            fc_manager.add_event_source(source_type, children[i].value);
+            this.ids.push(children[i].value);
+        }
     }
  
     element.data("ids", this.ids);

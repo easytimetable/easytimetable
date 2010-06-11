@@ -103,13 +103,33 @@ class MoveEventForm(forms.Form):
     minutes = forms.IntegerField()
     all_day = forms.BooleanField()
 
+    
+class MySelectorForm(forms.Form):
+    user = None
+    calendars = forms.MultipleChoiceField(choices=
+        [("my_campus", "My Campus"),
+         ("my_classgroup", "My Class"),
+         ("my_user", "Mine")],
+        widget=forms.CheckboxSelectMultiple())
+    def __init__(self, what=[], *args, **kwargs):
+        super(MySelectorForm,self).__init__(*args, **kwargs)
+        if what == []:
+            return
+        new_choices = []
+        for option in self.fields['calendars'].choices:
+            if option[0] in what:
+                new_choices.append(option)
+        self.fields['calendars'].choices = new_choices
+
 class CampusSelectorForm(forms.Form):
     user = None
     campus = forms.ModelMultipleChoiceField(queryset=None)
     def __init__(self, user=None, *args, **kwargs):
         super(CampusSelectorForm,self).__init__(*args, **kwargs)
         self.user = user
-        self.fields['campus'].queryset = Campus.objects.get_managed_by(self.user)
+        self.fields['campus'].queryset =\
+            Campus.objects.get_managed_by(self.user)
+        self.fields['campus'].empty_label = "---"
 
 class ClassgroupSelectorForm(forms.Form):
     user = None
@@ -117,5 +137,7 @@ class ClassgroupSelectorForm(forms.Form):
     def __init__(self, user=None, *args, **kwargs):
         super(ClassgroupSelectorForm,self).__init__(*args, **kwargs)
         self.user = user
-        self.fields['classgroup'].queryset = ClassGroup.objects.get_managed_by(self.user)
+        self.fields['classgroup'].queryset =\
+            ClassGroup.objects.get_managed_by(self.user)
+        self.fields['classgroup'].empty_label = "---"
 

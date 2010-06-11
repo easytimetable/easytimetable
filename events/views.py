@@ -18,7 +18,7 @@ from events.models import When, Who, Event
 from pedagogy.models import SubjectModality
 from utils.shortcuts import render_to_response
 from events.forms import UserEventForm, CampusEventForm, ClassgroupEventForm,\
-MoveEventForm, ClassgroupSelectorForm, CampusSelectorForm
+MoveEventForm, ClassgroupSelectorForm, CampusSelectorForm, MySelectorForm
 from events.managers import WhenManager
     
 def is_event_editable(user, when):
@@ -118,23 +118,35 @@ def delete_event(request, event_id):
 
 @login_required
 def display_calendar(request):
+    #Standard forms
     user_form = UserEventForm(prefix="user")
-    return render_to_response('calendar.html', {
-        'user_form': user_form, 
-    }, request)
+    my_selector_form = MySelectorForm(prefix="my_selector")
+    forms = {'user_form': user_form,
+             'my_selector_form': my_selector_form,}
+    if request.user.get_profile().can_manage_campus():
+        forms['campus_form'] = CampusEventForm(prefix="campus",
+                                               user=request.user)
+        forms['classgroup_form'] = ClassgroupEventForm(prefix="classgroup",
+                                                       user=request.user)
+        forms['campus_selector_form'] =\
+            CampusSelectorForm(prefix="cmp_selector", user=request.user)
+        forms['classgroup_selector_form'] =\
+            ClassgroupSelectorForm(prefix="cg_selector", user=request.user)
+        forms['my_selector_form'] = MySelectorForm(prefix="my_selector",
+                                                   what=["my_user"])
+    return render_to_response('calendar.html', forms, request)
 
 @login_required
 def display_campus_mgr_calendar(request):
-    campus_form = CampusEventForm(prefix="campus", user=request.user)
-    classgroup_form = ClassgroupEventForm(prefix="classgroup", user=request.user)
-    campus_selector_form = CampusSelectorForm(user=request.user, prefix="cmp_selector")
-    classgroup_selector_form = ClassgroupSelectorForm(user=request.user,
-    prefix="cg_selector")
-    return render_to_response('campus_manager_calendar.html', {
+    user_form = UserEventForm(prefix="user")
+    my_selector_form = MySelectorForm(prefix="my_selector", what=["my_user"])
+    return render_to_response('calendar.html', {
         'campus_form': campus_form, 
+        'user_form': user_form, 
         'classgroup_form': classgroup_form, 
         'classgroup_selector_form': classgroup_selector_form,
         'campus_selector_form': campus_selector_form,
+        'my_selector_form': my_selector_form,
     }, request)
 
 

@@ -140,6 +140,15 @@ input:focus {
     margin-top: 100px;
 }
 
+.calendar_selector label {
+    text-align:left;
+}
+
+.calendar_selector ul {
+    list-style-type:none;
+    padding-left:0px;
+}
+
 /**
  * Calendar
  */

@@ -105,15 +105,7 @@
 
 			</li>
             <li>
-		        <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a>
-                {% if user.get_profile.can_manage_campus %}
-                 <ul>
-		    	     <li>
-		         		<a href="{% url events:display_campus_mgr_calendar %}">
-                         {% trans "Campus Events" %}</a>
-		         	</li>
-                 </ul>
-                {% endif %}
+		        <a href="{% url events:display_calendar %}">{% trans "Calendar" %}</a>
             </li>
             {% if user.get_profile.can_manage_users %}
             <li>
