@@ -213,12 +213,12 @@ function preload_user_form(start_date, start_hour, duration){
 {% endblock %}
 {% block menu %}
 <form id="campus_selector" class="calendar_selector"> 
-    {{ campus_selector_form }}
+    {{ campus_selector_form.as_p }}
 </form>
 <form id="classgroup_selector" class="calendar_selector"> 
-    {{ classgroup_selector_form }}
+    {{ classgroup_selector_form.as_p }}
 </form>
 <form id="my_selector" class="calendar_selector"> 
-    {{ my_selector_form }}
+    {{ my_selector_form.as_p }}
 </form>
 {% endblock %}

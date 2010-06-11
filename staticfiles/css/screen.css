@@ -169,7 +169,12 @@ input:focus {
     text-align:left;
 }
 
-.calendar_selector ul {
+.calendar_selector {
+    list-style-type:none;
+    padding-left:0px;
+}
+
+.calendar_selector ul{
     list-style-type:none;
     padding-left:0px;
 }
