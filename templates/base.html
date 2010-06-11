@@ -17,31 +17,10 @@
     <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.ui.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.gritter.min.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery/init.js"></script>
-		<script type="text/javascript" src="{{ MEDIA_URL }}js/superfish.js"></script>
-		<script type="text/javascript">
-
-		// initialise plugins
-		jQuery(function(){
-			jQuery('ul.sf-menu').superfish();
-		});
-
- 
-        $(document).ready(function() { 
-            $('ul.sf-menu').superfish({ 
-                delay:       0,                            // one second delay on mouseout 
-                animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
-                speed:       'fast',                          // faster animation speed 
-                autoArrows:  true,                           // disable generation of arrow mark-up 
-                dropShadows: true                            // disable drop shadows 
-            }); 
-        }); 
- 
-
-		</script>  
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/superfish.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/superfish-init.js"></script>
 
     <! -- Uniform -->
-    <link rel="stylesheet" href="{{ MEDIA_URL }}uni_form/uni-form-generic.css" type="text/css" />
-    <link rel="stylesheet" href="{{ MEDIA_URL }}uni_form/uni-form.css" type="text/css" />
     <script src="{{ MEDIA_URL }}uni_form/uni-form.jquery.js" type="text/javascript"></script>
 
     {% endblock %}
@@ -56,6 +35,11 @@
     {% block htmltitle %}<h1 id="htmltitle" class="left">{% trans "Time organisation made easy !" %}</h1>{% endblock %}
     </div>
 		<ul class="sf-menu">
+            {% if not user.is_authenticated %}
+            <li class="highlight">
+                <a href="{% url events:display_calendar %}">{% trans "Connect you !" %}</a>
+            </li>
+            {% endif %}
 			<li>
 				<a href="">Locations</a>
 				<ul>
@@ -93,17 +77,6 @@
 				</ul>
 
 			</li>
-            <li>
-		        <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a>
-                {% if user.get_profile.can_manage_campus %}
-                 <ul>
-		    	     <li>
-		         		<a href="{% url events:display_campus_mgr_calendar %}">
-                         {% trans "Campus Events" %}</a>
-		         	</li>
-                 </ul>
-                {% endif %}
-            </li>
             {% if user.get_profile.can_manage_users %}
             <li>
                 <a href="">{% trans "User management" %}</a>
@@ -117,6 +90,22 @@
                     {% endcomment %}
                 </ul>
             </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="green">
+		        <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a>
+                {% if user.get_profile.can_manage_campus %}
+                 <ul>
+		    	     <li>
+		         		<a href="{% url events:display_campus_mgr_calendar %}">
+                         {% trans "Campus Events" %}</a>
+		         	</li>
+                 </ul>
+                {% endif %}
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li><a href="{% url logout %}">{% trans "logout" %}</a></li>
             {% endif %}
 		</ul>
     <hr />

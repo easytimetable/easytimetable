@@ -15,7 +15,13 @@
 @import url("awesome.css");
 @import url("jquery.gritter.css");
 @import url("theme/jquery-ui.css");
+@import url("uni_form/uni-form-generic.css");
+@import url("uni_form/uni-form.css");
 
+/* Basic Layout */
+.container{
+    width: 90%;
+}
 
 #htmltitle{
     font-family: 'Reenie Beanie', arial, serif;
@@ -62,6 +68,11 @@ p {
 /**
  * Reusable css classes
  */
+
+.highlight {
+    background-color: #0A50FF !important;
+}
+
 .right {
     float: right;
 }
@@ -80,6 +91,7 @@ p {
 .width-400 {
     width: 370px;
 }
+
 /**
  * Tables styles
  */
@@ -87,6 +99,10 @@ tr.even td  { background: #eaeaea; }
 thead th    { 
     background: #222; 
     color: #eaeaea;
+}
+
+.fc table{
+    margin-bottom: 0px;
 }
 
 /**

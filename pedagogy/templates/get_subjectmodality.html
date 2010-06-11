@@ -6,9 +6,8 @@
 <p> {% trans "Type : " %} {{subjectmodality.type}} </p>
 <p> {% trans "Subject : " %} {{subjectmodality.subject}} </p>
 <p> {% trans "Planned Hours : " %} {{subjectmodality.planned_hours}} </p>
-<a class="awesome small red button" href="{% url pedagogy:delete_subjectmodality subjectmodality.id %}">delete</a>
-<a class="awesome small green button" href="{% url pedagogy:update_subjectmodality subjectmodality:wq
-.id %}">update</a> 
+{% if can_update %}<a class="awesome small green button" href="{% url pedagogy:update_subjectmodality subjectmodality.id %}">update</a>{% endif %}
+{% if can_delete %}<a class="awesome small red button" href="{% url pedagogy:delete_subjectmodality subjectmodality.id %}">delete</a>{% endif %}
 <br />
 <br />
 <br />

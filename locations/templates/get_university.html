@@ -3,7 +3,10 @@
 {% block title %}{% trans "University" %} {{university.id}}{% endblock %}
 {% block content %}
 <h2> {{university.name}}</h2>
+<div class="right">
 {% if can_update %} <a class="awesome small green button" href="{% url locations:update_university university.id %}">update</a> {% endif %}
-{% if can_delete %} <a class="awesome small red button" href="{% url
-locations:delete_university university.id %}">delete</a> {% endif %}
+{% if can_delete %} <a class="awesome small red button" href="{% url locations:delete_university university.id %}">delete</a> {% endif %}
+</div>
+
+<img src="http://maps.google.com/maps/api/staticmap?size=512x512&maptype=roadmap&markers=size:mid|color:red{% for campus in university.campus_set.all %}|{{ campus.address }}{% endfor %}&sensor=false" />
 {% endblock %}

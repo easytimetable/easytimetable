@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from locations.forms import CampusForm
 from locations.models import University, Campus, Place 
-import acls
+from acls import crud_acl_handler
 
 urlpatterns = patterns('utils.crud',
 
@@ -10,12 +10,14 @@ urlpatterns = patterns('utils.crud',
         'model': University, 
         'template_name': 'crud/add.html',
         'post_save_redirect': 'locations:list_universities', 
+        'acl_handler': crud_acl_handler("university"),
     }, 'add_university'),
 
     (r'^universities/(?P<object_id>\d+)/update/$', 'update', {
         'model': University, 
         'template_name': 'crud/add.html',
         'post_save_redirect': 'locations:list_universities', 
+        'acl_handler': crud_acl_handler("university"),
     }, 'update_university'),
 
     (r'^universities/$', 'list', {
@@ -23,18 +25,20 @@ urlpatterns = patterns('utils.crud',
         'fields': [
             ('University', 'name'), 
             ('Campus', 'campus_set.count')],
-        'acl_handler': acls.universities,
+        'acl_handler': crud_acl_handler("university"),
     }, 'list_universities'),
 
     (r'^universities/(?P<object_id>\d+)/delete/$', 'delete', {
         'model': University,
-        'post_delete_redirect': 'locations:list_universities'
+        'post_delete_redirect': 'locations:list_universities',
+        'acl_handler': crud_acl_handler("university"),
     }, 'delete_university'),
 
     (r'^universities/(?P<object_id>\d+)/$', 'get', {
         'queryset': University.objects.all(), 
         'template_name': 'get_university.html',
         'template_object_name': 'university',
+        'acl_handler': crud_acl_handler("university"),
     }, 'get_university'),
 
     # -- Campuses ------------------------------------------------
@@ -42,29 +46,34 @@ urlpatterns = patterns('utils.crud',
         'form_class': CampusForm, 
         'template_name': 'crud/add.html',
         'post_save_redirect': 'locations:list_campuses', 
+        'acl_handler': crud_acl_handler("campus"),
     }, 'add_campus'),
 
     (r'^campuses/(?P<object_id>\d+)/update/$', 'update', {
         'form_class': CampusForm, 
         'template_name': 'crud/add.html',
         'post_save_redirect': 'locations:list_campuses', 
+        'acl_handler': crud_acl_handler("campus"),
     }, 'update_campus'),
 
     (r'^campuses/$', 'list', {
         'model': Campus,
         'form_class': CampusForm,
         'fields': [('Campus', 'name'), ('University', 'university.name')],
+        'acl_handler': crud_acl_handler("campus"),
     }, 'list_campuses'),
 
     (r'^campuses/(?P<object_id>\d+)/delete/$', 'delete', {
         'model': Campus,
-        'post_delete_redirect': 'locations:list_campuses'
+        'post_delete_redirect': 'locations:list_campuses',
+        'acl_handler': crud_acl_handler("campus"),
     }, 'delete_campus'),
 
     (r'^campuses/(?P<object_id>\d+)/$', 'get', {
         'queryset': Campus.objects.all(), 
         'template_name': 'get_campus.html',
         'template_object_name': 'campus',
+        'acl_handler': crud_acl_handler("campus"),
     }, 'get_campus'),
 
     # -- Places ------------------------------------------------
@@ -72,27 +81,32 @@ urlpatterns = patterns('utils.crud',
         'model': Place, 
         'template_name': 'crud/add.html',
         'post_save_redirect': 'locations:list_places', 
+        'acl_handler': crud_acl_handler("place"),
     }, 'add_place'),
 
     (r'^places/(?P<object_id>\d+)/update/$', 'update', {
         'model': Place, 
         'template_name': 'crud/add.html',
         'post_save_redirect': 'locations:list_places', 
+        'acl_handler': crud_acl_handler("place"),
     }, 'update_place'),
 
     (r'^places/$', 'list', {
         'model': Place,
         'fields': [('Id','id'),('Text', 'name')],
+        'acl_handler': crud_acl_handler("place"),
     }, 'list_places'),
 
     (r'^places/(?P<object_id>\d+)/delete/$', 'delete', {
         'model': Place,
-        'post_delete_redirect': 'locations:list_places'
+        'post_delete_redirect': 'locations:list_places',
+        'acl_handler': crud_acl_handler("place"),
     }, 'delete_place'),
 
     (r'^places/(?P<object_id>\d+)/$', 'get', {
         'queryset': Place.objects.all(), 
         'template_name': 'get_place.html',
         'template_object_name': 'place',
+        'acl_handler': crud_acl_handler("place"),
     }, 'get_place'),
 )

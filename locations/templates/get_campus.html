@@ -4,8 +4,12 @@
 {% block content %}
 <h2>{{campus.name}}</h2>
     <div class="right">
+        {% if can_update %}
         <a class="awesome small green button" href="{% url locations:update_campus campus.id %}">update</a>
+        {% endif %}
+        {% if can_delete %}
         <a class="awesome small red button" href="{% url locations:delete_campus campus.id %}">delete</a>
+        {% endif %}
     </div>
         <p>{{ campus.address }}. {% trans "This campus belongs to " %}<a href="{% url locations:get_university campus.university_id %}">{{campus.university.name}}</a> {% trans "university" %}</p>
 
@@ -40,6 +44,6 @@
     {% endif %}
     {% if campus.address %}
         <h3>{% trans "Localisation" %}</h3>
-        <img src="http://maps.google.com/maps/api/staticmap?size=512x512&maptype=roadmap&markers=size:mid|color:red|{{ campus.address }}&sensor=false" />
+        <img src="http://maps.google.com/maps/api/staticmap?size=600x300&maptype=roadmap&markers=size:mid|color:red|{{ campus.address }}&sensor=false" />
     {% endif %}
 {% endblock %}

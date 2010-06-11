@@ -4,8 +4,8 @@
 {% block content %}
 <h2>{{ cursus.name }}</h2>
 <p> {% trans "Start date : " %} {{cursus.start_date}} </p>
-<a class="awesome small red button" href="{% url pedagogy:delete_cursus cursus.id %}">delete</a>
-<a class="awesome small green button" href="{% url pedagogy:update_cursus cursus.id %}">update</a> 
+{% if can_update %}<a class="awesome small green button" href="{% url pedagogy:update_cursus cursus.id %}">update</a>{% endif %}
+{% if can_delete %}<a class="awesome small red button" href="{% url pedagogy:delete_cursus cursus.id %}">delete</a>{% endif %}
 <br />
 <br />
 <br />
