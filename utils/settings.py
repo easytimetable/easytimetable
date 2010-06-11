@@ -9,4 +9,4 @@ DEFAULT_RESOURCE_ACCESS = getattr(settings,
     'CRUD_DEFAULT_RESOURCE_ACCESS', True)
 
 # Default callable returns always True
-DEFAULT_RIGHTS_CALLABLE = lambda user, right: DEFAULT_RESOURCE_ACCESS
+DEFAULT_ACL_HANDLER= lambda request, right, *args, **kwargs: DEFAULT_RESOURCE_ACCESS

@@ -12,24 +12,38 @@ from django.views.generic.list_detail import object_detail
 
 from utils.shortcuts import render_to_response
 from utils.settings import DEFAULT_LIST_TEMPLATE, DEFAULT_RESOURCE_ACCESS, \
-    DEFAULT_RIGHTS_CALLABLE
+    DEFAULT_ACL_HANDLER
 
-def create(request, post_save_redirect, *args, **kwargs):
+def _process_rights(request, acl_handler, dict={}, rights={}, *args, **kwargs):
+    """Process the rights, determines the rights for the given parameters
+    and put according informations in "dict". 
+    """
+    for right in ('create', 'update', 'delete', 'view'):
+        dict['can_'+right] = rights.get(right,
+            acl_handler(request, right, *args, **kwargs))
+    return dict
+
+def create(request, post_save_redirect, acl_handler=DEFAULT_ACL_HANDLER, 
+    *args, **kwargs):
     """thin wrapper around django generic view to support reverse urls
     """
     return create_object(request=request,
-        post_save_redirect=reverse(post_save_redirect), *args, **kwargs)
+        post_save_redirect=reverse(post_save_redirect), 
+        extra_context=_process_rights(request, acl_handler), *args, **kwargs)
 
-def update(request, post_save_redirect, *args, **kwargs):
+def update(request, post_save_redirect, acl_handler=DEFAULT_ACL_HANDLER, 
+    *args, **kwargs):
     """thin wrapper around django generic view to support reverse  urls
     """
     return update_object(request=request, 
-        post_save_redirect=reverse(post_save_redirect), *args, **kwargs)
+        post_save_redirect=reverse(post_save_redirect), 
+        extra_context=_process_rights(request, acl_handler), *args, **kwargs)
 
-def get(*args, **kwargs):
+def get(request, acl_handler=DEFAULT_ACL_HANDLER, *args, **kwargs):
     """thin wrapper around django generic view to support reverse  urls
     """
-    return object_detail(*args, **kwargs) 
+    return object_detail(request, 
+        extra_context=_process_rights(request, acl_handler), *args, **kwargs)
 
 def delete(request, model, object_id, post_delete_redirect, verbose_name="object", 
     field_name='id'):
@@ -44,7 +58,8 @@ def delete(request, model, object_id, post_delete_redirect, verbose_name="object
 def list(request, fields, model=None, queryset=None, form_class=None, 
         template=DEFAULT_LIST_TEMPLATE, object_name=None, app_name=None, 
         object_verbose_name=None, rights={}, 
-        rights_callable=DEFAULT_RIGHTS_CALLABLE, extra_context={}):
+        acl_handler=DEFAULT_ACL_HANDLER, extra_context={}, *args, 
+        **kwargs):
     """A generic List method, that allows to specify the list of what we want
     to display.
 
@@ -55,9 +70,9 @@ def list(request, fields, model=None, queryset=None, form_class=None,
     The rights are defined with the right arguments, wich is a dict.
     This is mainly used to know if the current user can do CRUD actions.
 
-    If these are not defined, list uses the rights_callable, if given, to
+    If these are not defined, list uses the acl_handler, if given, to
     determine wich rights to set for the current user. If not defined, this
-    callable use DEFAULT_RIGHTS_CALLABLE.
+    callable use DEFAULT_ACL_HANDLER.
 
     By default, the list action use a template defined by 
     DEFAULT_LIST_TEMPLATE, but you can change this behavior by setting the
@@ -109,10 +124,8 @@ def list(request, fields, model=None, queryset=None, form_class=None,
         'form': form_class(),
     }
 
-    # add rights
-    for right in ('create', 'update', 'delete', 'view'):
-        return_context['can_'+right] = rights.get(right,
-            rights_callable(right, request.user)) 
+    return_context = _process_rights(request, acl_handler, return_context, 
+        *args, **kwargs)
         
     # add extra_context
     for key, value in extra_context.items():

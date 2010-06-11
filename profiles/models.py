@@ -29,9 +29,9 @@ class Profile(models.Model):
     def can_manage_classgroup(self, classgroup_id=None):
         """tell if the user can manage classgroups"""
         if classgroup_id is None:
-            return self.classgroup_managed is not Null
+            return self.class_group_managed is not Null
         else:
-            return self.classgroup_managed.filter(classgroup__id=classgroup_id)
+            return self.class_group_managed.filter(classgroup__id=classgroup_id)
 
     def can_manage_cursus(self, cursus_id=None):
         """tell if the user can manage pedagogy related items"""

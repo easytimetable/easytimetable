@@ -3,6 +3,7 @@ from profiles.models import User
 
 from profiles.models import ClassGroup, Profile
 from profiles.forms import StudentForm, CampusManagerForm
+from acls import crud_acl_handler
 
 urlpatterns = patterns('utils.crud',
     
@@ -12,22 +13,26 @@ urlpatterns = patterns('utils.crud',
         'model': ClassGroup, 
         'template_name': 'crud/add.html',
         'post_save_redirect': 'profiles:list_classgroups', 
+        'acl_handler': crud_acl_handler("campus"),
     }, 'update_classgroup'),
 
     (r'^classes/$', 'list', {
         'model': ClassGroup, 
         'fields': [('id', 'id'), ('name', 'name')],
+        'acl_handler': crud_acl_handler("campus"),
     }, 'list_classgroups'),
 
     (r'^classes/(?P<object_id>\d+)/delete/$', 'delete', {
         'model': ClassGroup,
-        'post_delete_redirect': 'profiles:list_classgroups'
+        'post_delete_redirect': 'profiles:list_classgroups',
+        'acl_handler': crud_acl_handler("campus"),
     }, 'delete_classgroup'),
 
     (r'^classes/(?P<object_id>\d+)/$', 'get', {
         'queryset': ClassGroup.objects.all(), 
         'template_name': 'get_classgroup.html',
         'template_object_name': 'classgroup',
+        'acl_handler': crud_acl_handler("campus"),
     }, 'get_classgroup'),
 
     # -- Students ---------------------------------------
@@ -37,6 +42,7 @@ urlpatterns = patterns('utils.crud',
         'form_class': StudentForm,
         'template_name': 'crud/add.html',
         'post_save_redirect': 'profiles:list_students', 
+        'acl_handler': crud_acl_handler("campus"),
     }, 'add_student'),
     
     (r'^students/$', 'list', {
@@ -44,8 +50,8 @@ urlpatterns = patterns('utils.crud',
         'form_class': StudentForm,
         'fields': [
             ('Name', 'username'), 
-            ('Class', 'profile_set.get.classgroup.name')
-        ],
+            ('Class', 'profile_set.get.classgroup.name')],
+        'acl_handler': crud_acl_handler("campus"),
         'object_name': 'student', 
         'app_name': 'profiles',
         'rights':{'update': False},
@@ -55,11 +61,13 @@ urlpatterns = patterns('utils.crud',
         'queryset': User.objects.filter(profile__classgroup__isnull=False),
         'template_name': 'get_student.html',
         'template_object_name': 'student',
+        'acl_handler': crud_acl_handler("campus"),
     }, 'get_student'),
     
     (r'^student/(?P<object_id>\d+)/delete/$', 'delete', {
         'model': User,
-        'post_delete_redirect': 'profiles:list_students'
+        'post_delete_redirect': 'profiles:list_students',
+        'acl_handler': crud_acl_handler("campus"),
     }, 'delete_student'),
 
     # -- Campus Manager -----------------------------------------------
@@ -69,6 +77,7 @@ urlpatterns = patterns('utils.crud',
         'form_class': CampusManagerForm,
         'template_name': 'crud/add.html',
         'post_save_redirect': 'profiles:list_campus_managers', 
+        'acl_handler': crud_acl_handler("university"),
     }, 'add_campus_manager'),
     
     (r'^campus_managers/$', 'list', {
@@ -81,6 +90,7 @@ urlpatterns = patterns('utils.crud',
         'object_name': 'campus_manager',
         'object_verbose_name': 'campus manager',
         'app_name': 'profiles',
+        'acl_handler': crud_acl_handler("university"),
         'rights':{'update': False},
     }, 'list_campus_managers'),
 
@@ -88,6 +98,7 @@ urlpatterns = patterns('utils.crud',
         'queryset': User.objects.filter(profile__campus_managed__isnull=False).distinct(),
         'template_name': 'get_campus_manager.html',
         'template_object_name': 'campus_manager',
+        'acl_handler': crud_acl_handler("university"),
     }, 'get_campus_manager'),
 )
 
