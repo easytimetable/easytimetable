@@ -19,7 +19,7 @@ Au coeur du besoin des universités
     * Gestion du contenu pédagogique des différents cursus.
     * Accès et composition des plannings de vos professeurs et elèves, classe par
       classe, campus par campus
-    * Intégration sur une seule et même plateforme votre planning personnel et
+    * Intégration sur une seule et même plateforme de votre planning personnel et
       scolaire
 
 Une console d'Administration à la hauteur de vos attentes
@@ -35,7 +35,7 @@ Embarquez avec votre agenda !
     * Accedez à votre planning depuis votre mobile
     * Exportez vos plannings au format iCal
 
-Une architecture modulaire
+Adapté à vos futures idées
 ===========================
 
     * Conçu avec les meilleurs logiciels open source
@@ -53,8 +53,9 @@ Nos tarif : Adaptés à vos contraintes
 Nous vous proposons une plusieurs solutions, selon vos besoins:
 
     * Offre hebergée: ne vous souciez de rien, on s'en occupe pour vous !
-    * Paiement au forfait, si vous souhaitez
-    * Aquerez une licence du logiciel (contactez nous pour plus d'informations)
+    * Paiement au forfait, arretez vous quand vous voulez.
+    * Aquerez une licence du logiciel et gardez le controle sur votre 
+      infrastructure
 
 Vous avez une demande particulière ? N'hésitez pas à nous contacter ! 
 
