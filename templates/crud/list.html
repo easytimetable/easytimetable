@@ -4,6 +4,7 @@
 {% load uni_form_tags %}
 {% block title %}{% blocktrans %} {{object_verbose_name}}'s List{% endblocktrans %}{% endblock %}
 {% block additional_js %}
+{% if can_create %}
 {% if form %}
     <script type="text/javascript">
         $(document).ready(function(){
@@ -37,14 +38,17 @@
         });
     </script>
 {% endif %}
+{% endif %}
 {% endblock %}
 {% block content %}
 {% block toplinks %}
+{% if can_create %}
 <a id="link_add" class="awesome large green button right" style="margin-top:8px !important;" href="{% get_url app_name ":add_" object_name %}">{% block add_link_name %}
 {% trans "Add "%} {{object_verbose_name}} →{% endblock %}</a>
+{% endif %}
 {% endblock %}
 {% block creation_form %}
-
+{% if can_create %}
 {% if form %} 
 <h2 class="belongs-form" style="display: none">{% trans "Add "%} {{object_verbose_name}} </h2>
 <div id="add-object-form" class="clear">
@@ -60,6 +64,7 @@
     </form>
     <div class="clear"></div>
 </div>
+{% endif %}
 {% endif %}
 {% endblock %}
    <h2 >{% blocktrans %} The list of {{object_verbose_name}} {% endblocktrans %}</h2>    

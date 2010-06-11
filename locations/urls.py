@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 from locations.forms import CampusForm
 from locations.models import University, Campus, Place 
+import acls
 
 urlpatterns = patterns('utils.crud',
 
@@ -19,7 +20,10 @@ urlpatterns = patterns('utils.crud',
 
     (r'^universities/$', 'list', {
         'model': University, 
-        'fields': [('University', 'name'), ('Campus', 'campus_set.count')],
+        'fields': [
+            ('University', 'name'), 
+            ('Campus', 'campus_set.count')],
+        'acl_handler': acls.universities,
     }, 'list_universities'),
 
     (r'^universities/(?P<object_id>\d+)/delete/$', 'delete', {

@@ -8,6 +8,15 @@
 @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
 @import url(http://fonts.googleapis.com/css?family=Reenie+Beanie);
 
+/* Internal imports */
+@import url("blueprint/screen.css");
+@import url("blueprint/plugins/liquid.css");
+@import url("superfish.css");
+@import url("awesome.css");
+@import url("jquery.gritter.css");
+@import url("theme/jquery-ui.css");
+
+
 #htmltitle{
     font-family: 'Reenie Beanie', arial, serif;
 }
