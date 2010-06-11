@@ -1,25 +1,81 @@
-from utils.shortcuts import render_to_response
-from utils.settings import DEFAULT_LIST_TEMPLATE
 from django.db.models.query import QuerySet
 from django.db.models.base import ModelBase
 from django.utils import simplejson as json
+from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse
+from django.shortcuts import redirect, get_object_or_404
+from django.core.urlresolvers import reverse
+from django.conf import settings
 
+from django.views.generic.create_update import get_model_and_form_class, create_object, update_object
+from django.views.generic.list_detail import object_detail
 
+from utils.shortcuts import render_to_response
+from utils.settings import DEFAULT_LIST_TEMPLATE, DEFAULT_RESOURCE_ACCESS, \
+    DEFAULT_RIGHTS_CALLABLE
 
-def list(queryset, cols, request, template=DEFAULT_LIST_TEMPLATE, 
-        obj_name=None, app_name=None, extra_context={}):
+def create(request, post_save_redirect, *args, **kwargs):
+    """thin wrapper around django generic view to support reverse urls
+    """
+    return create_object(request=request,
+        post_save_redirect=reverse(post_save_redirect), *args, **kwargs)
 
-    if isinstance(queryset, QuerySet):
-        objs = queryset
-    elif isinstance(queryset, ModelBase):
-        objs = queryset.objects.all()
+def update(request, post_save_redirect, *args, **kwargs):
+    """thin wrapper around django generic view to support reverse  urls
+    """
+    return update_object(request=request, 
+        post_save_redirect=reverse(post_save_redirect), *args, **kwargs)
+
+def get(*args, **kwargs):
+    """thin wrapper around django generic view to support reverse  urls
+    """
+    return object_detail(*args, **kwargs) 
+
+def delete(request, model, object_id, post_delete_redirect, verbose_name="object", 
+    field_name='id'):
+    """Delete an object
+    """
+    object = get_object_or_404(model, pk=object_id)
+    request.user.message_set.create(message=_("%s %s has been deleted.") %(
+            getattr(object, field_name, 'The'), verbose_name))
+    object.delete()
+    return redirect(post_delete_redirect)
+
+def list(request, fields, model=None, queryset=None, form_class=None, 
+        template=DEFAULT_LIST_TEMPLATE, object_name=None, app_name=None, 
+        object_verbose_name=None, rights={}, 
+        rights_callable=DEFAULT_RIGHTS_CALLABLE, extra_context={}):
+    """A generic List method, that allows to specify the list of what we want
+    to display.
+
+    You could either pass a model or a queryset to loop on. 
+    This view also display a creation form, if a form is provided and the user 
+    has the rights to do so.
+
+    The rights are defined with the right arguments, wich is a dict.
+    This is mainly used to know if the current user can do CRUD actions.
+
+    If these are not defined, list uses the rights_callable, if given, to
+    determine wich rights to set for the current user. If not defined, this
+    callable use DEFAULT_RIGHTS_CALLABLE.
+
+    By default, the list action use a template defined by 
+    DEFAULT_LIST_TEMPLATE, but you can change this behavior by setting the
+    `template` parameter.
+    """
+
+    if model:
+        model, form_class = get_model_and_form_class(model, form_class) 
+    if queryset is not None:
+        queryset = queryset
+    else:
+        queryset = model.objects.all()
 
     list_params = {}
-    if objs:
-        for obj in objs:
+    if queryset:
+        for obj in queryset:
             list_params[obj.id] = []
-            for (key, attrs) in cols:
+            for (key, attrs) in fields:
                 item = obj
                 for attr in attrs.split('.'):
                     if hasattr(item, attr):
@@ -32,10 +88,13 @@ def list(queryset, cols, request, template=DEFAULT_LIST_TEMPLATE,
                     else:
                         item = ""
                 list_params[obj.id].append((key, item))
-    if obj_name is None:
-        obj_name = queryset.__name__.lower()
-    if app_name is None:
-        app_name = queryset.__module__.split('.')[0]
+    try:
+        if object_name is None:
+            object_name = model.__name__.lower()
+        if app_name is None:
+            app_name = model.__module__.split('.')[0]
+    except AttributeError:
+        object_name, app_name = None, None
     
     #Gruik
     if request.is_ajax():
@@ -44,12 +103,18 @@ def list(queryset, cols, request, template=DEFAULT_LIST_TEMPLATE,
 
     return_context = {
         'elements': list_params,
-        'obj_name': obj_name,
+        'object_name': object_name,
         'app_name': app_name,
-        'obj_verbose_name': extra_context.setdefault(
-            "obj_verbose_name", obj_name),
+        'object_verbose_name': object_verbose_name or object_name,
+        'form': form_class(),
     }
 
+    # add rights
+    for right in ('create', 'update', 'delete', 'view'):
+        return_context['can_'+right] = rights.get(right,
+            rights_callable(right, request.user)) 
+        
+    # add extra_context
     for key, value in extra_context.items():
         return_context[key] = value
     return render_to_response(template, return_context, request)

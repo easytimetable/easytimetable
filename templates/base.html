@@ -60,11 +60,11 @@
     {% block additional_js %}{% endblock %}
 </head>
 <body>
-    <div class="container" class="span-24"> 
+    <div class="container" class="span-32"> 
     <div class="span-32 last">
     <h1 id="title"><a href="/">Easy Time Table <strong>Online</strong></a></h1>
     <span id="subtitle">an easy loutre calendar system</span>
-    {% block htmltitle %}<h1 id="htmltitle" class="left">Super Title here !</h1>{% endblock %}
+    {% block htmltitle %}<h1 id="htmltitle" class="left">{% trans "Time organisation made easy !" %}</h1>{% endblock %}
     </div>
 		<ul class="sf-menu">
 			<li>
@@ -143,12 +143,12 @@
             </script>
         {% endif %}   
     {% endblock %}
-    <div id="content" class="span-18">
+    <div id="content" class="span-20">
     {% block content %}
     lapin 
     {% endblock %}
     </div>
-    <div id="menu" class="span-6 last">
+    <div id="menu" class="span-4 last">
     {% block login_menu %}
     {% if user.is_authenticated %}
     {% trans "You're " %}{{ user.username }}.

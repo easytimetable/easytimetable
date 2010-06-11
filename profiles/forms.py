@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 # it's possible to specify a default password in the settings
+# if not is provided, use "password" by default.
 DEFAULT_PASSWORD = getattr(settings, 'DEFAULT_PASSWORD', 'password')
 
 class ClassGroupForm(forms.ModelForm):
@@ -12,6 +13,9 @@ class ClassGroupForm(forms.ModelForm):
         model = ClassGroup
 
 class UserForm(forms.Form):
+    def __init__(self, instance=None, *args, **kwargs):
+        return super(UserForm, self).__init__(*args, **kwargs)
+
     def _create_user(self, username, first_name, last_name, email): 
             user = User(username=username, 
                 first_name=first_name, 
@@ -41,6 +45,9 @@ class StudentForm(UserForm):
             first_name=first_name, last_name=last_name)
             profile.save()
             return profile
+
+    class _meta:
+       model = Profile 
 
 class CampusManagerForm(UserForm):
     first_name = forms.CharField()

@@ -10,19 +10,21 @@ Prérequis
 Ci-dessous, les composants logiciels nécessaires au fonctionnement de
 l'application
 
-* Une station unix, linux, mac ou équivalent
-* Python >= 2.5
-* nginx
-* easy_install ou pip
-* Un compte de service pour lancer l'application (ci-après "srveasy")
+    * Une station unix, linux, mac ou équivalent
+    * Python >= 2.5
+    * nginx
+    * easy_install ou pip
+    * Un compte de service pour lancer l'application (ci-après "srveasy")
 
 Pour une installation en ligne
-* Git
+    
+    * Git
 
 Pour une installation hors ligne
-* Le paquet easytimetable.tar.gz
-* tar
-* gunzip
+    
+    * Le paquet easytimetable.tar.gz
+    * tar
+    * gunzip
 
 Les procédures suivantes ont été conçues pour une installation sous
 Debian GNU/Linux. Elles sont toutefois théoriquement appliquables à

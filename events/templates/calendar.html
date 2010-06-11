@@ -8,6 +8,7 @@ calendar = null;
 $(document).ready(function(){
     
     var calendar = $('#calendar').fullCalendar({
+        defaultView: 'agendaWeek',
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -28,32 +29,20 @@ $(document).ready(function(){
             {"days" : days, "minutes" : minutes, "all_day": allDay});
         }
     });
+    calendar_manager = new CalendarManager($('#calendar'), 
+    "{% url events:display_calendar %}");
+
+
+    $('#cals_to_show>:checkbox').each(function(){
+        new CalendarCheckbox($(this), calendar_manager);
+    });
+
 
     // automatically load ajax links within a modal dialog box
     $('a.ajax').click(function(){return pop_add_event_dialog(null,null,null);});
     
-    $('#cals_to_show>:checkbox').each(function(){
-        $(this).click(function(){
-            update_calendars(this.checked, this.value);
-        });
-        update_calendars(this.checked, this.value);
-    });
+    new CalendarSubmiter($('#form_add_user_event'), calendar_manager, "my_user");
 
-    // on form submit, add a the new event  
-    $("#form_add_user_event").submit(function(){
-        var datearray = $("#id_user-date").val().split("-");
-        var year = datearray[0];
-        var month = parseInt(datearray[1]) - 1;
-        var day = datearray[2];
-        hour = $("#id_user-start_hour").val();
-        duration = $("#id_user-duration").val();
-        start_date = new Date(year, month, day, hour);
-        end_date = new Date(year, month, day, parseInt(hour) + parseInt(duration));
-        // make a post ajax request with the data to save
-        $.post("{% url events:add_user_event %}", $(this).serialize(), 
-             function(data) {calendar.fullCalendar('renderEvent', data)}, "json");
-        return false;
-    });
 });
 
 function update_calendars(checked, value){
@@ -92,7 +81,6 @@ function set_form_variables(selector, start, end, allDay){
 </script>
 {% endblock %}
 {% block content %}
-<h2>Calendar</h2>
 <p class="info">{% trans "Here you can <strong>view, add or edit the different plannings</strong>, depending on the rights you have. Click on the calendar to create a new event on your agenda !" %}</p>
 <div id='calendar'></div> 
 {% endblock %}

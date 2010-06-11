@@ -49,9 +49,3 @@ class SubjectForm(forms.ModelForm):
 
     class Meta:
         model = Subject
-
-class SubjectModalityForm(forms.ModelForm):
-    class Meta:
-        model = SubjectModality
-
-
