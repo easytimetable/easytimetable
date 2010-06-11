@@ -94,14 +94,6 @@
             {% if user.is_authenticated %}
             <li class="green">
 		        <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a>
-                {% if user.get_profile.can_manage_campus %}
-                 <ul>
-		    	     <li>
-		         		<a href="{% url events:display_campus_mgr_calendar %}">
-                         {% trans "Campus Events" %}</a>
-		         	</li>
-                 </ul>
-                {% endif %}
             </li>
             {% endif %}
             {% if user.is_authenticated %}

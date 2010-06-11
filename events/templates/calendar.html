@@ -4,9 +4,9 @@
 {% block fullcalendar_init %}
 <script type="text/javascript"> 
 calendar = null;
+calendar_manager = null;
 
 $(document).ready(function(){
-    
     var calendar = $('#calendar').fullCalendar({
         defaultView: 'agendaWeek',
         header: {
@@ -23,85 +23,202 @@ $(document).ready(function(){
 
         },
         eventClick: function(calEvent, jsEvent, view) {
+            pop_edit_event_dialog(calEvent.id, jsEvent);
         },
         eventDrop: function(calEvent, days, minutes, allDay) {
             $.post("{% url events:move_event %}"+calEvent.id,
             {"days" : days, "minutes" : minutes, "all_day": allDay});
         }
     });
+    
     calendar_manager = new CalendarManager($('#calendar'), 
     "{% url events:display_calendar %}");
-
-
-    $('#cals_to_show>:checkbox').each(function(){
+    //Calendar Selectors declaration
+    new CalendarSelector($("#id_cmp_selector-campus"), "campus",
+    calendar_manager);
+    new CalendarSelector($("#id_cg_selector-classgroup"), "classgroup",
+    calendar_manager);
+    $('#my_selector :checkbox').each(function(){
         new CalendarCheckbox($(this), calendar_manager);
     });
-
+    init_forms();
 
     // automatically load ajax links within a modal dialog box
     $('a.ajax').click(function(){return pop_add_event_dialog(null,null,null);});
     
-    new CalendarSubmiter($('#form_add_user_event'), calendar_manager, "my_user");
-
+    
 });
 
-function update_calendars(checked, value){
-    var action = "add";
-    if (checked == true)
-        action = "add";
-    else
-        action = "remove";
-    
-    $('#calendar').fullCalendar(action + 'EventSource', "{% url events:get_planning %}"+
-        value);
-}
 
 function pop_add_event_dialog(start, end, allDay)
 {
-    set_form_variables('#form_add_user_event', start, end, allDay);
-    $("#form_add_user_event").dialog({
-        modal: true, 
-        buttons: {
-            Ok: function() {
-                $("#form_add_user_event").submit();
-                $(this).dialog('close');
-            }
-        }, 
+    $("#add_event_dialog").dialog({
+        modal: true,
+        open: function(){$("#tabs").tabs(); init_all_forms(start, end, allDay);},
         width: 500,
         height: 500,
-        title: "{% trans "Add an event to your personnal calendar" %}",
+        title: "{% trans "Add an event" %}",
     });
-    //prevent the browser to follow the link
     return false;
 }
 
-function set_form_variables(selector, start, end, allDay){
+function pop_edit_event_dialog(event_id)
+{
+    $("#edit_event_dialog").dialog({
+        modal: true,
+        open: function(){$.get("{% url events:update_event %}" + event_id,
+        function(data){$("#edit_event_form_div").html(data)});
+        $("#form_edit_event").data("url","{% url events:update_event %}" +
+        event_id);},
+        title: "{% trans "Edit an event" %}",
+    });
+    return false;
+}
+
+function update_classgroup_event_name()
+{
+    new_name = $('#id_classgroup-subject option:selected').text() + ' : ' +
+               $('#id_classgroup-modality option:selected').text();
+    $('#id_classgroup-name').val(new_name);
+}
+
+function init_all_forms(start, end, allDay){
+    start_date = formatDate(parseDate(start), "yyyy-MM-dd");
+    start_hour = formatDate(parseDate(start), "HH")-0;
+    end_hour = formatDate(parseDate(end), "HH")-0;
+    duration = end_hour - start_hour;
+
+    preload_classgroup_form(start_date, start_hour, duration);
+    preload_campus_form(start_date, start_hour, duration);
+    preload_user_form(start_date, start_hour, duration);
     
 }
+
+function init_forms(){
+    $('#id_classgroup-subject').change(function() {
+                                update_classgroup_event_name()});
+    $('#id_classgroup-modality').change(function() {
+                                update_classgroup_event_name()});
+
+    //First : we load the subjects
+    $('#id_classgroup-classgroup').change(function(){
+        if($("#id_classgroup-classgroup").val()=="")
+            return false;
+        $.getJSON("{% url profiles:list_classgroups %}" +
+        $("#id_classgroup-classgroup").val() +
+                "/subjects/", null, function(data) {
+                $('#id_classgroup-subject').empty();
+                for(line in data)
+                {
+                    itemData = data[line];
+                    var option = new Option(itemData['name'], itemData['id']);
+                    $('#id_classgroup-subject').append(option);
+                }
+            }
+    );
+    });
+
+    //Then we change the submit system
+
+    new CalendarSubmiter($('#form_add_classgroup_event'), calendar_manager,
+        "classgroup", function() {$('#add_event_dialog').dialog('close');});
+    new CalendarSubmiter($('#form_add_campus_event'), calendar_manager,
+        "campus", function() {$('#add_event_dialog').dialog('close');});
+    new CalendarSubmiter($('#form_add_user_event'), calendar_manager,
+        "my_user", function() {$('#add_event_dialog').dialog('close');});
+    new CalendarEditor($('#form_edit_event'), calendar_manager, function(){
+        $('#edit_event_dialog').dialog('close');});
+    calendar_manager.add_event_source("mandatory", "");
+    calendar_manager.display_event_source("mandatory");
+        
+}
+
+function preload_classgroup_form(start_date, start_hour, duration){
+    //Then we set the selected class
+    $('#id_classgroup-classgroup').val($("#id_cg_selector-classgroup").val());
+    //Then we set the date
+    $('#id_classgroup-date').val(start_date);
+    $('#id_classgroup-start_hour').val(start_hour);
+    $('#id_classgroup-duration').val(duration);
+    
+    update_classgroup_event_name();
+}
+
+function preload_campus_form(start_date, start_hour, duration){
+    //Then we set the selected class
+    $('#id_campus-campus').val($("#id_cmp_selector-campus").val());
+    //Then we set the date
+    $('#id_campus-date').val(start_date);
+    $('#id_campus-start_hour').val(start_hour);
+    $('#id_campus-duration').val(duration);
+}
+
+function preload_user_form(start_date, start_hour, duration){
+    //Then we set the date
+    $('#id_user-date').val(start_date);
+    $('#id_user-start_hour').val(start_hour);
+    $('#id_user-duration').val(duration);
+}
+
 </script>
 {% endblock %}
 {% block content %}
 <p class="info">{% trans "Here you can <strong>view, add or edit the different plannings</strong>, depending on the rights you have. Click on the calendar to create a new event on your agenda !" %}</p>
 <div id='calendar'></div> 
+
+<div id="edit_event_dialog" style="display: none;">
+    <form id="form_edit_event">
+        <div id="edit_event_form_div"></div>
+        <input type="submit" value="Ok"/>
+    </form>
+</div>
+
+<div id="add_event_dialog" style="display: none;">
+    <div id="tabs">
+    <ul>
+        {% if classgroup_form %}
+            <li><a href="#fragment-1"><span>Class</span></a></li>
+        {% endif %}
+        {% if campus_form %}
+            <li><a href="#fragment-2"><span>Campus</span></a></li>
+        {% endif %}
+            <li><a href="#fragment-3"><span>My events</span></a></li>
+    </ul>
+    {% if classgroup_form %}
+        <div id="fragment-1">
+            <form id="form_add_classgroup_event">
+               {{classgroup_form.as_p}}
+               <input type="submit" id="sub-classgroup_event" value="toto"/>
+            </form>
+        </div>
+    {% endif %}
+    {% if campus_form %}
+        <div id="fragment-2">
+            <form id="form_add_campus_event">
+                {{campus_form.as_p}}
+                <input type="submit" id="sub-campus_event" value="toto"/>
+            </form>
+        </div>
+    {% endif %}
+        <div id="fragment-3">
+            <form id="form_add_user_event">
+                {{user_form.as_p}}
+                <input type="submit" id="sub-user_event" value="toto"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
 {% block menu %}
-<form id="cals_to_show">
-<input type="checkbox" name="what" value="my_user" checked="1">
-{% trans "My Calendar" %}<br />
-{% if user.get_profile.is_student %}
-<input type="checkbox" name="what" value="my_classgroup" checked="1">
-{% trans "My Class Calendar" %}<br />
-<input type="checkbox" name="what" value="my_campus">
-{% trans "My Campus Calendar" %}<br />
-<input type="checkbox" name="what" value="my_university">
-{% trans "My University Calendar" %}<br />
-{% endif %}
+<form id="campus_selector" class="calendar_selector"> 
+    {{ campus_selector_form.as_p }}
 </form>
-
-<div id="add_user_event" style="display: none;">
-<form id="form_add_user_event">
-<p class="info width-400">{% trans "Here you can add events to your personal agenda. Just full in the fields, click ok and you event will be created !" %}</p>
-   {{user_form|as_uni_form}}
+<form id="classgroup_selector" class="calendar_selector"> 
+    {{ classgroup_selector_form.as_p }}
 </form>
-</div>
+<form id="my_selector" class="calendar_selector"> 
+    {{ my_selector_form.as_p }}
+</form>
 {% endblock %}
