@@ -83,10 +83,9 @@ def list(request, fields, model=None, queryset=None, form_class=None,
         model = queryset.model
     if model:
         model, form_class = get_model_and_form_class(model, form_class) 
-    if queryset is not None:
-        queryset = queryset
-    else:
+    if queryset is None:
         queryset = model.objects.all()
+    queryset = queryset._clone()
 
     list_params = {}
     if queryset:

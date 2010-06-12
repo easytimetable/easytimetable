@@ -132,10 +132,25 @@ urlpatterns = patterns('utils.crud',
     }, 'get_teacher'),
 
     (r'^teacher/(?P<object_id>\d+)/delete/$', 'delete', {
-        'queryset': User.objects.filter(profile__is_teacher=True),
+        'model': User,
         'post_delete_redirect': 'profiles:list_teachers',
         'acl_handler': crud_acl_handler("campus"),
     }, 'delete_teacher'),
+
+    # -- All users ---------------------------------------------
+    (r'^users/$', 'list', {
+        'model': User,
+        'form_class': CampusManagerForm,
+        'fields':[
+            ('First name', 'first_name'), 
+            ('Last name', 'last_name'),
+            ('Managed campuses', 'get_profile.list_managed_campuses')],
+        'object_name': 'user',
+        'object_verbose_name': 'User',
+        'app_name': 'profiles',
+        'acl_handler': crud_acl_handler("university"),
+        'rights':{'update': False, 'create': False, 'view': False, 'delete': False},
+    }, 'list_users'),
 )
 
 # specific views
