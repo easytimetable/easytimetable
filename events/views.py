@@ -98,7 +98,7 @@ def move_event(request, when_id):
             return HttpResponse(json.dumps(j))
         else:
             return False
-
+@login_required
 def resize_event(request, when_id):
     if request.POST:
         when = When.objects.get(id=when_id)
@@ -120,9 +120,19 @@ def add_course_event(request):
 
 def update_course_event(request, class_event_id):
     pass
-
-def delete_event(request, event_id):
-    pass
+@login_required
+def delete_event(request, when_id):
+    if request.POST:
+        when = When.objects.get(id=when_id)
+        if not is_event_editable(request.user, when):
+            return False
+        when.event.who_set.all().delete()
+        when.event.delete()
+        when.delete()
+        return HttpResponse("ok")
+    return HttpResponse("!ok")
+        
+    
 
 @login_required
 def display_calendar(request):

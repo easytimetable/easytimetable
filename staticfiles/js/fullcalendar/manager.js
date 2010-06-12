@@ -46,6 +46,11 @@ function CalendarManager(full_calendar, base_url) {
         }
         this.orphans = [];
     };
+    
+    this.delete_event = function(event_id){
+        this.full_calendar.fullCalendar('removeEvents', event_id);
+    }
+        
 
     this.purge_event_source = function (name) {
         this.purge_orphans();
@@ -155,7 +160,7 @@ function CalendarEditor(element, fc_manager, callback)
 {
     element.data("fc_mgr", fc_manager);
     element.submiter = function() {
-        url = $(this).data("url");
+        url = $(this).data("edit_url") + $(this).data("event_id");
         fc_mgr = $(this).data("fc_mgr");
         $.post(url, $(this).serialize(),
             function(data) {
@@ -165,11 +170,25 @@ function CalendarEditor(element, fc_manager, callback)
         return false;
         }
 
+    element.deleter = function() {
+        url = $(this).data("delete_url") + $(this).data("event_id");
+        fc_mgr = $(this).data("fc_mgr");
+        $.post(url, {},
+            function(data) {
+               fc_mgr.delete_event($(this).data("event_id"))});
+        if(callback)
+            callback();
+        return false;
+        }
+    $("[name=deleter]", element).click(function(event) {
+        event.preventDefault()
+        return element.deleter();
+    });
+
     element.submit(function() {
         return element.submiter();
     });
 }
-
 
 function CalendarSubmiter(element, fc_manager, source_type, callback)
 {
