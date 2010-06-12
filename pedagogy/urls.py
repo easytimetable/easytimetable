@@ -141,6 +141,7 @@ urlpatterns = patterns('utils.crud',
             ('Classes', 'classgroup_set.count')
         ],
         'acl_handler': crud_acl_handler("cursus"),
+        'template': 'list_cursuses.html'
     }, 'list_cursuses'),
 
     (r'^cursuses/(?P<object_id>\d+)/delete/$', 'delete', {

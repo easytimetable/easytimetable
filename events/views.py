@@ -1,7 +1,6 @@
 """List of django views for planning management
 
 """
-
 # django imports
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _

@@ -41,6 +41,7 @@
 {% endif %}
 {% endblock %}
 {% block content %}
+{% block info %}{% endblock %}
 {% block toplinks %}
 {% if can_create %}
 <a id="link_add" class="awesome large green button right" style="margin-top:8px !important;" href="{% get_url app_name ":add_" object_name %}">{% block add_link_name %}

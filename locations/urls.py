@@ -61,6 +61,7 @@ urlpatterns = patterns('utils.crud',
         'form_class': CampusForm,
         'fields': [('Campus', 'name'), ('University', 'university.name')],
         'acl_handler': crud_acl_handler("campus"),
+        'template': 'list_campus.html'
     }, 'list_campuses'),
 
     (r'^campuses/(?P<object_id>\d+)/delete/$', 'delete', {
@@ -95,6 +96,7 @@ urlpatterns = patterns('utils.crud',
         'queryset': Place.objects.filter(is_main_place=False),
         'fields': [('Place', 'name'), ('Campus','campus.name'), ('Address', 'address')],
         'acl_handler': crud_acl_handler("place"),
+        'template': 'list_places.html'
     }, 'list_places'),
 
     (r'^places/(?P<object_id>\d+)/delete/$', 'delete', {
