@@ -2,13 +2,13 @@
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
     <meta charset="utf-8"> 
         <title>Easy Time Table, par GREATTEAMDEVELOPMENT</title>
-		<link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
-		<link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+		<link rel="stylesheet" href="{{ MEDIA_URL }}presentation/css/reset.css" type="text/css" media="screen">
+		<link rel="stylesheet" href="{{ MEDIA_URL }}presentation/css/style.css" type="text/css" media="screen">
  
-      	<p class="contact">intéressé ?  <a href="http://easy.notmyidea.org">Essayez le !</a></p>
+      	<p class="contact">intéressé ?  <a href="{% url events:display_calendar %}">Connectez vous !</a></p>
       	
      	<div id="header">
-			<img id="logo" src="pictures/logo.png">
+			<img id="logo" src="{{ MEDIA_URL }}presentation/pictures/logo.png">
 		</div>
  
 		<h1>Gérez le planning de vos universités plus simplement que jamais !</h1>
@@ -27,17 +27,17 @@ intégration parfaite.</span>
 			 
 			<div class="feature_box"> 
 				<h2 class="first">Universités</h2>
-				<img style="float: left; width: 200px; margin-right: 10px;" src="pictures/university.png">
+				<img style="float: left; width: 200px; margin-right: 10px;" src="{{ MEDIA_URL }}presentation/pictures/university.png">
 				<ul>
 					<li>Gestion des salles et des campus.</li>
 					<li>Gestion du contenu pedagogiques.</li>
                     <li>Composition des plannings des professeurs et élèves, classe par classe.
-                    <a href="http://easy.notmyidea.org" class="lightbox">Tester !</a></li> 
+                    <a href="{% url events:display_calendar %}" class="lightbox">Tester !</a></li> 
 				</ul>
 			</div>
 			 
 			<div class="feature_box"> 
-				<img style="float: left; width: 200px; margin-right: 10px;" src="pictures/customise_sc.png">
+				<img style="float: left; width: 200px; margin-right: 10px;" src="{{ MEDIA_URL }}presentation/pictures/customise_sc.png">
 				<h2>Administration</h2>
 				<ul>
                     <li>Gestion fine des droits et privilèges </li>
@@ -48,7 +48,7 @@ intégration parfaite.</span>
 			</div>
 			
 			<div class="feature_box"> 
-				<img style="float: left; width: 200px; margin-right: 10px;" src="pictures/calendrier.png">
+				<img style="float: left; width: 200px; margin-right: 10px;" src="{{ MEDIA_URL }}presentation/pictures/calendrier.png">
                 <h2>Embarquez avec votre agenda !</h2>
                 <ul class="large-title">
                     <li>Accedez à votre planning depuis votre mobile</li>
@@ -56,7 +56,7 @@ intégration parfaite.</span>
                 </ul>
 			</div>
 			<div class="feature_box"> 
-				<img style="float: left; width: 200px; margin-right: 10px;" src="pictures/idea.png">
+				<img style="float: left; width: 200px; margin-right: 10px;" src="{{ MEDIA_URL }}presentation/pictures/idea.png">
                 <h2>Adapté à vos futures idées</h2>
                 <ul class="large-title">
                     <li>Conçu avec les meilleurs logiciels open source</li>

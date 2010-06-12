@@ -5,7 +5,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     
-    (r'^$', 'events.views.display_calendar', {}, 'index'),
+    (r'^$', 'django.views.generic.simple.direct_to_template', {
+        'template': 'presentation/plaquette.html',
+    }, 'index'),
     (r'^admin/', include(admin.site.urls)),
     (r'^pedagogy/', include('pedagogy.urls', namespace='pedagogy')),
     (r'^events/', include('events.urls', namespace='events')),
