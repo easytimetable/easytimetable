@@ -56,8 +56,8 @@ class SubjectModality(models.Model):
         ('practical_evaluation', 'Practical Evaluation'),
         ('soutenance', 'Soutenance'),
     )
-    planned_hours = models.DecimalField(max_digits=4, decimal_places=2)
-    subject = models.ForeignKey('Subject')
+    planned_hours = models.IntegerField()
+    subject = models.ForeignKey('Subject', related_name="modalities" )
     type = models.CharField(blank=False, max_length=100, choices=TYPE_CHOICES)
 
     @property
@@ -70,5 +70,5 @@ class SubjectModality(models.Model):
         """Returns a nice name"""
         return ClassGroup.objects.filter(cursus=self)
     
-def __unicode__(self):
+    def __unicode__(self):
         return dict(self.TYPE_CHOICES)[self.type]

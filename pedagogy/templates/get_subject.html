@@ -70,7 +70,7 @@ var chart;
                     type: 'pie',
                     name: 'Browser share',
                     data: [
-                    {% for modality in modalities %}
+                    {% for modality in subject.modalities.all %}
                         ['{{ modality }}', {{ modality.planned_hours }}],
                     {% endfor %}
                     ]

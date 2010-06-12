@@ -92,8 +92,8 @@ urlpatterns = patterns('utils.crud',
     }, 'update_place'),
 
     (r'^places/$', 'list', {
-        'model': Place,
-        'fields': [('Id','id'),('Text', 'name')],
+        'queryset': Place.objects.filter(is_main_place=False),
+        'fields': [('Place', 'name'), ('Campus','campus.name'), ('Address', 'address')],
         'acl_handler': crud_acl_handler("place"),
     }, 'list_places'),
 

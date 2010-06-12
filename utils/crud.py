@@ -45,8 +45,8 @@ def get(request, acl_handler=DEFAULT_ACL_HANDLER, *args, **kwargs):
     return object_detail(request, 
         extra_context=_process_rights(request, acl_handler), *args, **kwargs)
 
-def delete(request, model, object_id, post_delete_redirect, verbose_name="object", 
-    field_name='id'):
+def delete(request, model, object_id, post_delete_redirect, acl_handler=DEFAULT_LIST_TEMPLATE, 
+    verbose_name="object", field_name='id'):
     """Delete an object
     """
     object = get_object_or_404(model, pk=object_id)
@@ -79,6 +79,8 @@ def list(request, fields, model=None, queryset=None, form_class=None,
     `template` parameter.
     """
 
+    if model is None and queryset is not None:
+        model = queryset.model
     if model:
         model, form_class = get_model_and_form_class(model, form_class) 
     if queryset is not None:

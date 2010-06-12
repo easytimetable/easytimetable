@@ -40,12 +40,14 @@ class SubjectForm(forms.ModelForm):
         """
         subject = super(SubjectForm, self).save(*args, **kwargs)
         for (modality, null) in SubjectModality.TYPE_CHOICES:
-            sm = SubjectModality(
-                planned_hours=self.cleaned_data[modality],
-                subject = subject,
-                type = modality
-            )
-            sm.save()
+            if self.cleaned_data[modality] != '':
+                sm = SubjectModality(
+                    planned_hours=self.cleaned_data[modality],
+                    subject = subject,
+                    type = modality
+                )
+                sm.save()
+        return subject
 
     class Meta:
         model = Subject

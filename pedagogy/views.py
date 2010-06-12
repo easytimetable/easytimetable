@@ -12,7 +12,7 @@ def get_studyperiod(request, studyperiod_id):
     # subject modalities
     subject_modalities = {}
     for s in Subject.objects.filter(study_period=studyperiod): 
-        subject_modalities[s.name] = dict([(sm.type, sm.planned_hours) for sm in s.subjectmodality_set.all()])
+        subject_modalities[s.name] = dict([(sm.type, sm.planned_hours) for sm in s.modalities.all()])
 
     output = dict([(type,{
             'name':dict(SubjectModality.TYPE_CHOICES)[type], 
@@ -25,7 +25,7 @@ def get_studyperiod(request, studyperiod_id):
     final_output = []
     for key, value in output.items():
         final_output.append(value)
-        
+
     return render_to_response("get_studyperiod.html", {
         'studyperiod': studyperiod,
         'series': final_output,

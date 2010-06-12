@@ -39,7 +39,8 @@ urlpatterns = patterns('utils.crud',
 
     # -- Subjets ----------------------------------------
     (r'^subjects/add/$', 'create', {
-        'model': Subject, 
+        'model': Subject,
+        'form_class': SubjectForm,
         'template_name': 'crud/add.html',
         'post_save_redirect': 'pedagogy:list_subjects', 
         'acl_handler': crud_acl_handler("cursus"),
