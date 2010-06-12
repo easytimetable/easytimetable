@@ -77,6 +77,22 @@ def get_ical(request, what=None, what_arg=None, must=True, extra_context={}, **k
     return response
 
 
+@login_required
+def list_events(request):
+    to_fetch = ("mandatory", "my_user", "my_classgroup", "my_campus",
+    "my_university")
+    events = set()
+    start_date = datetime.now()
+    end_date = datetime.now()+timedelta(days=7)
+    for source in to_fetch:
+        fetched = When.objects.user_planning(request.user, source,
+                                         start_date, end_date)
+        for event in list(fetched):
+            event.resource = source
+        events = events | set(fetched)
+    return render_to_response('list_events.html', {'whens' : events,} , request)
+
+        
 
 @login_required
 def add_event(request, what=None, what_arg=None, extra_context={}, **kwargs):
@@ -166,6 +182,8 @@ def display_calendar(request):
                                                    what=["my_user"])
     forms.update(selectors)
     return render_to_response('calendar.html', {'forms' : forms,} , request)
+
+    
 
 @login_required
 def display_campus_mgr_calendar(request):
