@@ -28,25 +28,30 @@ $(document).ready(function(){
         eventDrop: function(calEvent, days, minutes, allDay) {
             $.post("{% url events:move_event %}"+calEvent.id,
             {"days" : days, "minutes" : minutes, "all_day": allDay});
-        }
+        },
+        eventResize: function(calEvent, days, minutes) { 
+            $.post("{% url events:resize_event %}"+calEvent.id,
+            {"days" : days, "minutes" : minutes, "all_day": false}
+            );
+        },
     });
     
     calendar_manager = new CalendarManager($('#calendar'), 
     "{% url events:display_calendar %}");
     //Calendar Selectors declaration
-    new CalendarSelector($("#id_cmp_selector-campus"), "campus",
-    calendar_manager);
-    new CalendarSelector($("#id_cg_selector-classgroup"), "classgroup",
-    calendar_manager);
     $('#my_selector :checkbox').each(function(){
         new CalendarCheckbox($(this), calendar_manager);
+    });
+    $('#campus_selector :checkbox').each(function(){
+        new CalendarCheckbox($(this), calendar_manager, "campus");
+    });
+    $('#classgroup_selector :checkbox').each(function(){
+        new CalendarCheckbox($(this), calendar_manager, "classgroup");
     });
     init_forms();
 
     // automatically load ajax links within a modal dialog box
     $('a.ajax').click(function(){return pop_add_event_dialog(null,null,null);});
-    
-    
 });
 
 
@@ -67,9 +72,11 @@ function pop_edit_event_dialog(event_id)
     $("#edit_event_dialog").dialog({
         modal: true,
         open: function(){$.get("{% url events:update_event %}" + event_id,
-        function(data){$("#edit_event_form_div").html(data)});
-        $("#form_edit_event").data("url","{% url events:update_event %}" +
-        event_id);},
+            function(data){$("#edit_event_form_div").html(data);
+                           $("#edit_event_form_div .datepicker").datepicker({dateFormat: 'yy-mm-d'});
+                           $("#form_edit_event").data("edit_url","{% url events:update_event %}"), +
+                           $("#form_edit_event").data("delete_url","{% url events:delete_event %}"), +
+                           $("#form_edit_event").data("event_id", event_id);})},
         title: "{% trans "Edit an event" %}",
     });
     return false;
@@ -170,6 +177,7 @@ function preload_user_form(start_date, start_hour, duration){
     <form id="form_edit_event">
         <div id="edit_event_form_div"></div>
         <input type="submit" value="Ok"/>
+        <input type="button" name="deleter" value="X"/>
     </form>
 </div>
 
@@ -188,7 +196,7 @@ function preload_user_form(start_date, start_hour, duration){
         <div id="fragment-1">
             <form id="form_add_classgroup_event">
                {{classgroup_form.as_p}}
-               <input type="submit" id="sub-classgroup_event" value="toto"/>
+               <input type="submit" id="sub-classgroup_event" value="-->"/>
             </form>
         </div>
     {% endif %}
@@ -196,14 +204,14 @@ function preload_user_form(start_date, start_hour, duration){
         <div id="fragment-2">
             <form id="form_add_campus_event">
                 {{campus_form.as_p}}
-                <input type="submit" id="sub-campus_event" value="toto"/>
+                <input type="submit" id="sub-campus_event" value="-->"/>
             </form>
         </div>
     {% endif %}
         <div id="fragment-3">
             <form id="form_add_user_event">
                 {{user_form.as_p}}
-                <input type="submit" id="sub-user_event" value="toto"/>
+                <input type="submit" id="sub-user_event" value="-->"/>
             </form>
         </div>
     </div>
@@ -213,7 +221,7 @@ function preload_user_form(start_date, start_hour, duration){
 {% endblock %}
 {% block menu %}
     <div id="menu" class="span-4 last">
-    <form id="campus_selector" class="calendar_selector"> 
+    <form name="campus" id="campus_selector" class="calendar_selector"> 
         {{ campus_selector_form.as_p }}
     </form>
     <form id="classgroup_selector" class="calendar_selector"> 
