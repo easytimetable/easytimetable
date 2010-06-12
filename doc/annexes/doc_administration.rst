@@ -144,7 +144,7 @@ Puis son activation::
 Le `(django)` signifie que l'on utilise le virtualenv "django".
 
 Installation de django
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 L'application est basée sur le framework django, ella a donc besoin que
 celui-ci soit installé pour fonctionner::
@@ -265,7 +265,7 @@ Administration de la solution
 ==============================
 
 Démarrage automatique
-~~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 Pour que le serveur gunicorn démarre automatiquement au démarrage du serveur, le script `gunicornd`
 est fourni::
