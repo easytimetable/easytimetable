@@ -1,9 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+from django.core.exceptions import ObjectDoesNotExist
+
 
 from managers import WhenManager
 from locations.models import Place, Campus, University
+from vobject.icalendar import Component, dateTimeToString
 
 class When(models.Model):
     date = models.DateTimeField(blank=True, default=datetime.datetime.now)
@@ -12,6 +15,21 @@ class When(models.Model):
     
     def __unicode__(self):
         return self.date.strftime('%d-%B-%Y')
+
+    def to_vevent(self):
+        vevent = Component('vevent')
+        vevent.add('dtstart').value = dateTimeToString(self.date)
+        vevent.add('dtstamp').value = dateTimeToString(date.fromtimestamp(0))
+        vevent.add('dtend').value = dateTimeToString(self.date +\
+                datetime.timedelta(hours=self.event.duration))
+        vevent.add('summary').value = self.event.name
+        try:
+            place = "%s : %s" % (self.event.places.get().name,
+                                  self.event.places.get().address)
+        except ObjectDoesNotExist:
+            place = self.event.place_text
+        vevent.add('location').value = place
+        return vevent
     
     def to_fullcalendar_dict(self, is_editable=lambda when:False,
     css_class='undef'):

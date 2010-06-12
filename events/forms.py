@@ -116,6 +116,8 @@ class CampusEventForm(UserEventForm):
         if self.is_valid():
             event = self._build_event(when)
             event.save()
+            event.places.clear()
+            event.places.add(self.cleaned_data['place']) 
             who = self._build_campus(when)
             who.event = event
             who.save()

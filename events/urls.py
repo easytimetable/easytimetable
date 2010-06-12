@@ -11,6 +11,7 @@ urlpatterns = patterns('events.views',
     (r'^resize/(?P<when_id>\d+)?$', 'resize_event', {}, 'resize_event'),
     
     (r'^get/(?P<what>\w+)?(/?(?P<what_arg>\d+)?)?$', 'get_planning', {}, 'get_planning'),
+    (r'^ical/(?P<what>\w+)?(/?(?P<what_arg>\d+)?)?$', 'get_ical', {}, 'get_ical'),
     (r'^add/(?P<what>\w+)?(/?(?P<what_arg>\d+)?)?$', 'add_event', {}, 'add_event'),
     (r'^update/(?P<when_id>\d+)?$', 'update_event', {}, 'update_event'),
     (r'^delete/(?P<when_id>\d+)?$', 'delete_event', {}, 'delete_event'),

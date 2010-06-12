@@ -13,6 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 # python imports
 import functools
 from datetime import date, datetime, timedelta
+from vobject import iCalendar
 
 # app imports
 from events.models import When, Who, Event
@@ -57,6 +58,26 @@ def get_planning(request, what=None, what_arg=None, extra_context={}, **kwargs):
     d = [p.to_fullcalendar_dict(partial_is_editable, what) for p in w]
     return HttpResponse(json.dumps(d))
 
+def get_ical(request, what=None, what_arg=None, extra_context={}, **kwargs):
+    start_date = date.min
+    end_date = date.max
+    w = When.objects.user_planning(request.user, what, start_date, end_date,\
+    what_arg)
+    cal = iCalendar()
+    cal.add('method').value = 'PUBLISH'  # IE/Outlook needs this
+    for e in w:
+        cal.add(e.to_vevent())
+    icalstream = cal.serialize()
+    response = HttpResponse(icalstream, mimetype='text/calendar')
+    if what_arg is None:
+        what_arg = ""
+    response['Filename'] = '%s%s.ics' % (what, what_arg)  # IE needs this
+    response['Content-Disposition'] = 'attachment; filename=%s' %\
+        response['Filename']
+    return response
+
+
+
 @login_required
 def add_event(request, what=None, what_arg=None, extra_context={}, **kwargs):
     if what == "classgroup":
@@ -98,6 +119,7 @@ def move_event(request, when_id):
             return HttpResponse(json.dumps(j))
         else:
             return False
+
 @login_required
 def resize_event(request, when_id):
     if request.POST:
@@ -114,12 +136,6 @@ def resize_event(request, when_id):
         else:
             return HttpResponse("!ok")
 
-
-def add_course_event(request):
-    pass
-
-def update_course_event(request, class_event_id):
-    pass
 @login_required
 def delete_event(request, when_id):
     if request.POST:
@@ -129,8 +145,6 @@ def delete_event(request, when_id):
         when.event.delete()
         return HttpResponse("ok")
     return HttpResponse("!ok", status=500)
-        
-    
 
 @login_required
 def display_calendar(request):
