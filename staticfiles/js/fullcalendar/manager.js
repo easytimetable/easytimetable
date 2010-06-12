@@ -82,25 +82,31 @@ function CalendarManager(full_calendar, base_url) {
 
 }
 
-function CalendarCheckbox(element, fc_manager)
+function CalendarCheckbox(element, fc_manager, type)
 {
+    if(!type)
+        type=""
     element.data("fc_mgr", fc_manager);
     element.data("src_type", element.val());
-    fc_manager.add_event_source(element.val(), "");
+    element.data("src_real_type", type);
+    if(type!="")
+        fc_manager.add_event_source(type, element.val());
+    else
+        fc_manager.add_event_source(element.val(), "");
     element.check_function = function() {
         if(this[0].checked)
-            $(this).data("fc_mgr").display_event_source($(this)
-                                                .data("src_type"))
+            $(this).data("fc_mgr").
+            display_event_source($(this).data("src_real_type") +
+                                 $(this).data("src_type"))
         else
-            $(this).data("fc_mgr").hide_event_source($(this)
-                                                .data("src_type"))
+            $(this).data("fc_mgr").
+            hide_event_source($(this).data("src_real_type") +
+                                 $(this).data("src_type"))
     };
 
     element.click(function() {element.check_function()});
     element.check_function();
 }
-
-
 
 function CalendarSelector(element, source_type, fc_manager)
 {

@@ -39,12 +39,14 @@ $(document).ready(function(){
     calendar_manager = new CalendarManager($('#calendar'), 
     "{% url events:display_calendar %}");
     //Calendar Selectors declaration
-    new CalendarSelector($("#id_cmp_selector-campus"), "campus",
-    calendar_manager);
-    new CalendarSelector($("#id_cg_selector-classgroup"), "classgroup",
-    calendar_manager);
     $('#my_selector :checkbox').each(function(){
         new CalendarCheckbox($(this), calendar_manager);
+    });
+    $('#campus_selector :checkbox').each(function(){
+        new CalendarCheckbox($(this), calendar_manager, "campus");
+    });
+    $('#classgroup_selector :checkbox').each(function(){
+        new CalendarCheckbox($(this), calendar_manager, "classgroup");
     });
     init_forms();
 
@@ -217,7 +219,7 @@ function preload_user_form(start_date, start_hour, duration){
 {% endblock %}
 {% block menu %}
     <div id="menu" class="span-4 last">
-    <form id="campus_selector" class="calendar_selector"> 
+    <form name="campus" id="campus_selector" class="calendar_selector"> 
         {{ campus_selector_form.as_p }}
     </form>
     <form id="classgroup_selector" class="calendar_selector"> 

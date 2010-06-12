@@ -150,21 +150,21 @@ class MySelectorForm(forms.Form):
 
 class CampusSelectorForm(forms.Form):
     user = None
-    campus = forms.ModelMultipleChoiceField(queryset=None)
+    campus = forms.ModelMultipleChoiceField(queryset=None,
+            widget=forms.CheckboxSelectMultiple())
     def __init__(self, user=None, *args, **kwargs):
         super(CampusSelectorForm,self).__init__(*args, **kwargs)
         self.user = user
         self.fields['campus'].queryset =\
             Campus.objects.get_managed_by(self.user)
-        self.fields['campus'].empty_label = "---"
 
 class ClassgroupSelectorForm(forms.Form):
     user = None
-    classgroup = forms.ModelMultipleChoiceField(queryset=None)
+    classgroup = forms.ModelMultipleChoiceField(queryset=None,
+                widget=forms.CheckboxSelectMultiple())
     def __init__(self, user=None, *args, **kwargs):
         super(ClassgroupSelectorForm,self).__init__(*args, **kwargs)
         self.user = user
         self.fields['classgroup'].queryset =\
             ClassGroup.objects.get_managed_by(self.user)
-        self.fields['classgroup'].empty_label = "---"
 
