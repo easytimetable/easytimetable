@@ -19,7 +19,7 @@ class When(models.Model):
     def to_vevent(self):
         vevent = Component('vevent')
         vevent.add('dtstart').value = dateTimeToString(self.date)
-        vevent.add('dtstamp').value = dateTimeToString(date.fromtimestamp(0))
+        vevent.add('dtstamp').value = dateTimeToString(datetime.datetime.now())
         vevent.add('dtend').value = dateTimeToString(self.date +\
                 datetime.timedelta(hours=self.event.duration))
         vevent.add('summary').value = self.event.name
@@ -49,6 +49,9 @@ class When(models.Model):
                 'className' : css_class,
             }
         return dct
+
+    
+
 
 class Who(models.Model):
     """The Who model has some references to different others models.

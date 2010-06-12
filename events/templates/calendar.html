@@ -184,33 +184,33 @@ function preload_user_form(start_date, start_hour, duration){
 <div id="add_event_dialog" style="display: none;">
     <div id="tabs">
     <ul>
-        {% if classgroup_form %}
+        {% if forms.classgroup_form %}
             <li><a href="#fragment-1"><span>Class</span></a></li>
         {% endif %}
-        {% if campus_form %}
+        {% if forms.campus_form %}
             <li><a href="#fragment-2"><span>Campus</span></a></li>
         {% endif %}
             <li><a href="#fragment-3"><span>My events</span></a></li>
     </ul>
-    {% if classgroup_form %}
+    {% if forms.classgroup_form %}
         <div id="fragment-1">
             <form id="form_add_classgroup_event">
-               {{classgroup_form.as_p}}
+               {{forms.classgroup_form.as_p}}
                <input type="submit" id="sub-classgroup_event" value="-->"/>
             </form>
         </div>
     {% endif %}
-    {% if campus_form %}
+    {% if forms.campus_form %}
         <div id="fragment-2">
             <form id="form_add_campus_event">
-                {{campus_form.as_p}}
+                {{forms.campus_form.as_p}}
                 <input type="submit" id="sub-campus_event" value="-->"/>
             </form>
         </div>
     {% endif %}
         <div id="fragment-3">
             <form id="form_add_user_event">
-                {{user_form.as_p}}
+                {{forms.user_form.as_p}}
                 <input type="submit" id="sub-user_event" value="-->"/>
             </form>
         </div>
@@ -222,13 +222,13 @@ function preload_user_form(start_date, start_hour, duration){
 {% block menu %}
     <div id="menu" class="span-4 last">
     <form name="campus" id="campus_selector" class="calendar_selector"> 
-        {{ campus_selector_form.as_p }}
+        {{ forms.campus.as_p }}
     </form>
     <form id="classgroup_selector" class="calendar_selector"> 
-        {{ classgroup_selector_form.as_p }}
+        {{ forms.classgroup.as_p }}
     </form>
     <form id="my_selector" class="calendar_selector"> 
-        {{ my_selector_form.as_p }}
+        {{ forms.my_selector_form.as_p }}
     </form>
     </div>
 {% endblock %}

@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     (r'^events/', include('events.urls', namespace='events')),
     (r'^locations/', include('locations.urls', namespace='locations')),
     (r'^profiles/', include('profiles.urls', namespace='profiles')),
+    (r'^ical/', include('ical.urls', namespace='ical')),
     
     (r'^accounts/login/$', 'django.contrib.auth.views.login', {}, 'login'),
     (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {}, 'logout'),

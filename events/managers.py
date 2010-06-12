@@ -28,7 +28,8 @@ class WhenManager(models.Manager):
                     filter(date__lte=end_date).\
                     filter(event__force_display=True).select_related(depth=1)
 
-    def user_planning(self, user, what, start_date, end_date, what_arg=None):
+    def user_planning(self, user, what, start_date, end_date, what_arg=None,
+    must=False):
         if what == "mandatory":
             return self.must_display(user, start_date, end_date)
         if what == "my_user":
@@ -51,10 +52,10 @@ class WhenManager(models.Manager):
         
         if what == "campus":
             return self.campus_planning(Campus.objects.get(id=what_arg),
-                                            start_date, end_date, False)
+                                            start_date, end_date, must)
         if what == "classgroup":
             return self.classgroup_planning(ClassGroup.objects.get(id=what_arg),
-                                            start_date, end_date, False)
+                                            start_date, end_date, must)
 
     # -- User planning access methods -------------------------------------
     

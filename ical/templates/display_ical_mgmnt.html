@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load uni_form_tags %}
+{% block content %}
+<p class="info">{% trans "Here you can <strong> share your calendars
+</strong>, with anyone by requesting a <i>feed link</i> and giving it
+to a friend or a coworker." %}</p>
+
+{% if feeds %}
+<table id="icalfeeds">
+<thead>
+    <tr>
+        <th>{% trans "Calendar" %}</th>
+        <th>{% trans "Feed" %}</th>
+        <th>{% trans "Actions" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for type, id, name, hash  in feeds %}
+<tr class="{% cycle "even" "odd" %}">
+    <td>
+        {{ name }}
+    </td>
+    <td>
+        <a class="awesome small blue button" href="{% url ical:get_feed hash %}">Get Feed</a>
+    </td>
+    <td>
+        <a class="awesome small red button" href="{% url ical:reset_hash hash %}">Reset Feed</a>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<br />
+{% blocktrans %}You don't have any feed, yet.{% endblocktrans %}
+{% endif %}
+{% endblock %}
+

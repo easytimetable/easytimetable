@@ -58,7 +58,7 @@ def get_planning(request, what=None, what_arg=None, extra_context={}, **kwargs):
     d = [p.to_fullcalendar_dict(partial_is_editable, what) for p in w]
     return HttpResponse(json.dumps(d))
 
-def get_ical(request, what=None, what_arg=None, extra_context={}, **kwargs):
+def get_ical(request, what=None, what_arg=None, must=True, extra_context={}, **kwargs):
     start_date = date.min
     end_date = date.max
     w = When.objects.user_planning(request.user, what, start_date, end_date,\
@@ -151,20 +151,35 @@ def display_calendar(request):
     #Standard forms
     user_form = UserEventForm(prefix="user")
     my_selector_form = MySelectorForm(prefix="my_selector")
-    forms = {'user_form': user_form,
-             'my_selector_form': my_selector_form,}
+    forms = { 'user_form': user_form,}
+    selectors = {'my_selector_form': my_selector_form,}
     if request.user.get_profile().can_manage_campus():
         forms['campus_form'] = CampusEventForm(prefix="campus",
                                                user=request.user)
         forms['classgroup_form'] = ClassgroupEventForm(prefix="classgroup",
                                                        user=request.user)
-        forms['campus_selector_form'] =\
+        selectors['campus'] =\
             CampusSelectorForm(prefix="cmp_selector", user=request.user)
-        forms['classgroup_selector_form'] =\
+        selectors['classgroup'] =\
             ClassgroupSelectorForm(prefix="cg_selector", user=request.user)
-        forms['my_selector_form'] = MySelectorForm(prefix="my_selector",
+        selectors['my_selector_form'] = MySelectorForm(prefix="my_selector",
                                                    what=["my_user"])
-    return render_to_response('calendar.html', forms, request)
+        ical_links = {}
+        for selector in selectors:
+            for field in selectors[selector].fields:
+                field = selectors[selector].fields[field]
+                for choice in field.choices:
+                    from ipdb import set_trace; set_trace()
+                    if ("%s" %choice[0]).isdigit():
+                        ical_links["%s%s" % (selector, choice[0])]=\
+                        get_ical_link_hash( request, selector, choice[0])
+                    else:
+                        ical_links[choice[0]]=get_ical_link_hash(request,
+                                                                 choice[0])
+    forms.update(selectors)
+    from ipdb import set_trace; set_trace()
+    return render_to_response('calendar.html', {'forms' : forms,
+    'ical_links' : ical_links} , request)
 
 @login_required
 def display_campus_mgr_calendar(request):
