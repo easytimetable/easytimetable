@@ -23,12 +23,11 @@ class UserForm(forms.Form):
             username.replace(" ", "")
             email = self.cleaned_data['email']
             
-            user = User(username=username, 
-                email=email)
+            user = User(username=username, email=email, 
+                first_name=first_name, last_name=last_name)
             user.set_password(DEFAULT_PASSWORD)
             user.save()
-            profile = Profile(user=user, first_name=first_name, 
-                last_name=last_name)
+            profile = Profile(user=user)
             return profile
 
 class StudentForm(UserForm):

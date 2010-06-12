@@ -7,11 +7,17 @@ from managers import ClassGroupManager
 class Profile(models.Model):
     """A user profile. Can be useful for students, to define classgroups."""
     user = models.ForeignKey(User, unique=True)
-    first_name = models.CharField(blank=False, max_length=150)
-    last_name = models.CharField(blank=False, max_length=150)
-    birth_date = models.DateField(default=datetime.datetime.today)
+    date_joined = models.DateField(default=datetime.datetime.today)
     classgroup = models.ForeignKey('ClassGroup', null=True, blank=True)
     is_teacher = models.BooleanField(default=False)
+
+    @property
+    def first_name(self):
+        return self.user.first_name
+
+    @property
+    def last_name(self):
+        return self.user.last_name
 
     def list_managed_campuses(self):
         return ", ".join([campus.name for campus in self.campus_managed.all()])
