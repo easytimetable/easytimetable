@@ -50,6 +50,7 @@ En tant que srveasy::
 	$ easy_install django==1.1
 	$ easy_install django-extensions
 	$ easy_install django-uni-form
+	$ easy_install vobject
 	$ cd ..
 	$ tar -xzf easytimetable.tar.gz
 	$ cd easytimetable
@@ -60,12 +61,39 @@ En tant que srveasy::
 En tant que root::
 
 	# cd /home/srveasy/easytimetable
-	# cp config/gunicorn_app_srv /etc/nginx/sites-enabled/
+	# cp config/gunicorn_app_srv /etc/nginx/conf.d/
 	# rm /etc/nginx/sites-enabled/default
 	# cp config/gunicorn_srv /etc/nginx/sites-enabled/
 	# /etc/init.d/nginx restart
 	
 L'applicaton est maintenant accessible sur le port http du serveur.
+
+Installation pour tests
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Un installation à des fins de tests ne nécessite pas gunicorn ni nginx : le serveur
+d'applications intégré à django est largement suffisant pour une mise en tests, ce qui
+est d'ailleurs sa raison d'être.
+
+Pour effectuer une installation de test, suivre la procédure précédente en remplaçant les lignes
+suivantes::
+
+	$ easy_install gunicorn
+	$ gunicorn_django -D -w 5
+	
+par::
+
+	$ python manage.py runserver
+
+La partie en tant que root n'a alors plus lieu d'être.
+
+Le serveur d'application écoute par défaut sur la boucle locale, port 8000.
+Pour que l'application soit accessible depuis une autre machine, la dernière ligne doit
+être la suivante::
+
+	$ python manage.py runserver 0.0.0.0:8000
+	
+L'application sera alors accessibleà l'adresse : http://<serveur>:8000/
 
 Installation en ligne
 ~~~~~~~~~~~~~~~~~~~~~
@@ -136,6 +164,11 @@ installation dans l'environnement est donc obligatoire::
     $ easy_install django-extensions
     $ easy_install django-uni-form
 
+Le projet dépend également de `vobject`, qui permet de fournir des données au format
+iCal::
+
+	$ easy_install vobject
+
 La préparation de l'environnement est maintenant terminée.
 Pour la suite de la procédure, il est nécessaire de sortir du dossier django::
 
@@ -197,13 +230,11 @@ arrière plan (daemon).
 
 Puis, en tant que root (super utilisateur):
 
-* Modifier le fichier /etc/nginx et ajouter les lignes suivantes avant les include::
+* Copier le fichier config/gunicorn_app_srv dans le dossier /etc/nginx/conf.d/::
 	
-	upstream app_server {
-		server unix:/tmp/gunicorn.sock fail_timeout=0;
-	}
+	# cp config/gunicorn_app_srv /etc/nginx/conf.d/
 	
-Ces lignes servent à déclarer le serveur gunicorn dans nginx.
+Ce fichier sert à déclarer le serveur gunicorn dans nginx.
 
 * Supprimer le fichier de configuration par défaut de nginx::
 
@@ -231,13 +262,16 @@ nouveaux paramètres, ainsi que leur bonne configuration
 L'applicaton est maintenant accessible sur le port http (80) du serveur.
 
 Administration de la solution
-==========================
+==============================
 
 Démarrage automatique
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Pour que le serveur gunicorn démarre automatiquement, un script a été développé::
+Pour que le serveur gunicorn démarre automatiquement au démarrage du serveur, le script `gunicornd`
+est fourni::
 
 	# cp config/gunicornd /etc/init.d/
 	# chmod +x /etc/init.d/gunicornd
 	# update-rc.d gunicornd defaults
+
+N.B. Cette procédure n'est applicables qu'à des systèmes à base de distribution Debian GNU/Linux.
