@@ -19,11 +19,11 @@ class WhenManager(models.Manager):
         return super(WhenManager, self).get_query_set().\
                     filter(Q(event__who__user=user) |
                            Q(event__who__campus=campus,
-                             event__who__campus__is_null=False) | 
+                             event__who__campus__isnull=False) | 
                            Q(event__who__university=university,
-                             event__who__university__is_null=False) |
+                             event__who__university__isnull=False) |
                            Q(event__who__classgroup=classgroup,
-                             event__who__classgroup__is_null=False)).\
+                             event__who__classgroup__isnull=False)).\
                     filter(date__gte=start_date).\
                     filter(date__lte=end_date).\
                     filter(event__force_display=True).select_related(depth=1)

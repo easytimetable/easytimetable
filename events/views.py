@@ -189,7 +189,7 @@ def update_event(request, when_id):
         if request.POST:
             form = UserEventForm(data=request.POST)
         else:
-            form = UserEventForm(initialdata=data)
+            form = UserEventForm(initial=data)
     if request.POST:
         if form.is_valid():
             when = form.save(when)
