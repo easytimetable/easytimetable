@@ -1,0 +1,225 @@
+			@font-face {
+				font-family: 'LeagueGothicRegular';
+				src: url('League_Gothic.eot');
+				src: local('League Gothic'), local('LeagueGothic'), url('League_Gothic.ttf') format('truetype'), url('League_Gothic.svg#LeagueGothic') format('svg');
+			}
+			@font-face {
+				font-family: 'GoodDogRegular';
+				src: url('GoodDog.eot');
+				src: local('GoodDog'), local('GoodDog'), url('GoodDog.woff') format('woff'), url('GoodDog.ttf') format('truetype'), url('GoodDog.svg#GoodDog') format('svg');
+			}
+
+ 			h1 { 	
+ 			    width:100%;
+				margin-top: 135px;
+ 				font-family: LeagueGothicRegular,Impact,sans-serif; 
+ 				font-weight: normal; 
+ 				text-transform: uppercase; 
+ 				color: #fff; 
+ 				font-size: 50px; 
+ 				margin-bottom: 15px;
+ 			
+ 				padding: 10px;
+ 				padding-top: 12px;
+ 				padding-left: 40px;
+ 				background-color: #7aa21c;
+			    letter-spacing: 1px; 
+ 				
+ 			}
+			h2 { 
+				 
+				 font-size: 35px; 
+				 height: 20px; 
+ 				font-weight: normal; 
+				 color: #607687; 
+				 letter-spacing: 1px; 
+				 font-family: LeagueGothicRegular,Impact,sans-serif; 
+				 text-transform: uppercase; 
+				 margin-bottom: 20px;
+			}
+
+            h2.first{
+                margin-left: 210px;
+            }
+		 
+			p.contact {
+			 
+ 				font-family: GoodDogRegular,Impact,sans-serif; 
+ 				font-weight: normal; 
+ 				 
+ 				color: #513d32; 
+ 				font-size: 45px; 
+ 				position:absolute;
+ 				top: 34px;
+ 				left: 500px;
+ 				letter-spacing: 1px; 
+ 			 
+			}
+
+			div#contact p {
+				font-family: GoodDogRegular,Impact,sans-serif; 
+ 				font-weight: normal; 
+                color: #513d32; 
+                padding-left: 10px;
+ 				font-size: 45px; 
+ 				line-height: 40px;
+			}
+			 
+			body {
+				 font: 100% Palatino,Georgia,"Times New Roman",Times,serif;
+ 				 line-height:1;
+            }
+			
+			
+			div#content {
+				 width: 1050px;
+				 padding-left: 40px;
+			}
+					   
+			p { 
+				font-size: 20px;
+				line-height: 1.75em;
+				margin-bottom: 1em; 
+				color: #4d4d4d;
+			}
+			p a { 
+				text-decoration: none;
+				padding: 0; 
+				color: #b50606; 
+				border: none;
+				-webkit-transition: border-bottom 100ms ease-out,color 200ms ease-out; 
+				
+			}
+			
+			div.feature_box p { 
+				font-size: 16px;
+				line-height: 1.3em;
+			}
+			div.feature_box ul a {
+				color: #b50606; 
+				background: transparent; 
+				padding: 0; 
+				text-decoration: none; 
+				border-bottom: 1px dotted #b50606; 
+				-webkit-transition: border-bottom 100ms ease-out,color 200ms ease-out; 			 	
+			}
+			
+			p  a:hover, div.feature_box ul a:hover {
+				color: #b50606; 
+				background: transparent; 
+				padding: 0; 
+				text-decoration: none; 
+				border-bottom: 4px solid #b50606; 
+				-webkit-transition: border-bottom 100ms ease-out,color 200ms ease-out; 
+			}
+			 	
+			 p.subtitle {
+			 	width: 700px;
+			 }
+             p.subtitle .small{
+                font-size: 0.9em;
+             }
+			 
+			div.image_wrap  img {
+				float: left;
+				width: 200px;
+				margin-right: 10px;
+				border: 5px solid #1b1b1b;
+				border-width: 5px 5px 20px;
+				-webkit-border-bottom-left-radius: 5px;
+				-moz-border-radius-bottomleft: 5px;
+				border-bottom-left-radius: 5px;
+				-webkit-border-bottom-right-radius: 5px;
+				-moz-border-radius-bottomright: 5px;
+				border-bottom-right-radius:5px;
+				-webkit-transition: border-bottom 100ms ease-out,color 200ms ease-out; 
+				
+			}
+			div.image_wrap a:hover img {
+				border: 5px solid #b50606;
+				border-width: 5px 5px 20px;
+				color: #b50606;
+ 
+			}
+			 
+			div.feature_box {
+				float:left;
+				display: block;
+				width: 490px; 
+				margin-top: 20px;
+				margin-right: 5px;
+				padding-top: 20px;
+			}
+
+			div.feature_box ul {
+ 				font-size: 16px;
+				line-height: 1.5em;
+				 
+				float: left;
+				width: 270px; 
+				list-style-type:square;
+				list-style-position: inside;
+			}
+
+            ul.large-title {
+                margin-top: 35px;
+            }
+
+			div.feature_box ul li {
+				color: #222;
+				margin-left: 10px; 
+				 
+			}	
+			
+		    div#contact_container div#contact {
+		    	 display: none;
+		    }
+			
+			#logo {
+				top: 25px;
+				left: 25px;
+				width: 345;
+				height: 123;
+				position: absolute;
+				padding: 0px;
+				margin: 0px;
+			}
+			#logo_chunck {
+				display: none;
+				position: absolute;
+				top: -60px;
+				left: 299px;
+				width: 31px;
+				height: 52px;
+				background: url(../images/logo_chunck.png) no-repeat;
+			}
+			 
+			#logo_ruller {
+				display: none;
+				position: absolute;
+				top: 19px;
+				left: 46px;
+				width: 34px;
+				height: 72px;
+				background: url(../images/ruller.png) no-repeat;
+			}			
+
+			#logo_arrow {
+				display: none;
+				position: absolute;
+				top: 56px;
+				left: 72px;
+				width: 34px;
+				height: 72px;
+				background: url(../images/arrow.png) no-repeat;
+			}	
+			#logo_cover {
+				display: none;
+				position: absolute;
+				top: 56px;
+				left: 40px;
+				width: 64px;
+				height: 53px;
+				background: url(../images/box_cover.png) no-repeat;
+			}			
+	
