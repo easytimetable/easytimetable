@@ -14,19 +14,49 @@ class UserEventForm(forms.Form):
     duration = forms.IntegerField(widget=SelectableTimeWidget(end_hour=5))
     place_text = forms.CharField(label="Place", required=False)
 
+    def _build_event(self, old_event=None):
+        if self.is_valid():
+            old_id = None
+            if old_event:
+                old_id = old_event.id
+            event = Event(name=self.cleaned_data['name'],
+                          duration=self.cleaned_data['duration'],
+                          place_text=self.cleaned_data['place_text'],
+                          id=old_id)
+            return event
+
+    def _build_when(self, old_when=None):
+        if self.is_valid():
+            old_id = None
+            if old_when:
+                old_id = old_when.id
+            correct_date = "%s %s" % (self.cleaned_data['date'],
+                self.cleaned_data['start_hour'])
+            correct_date = datetime.strptime(correct_date, "%Y-%m-%d %H")
+            when = When(date=correct_date, id=old_id)
+            return when
+
+    def save(self, when=None):
+        if self.is_valid():
+            event = self._build_event(when.event)
+            when = self._build_when(when)
+            event.save()
+            when.event = event
+            when.save()
+            return when
+        return False
+    
+
+        
+
 #capitaine skeletor pour le reste des forms du campus manager
-class ClassgroupEventForm(forms.Form):
+class ClassgroupEventForm(UserEventForm):
     user = None
     classgroup = forms.ModelChoiceField(queryset=None, label="Class")
     subject = forms.ModelChoiceField(queryset=Subject.objects.all(),
                                      label="Subject")
-    name = forms.CharField(label="Event name")
     modality = forms.CharField(max_length=20,
                 widget=forms.Select(choices=SubjectModality.TYPE_CHOICES))
-    date = forms.DateField(widget=forms.DateInput(attrs={'class':'datepicker'}))
-    start_hour = forms.IntegerField(widget=SelectableTimeWidget())
-    duration = forms.IntegerField(widget=SelectableTimeWidget(end_hour=5))
-    place_text = forms.CharField(label="Place T", required=False)
     place = forms.ModelChoiceField(queryset=None, label="Place")
     
     def __init__(self, user=None, *args, **kwargs):
@@ -34,29 +64,33 @@ class ClassgroupEventForm(forms.Form):
         self.user = user
         self.fields['classgroup'].queryset = ClassGroup.objects.get_managed_by(self.user)
         self.fields['place'].queryset = Place.objects.get_managed_by(self.user)
+    
+    def _build_classgroup(self, old_who=None):
+        if self.is_valid():
+            old_id = None
+            if old_who:
+                old_id = old_who.id
+            return Who(classgroup=self.cleaned_data['classgroup'], id=old_id)
 
-    def save(self): 
+    def save(self, when=None): 
         if self.is_valid(): 
             f = self.cleaned_data 
-            subject_modality = SubjectModality.objects.filter( 
+            event = self._build_event(when.event)
+            event.subject_modality = SubjectModality.objects.filter( 
                                subject=f['subject']).filter( 
                                type=f['modality']).get() 
-            event = Event(name=f['name'], 
-                          duration=f['duration'],  
-                          place_text=f['place_text'], 
-                          subject_modality=subject_modality) 
             event.save() 
+            event.places.clear()
             event.places.add(f['place']) 
-            who = Who(classgroup=f['classgroup'], event=event) 
+            who = self._build_classgroup(when.event.who_set.get(
+                                         classgroup__isnull=False))
+            who.event = event
             who.save() 
-            edate = "%s %s" % (f['date'], 
-                f['start_hour']) 
-            edate = datetime.strptime(edate, "%Y-%m-%d %H") 
-            when = When(date=edate, event=event) 
+            when = self._build_when(when)
+            when.event = event
             when.save()
             return when
         return False
- 
 
 class CampusEventForm(forms.Form):
     user = None
