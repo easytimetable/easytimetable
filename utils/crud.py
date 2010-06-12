@@ -125,7 +125,7 @@ def list(request, fields, model=None, queryset=None, form_class=None,
     }
 
     return_context = _process_rights(request, acl_handler, return_context, 
-        *args, **kwargs)
+        rights, *args, **kwargs)
         
     # add extra_context
     for key, value in extra_context.items():

@@ -84,10 +84,7 @@
                     <li><a href="{% url profiles:list_students %}">{% trans "Student's" %}</a></li>
                     <hr />
                     <li><a href="{% url profiles:list_campus_managers %}">{% trans "Campus managers" %}</a></li>
-                    {% comment %}
-                    <li><a href="{% url profiles:list_cursus_managers %}">{% trans "Cursus managers" %}</a></li>
                     <li><a href="{% url profiles:list_teachers %}">{% trans "Teachers" %}</a></li>
-                    {% endcomment %}
                 </ul>
             </li>
             {% endif %}
@@ -97,7 +94,7 @@
             </li>
             {% endif %}
             {% if user.is_authenticated %}
-            <li><a href="{% url logout %}">{% trans "logout" %}</a></li>
+            <li><a href="{% url logout %}">{% trans "logout" %} ({{ user.username }})</a></li>
             {% endif %}
 		</ul>
     <hr />
@@ -115,21 +112,9 @@
     {% endblock %}
     <div id="content" class="span-20">
     {% block content %}
-    lapin 
     {% endblock %}
     </div>
-    <div id="menu" class="span-4 last">
-    {% block login_menu %}
-    {% if user.is_authenticated %}
-    {% trans "You're " %}{{ user.username }}.
-    <a href="{% url logout %}">{% trans "logout" %}</a>
-    {% else %}
-    <a href="{% url login %}">{% trans "login" %}</a>
-    {% endif %}
-    {% endblock %}
     {% block menu %}
-    menu here.
     {% endblock %}
-    </div>
 </body>
 </html>

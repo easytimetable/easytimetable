@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from profiles.models import User
 
 from profiles.models import ClassGroup, Profile
-from profiles.forms import StudentForm, CampusManagerForm
+from profiles.forms import StudentForm, CampusManagerForm, TeacherForm
 from acls import crud_acl_handler
 
 urlpatterns = patterns('utils.crud',
@@ -100,6 +100,42 @@ urlpatterns = patterns('utils.crud',
         'template_object_name': 'campus_manager',
         'acl_handler': crud_acl_handler("university"),
     }, 'get_campus_manager'),
+
+    # -- Teachers ----------------------------------------------------
+    
+    (r'^teachers/add/$', 'create', {
+        'model': User,
+        'form_class': TeacherForm,
+        'template_name': 'crud/add.html',
+        'post_save_redirect': 'profiles:list_teachers', 
+        'acl_handler': crud_acl_handler("campus"),
+    }, 'add_teacher'),
+    
+    (r'^teachers/$', 'list', {
+        'queryset': User.objects.filter(profile__is_teacher=True),
+        'form_class': TeacherForm,
+        'fields':[
+            ('First name', 'get_profile.first_name'), 
+            ('Last name', 'get_profile.last_name')],
+        'object_name': 'teacher',
+        'object_verbose_name': 'teacher',
+        'app_name': 'profiles',
+        'acl_handler': crud_acl_handler("campus"),
+        'rights':{'update': False},
+    }, 'list_teachers'),
+
+    (r'^teachers/(?P<object_id>\d+)/$', 'get', {
+        'queryset': User.objects.filter(profile__campus_managed__isnull=False).distinct(),
+        'template_name': 'get_teacher.html',
+        'template_object_name': 'teacher',
+        'acl_handler': crud_acl_handler("campus"),
+    }, 'get_teacher'),
+
+    (r'^teacher/(?P<object_id>\d+)/delete/$', 'delete', {
+        'queryset': User.objects.filter(profile__is_teacher=True),
+        'post_delete_redirect': 'profiles:list_teachers',
+        'acl_handler': crud_acl_handler("campus"),
+    }, 'delete_teacher'),
 )
 
 # specific views

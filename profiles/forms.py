@@ -13,17 +13,23 @@ class ClassGroupForm(forms.ModelForm):
         model = ClassGroup
 
 class UserForm(forms.Form):
-    def __init__(self, instance=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         return super(UserForm, self).__init__(*args, **kwargs)
 
-    def _create_user(self, username, first_name, last_name, email): 
+    def _create_user(self): 
+            first_name = self.cleaned_data['first_name']
+            last_name = self.cleaned_data['last_name']
+            username = first_name[0].lower() + last_name[:10].lower()
+            username.replace(" ", "")
+            email = self.cleaned_data['email']
+            
             user = User(username=username, 
-                first_name=first_name, 
-                last_name=last_name, 
                 email=email)
             user.set_password(DEFAULT_PASSWORD)
             user.save()
-            return user
+            profile = Profile(user=user, first_name=first_name, 
+                last_name=last_name)
+            return profile
 
 class StudentForm(UserForm):
     first_name = forms.CharField()
@@ -33,16 +39,8 @@ class StudentForm(UserForm):
 
     def save(self):
         if self.is_valid():
-            first_name = self.cleaned_data['first_name']
-            last_name = self.cleaned_data['last_name']
-            username = first_name[0].lower() + last_name[:10].lower()
-            username.replace(" ", "")
-            email = self.cleaned_data['email']
-            user = self._create_user(username, first_name, last_name, email)
-            
-            classgroup = self.cleaned_data['classgroup']
-            profile = Profile(classgroup=classgroup, user=user,
-            first_name=first_name, last_name=last_name)
+            profile = self._create_user()
+            profile.classgroup = self.cleaned_data['classgroup']
             profile.save()
             return profile
 
@@ -57,20 +55,28 @@ class CampusManagerForm(UserForm):
 
     def save(self):
         if self.is_valid():
-            first_name = self.cleaned_data['first_name']
-            last_name = self.cleaned_data['last_name']
-            username = first_name[0].lower() + last_name[:10].lower()
-            username.replace(" ", "")
-            email = self.cleaned_data['email']
-            
-            user = self._create_user(username, first_name, last_name, email)
-            user.save()
-
+            profile = self._create_user()
             campus = self.cleaned_data['campus']
-            profile = Profile(user=user,
-            first_name=first_name, last_name=last_name)
-
+            profile.campus = campus
             profile.save()
             campus.manager = profile
             campus.save()
             return profile
+
+    class _meta:
+        model = Profile
+
+class TeacherForm(UserForm):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    email = forms.EmailField()
+    
+    def save(self):
+        if self.is_valid():
+            profile = self._create_user() 
+            profile.is_teacher = True
+            profile.save()
+            return profile
+
+    class _meta:
+        model = Profile

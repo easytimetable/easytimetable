@@ -11,6 +11,7 @@ class Profile(models.Model):
     last_name = models.CharField(blank=False, max_length=150)
     birth_date = models.DateField(default=datetime.datetime.today)
     classgroup = models.ForeignKey('ClassGroup', null=True, blank=True)
+    is_teacher = models.BooleanField(default=False)
 
     def list_managed_campuses(self):
         return ", ".join([campus.name for campus in self.campus_managed.all()])
