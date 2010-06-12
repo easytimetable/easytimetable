@@ -89,6 +89,7 @@
                 <li class="green">
                     <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a>
                     <ul>
+                        <li><a href="{% url events:display_calendar %}">{% trans "Calendar view" %}</a></li>
                         <li><a href="{% url events:list_events %}">{% trans "Events List" %}</a></li><hr />
                         <li><a href="{% url ical:display_ical_mgmnt %}">{% trans "iCal Exports" %}</a></li><hr />
                     </ul> 
