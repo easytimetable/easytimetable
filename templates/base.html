@@ -44,15 +44,16 @@
 				<a href="">Locations</a>
 				<ul>
 					<li>
-						<a href="{% url locations:list_campuses %}">{% trans "Campuses" %}</a>
+						<a href="{% url locations:list_universities %}">{% trans "Universities" %}</a>
+                        <hr />
 					</li>
-                    <hr />
+					<li>
+						<a href="{% url locations:list_campuses %}">{% trans "Campuses" %}</a>
+                        <hr />
+					</li>
 					<li>
 						<a href="{% url locations:list_places %}">{% trans "Places" %}</a>
-					</li>
-                    <hr />
-					<li>
-						<a href="{% url locations:list_universities %}">{% trans "Universities" %}</a>
+                        <hr />
 					</li>
 				</ul>
 			</li>
@@ -60,17 +61,13 @@
 				<a href="#">Pedagogy</a>
 				<ul>
 					<li>
-						<a href="{% url profiles:list_classgroups %}">{% trans "Class Groups" %}</a>
-					</li>
-                    <hr />
-					<li>
 						<a href="{% url pedagogy:list_cursuses %}">{% trans "Cursuses" %}</a>
+                        <hr />
 					</li>
-                    <hr />
 					<li>
 						<a href="{% url pedagogy:list_studyperiods %}">{% trans "Study Periods" %}</a>
+                        <hr />
 					</li>
-                    <hr />
 					<li>
 						<a href="{% url pedagogy:list_subjects %}">{% trans "Subjects" %}</a>
 					</li>
@@ -81,17 +78,15 @@
             <li>
                 <a href="">{% trans "User management" %}</a>
                 <ul>
-                    <li><a href="{% url profiles:list_students %}">{% trans "Student's" %}</a></li>
-                    <hr />
-                    <li><a href="{% url profiles:list_campus_managers %}">{% trans "Campus managers" %}</a></li>
-                    <li><a href="{% url profiles:list_teachers %}">{% trans "Teachers" %}</a></li>
+					<li><a href="{% url profiles:list_classgroups %}">{% trans "Class Groups" %}</a><hr /></li>
+                    <li><a href="{% url profiles:list_students %}">{% trans "Student's" %}</a><hr /></li>
+                    <li><a href="{% url profiles:list_campus_managers %}">{% trans "Campus managers" %}</a></li><hr />
+                    <li><a href="{% url profiles:list_teachers %}">{% trans "Teachers" %}</a><hr /></li>
                 </ul>
             </li>
             {% endif %}
             {% if user.is_authenticated %}
-            <li class="green">
-		        <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a>
-            </li>
+            <li class="green"> <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a> </li>
             {% endif %}
             {% if user.is_authenticated %}
             <li><a href="{% url logout %}">{% trans "logout" %} ({{ user.username }})</a></li>
