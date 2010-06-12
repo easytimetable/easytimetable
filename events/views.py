@@ -164,22 +164,8 @@ def display_calendar(request):
             ClassgroupSelectorForm(prefix="cg_selector", user=request.user)
         selectors['my_selector_form'] = MySelectorForm(prefix="my_selector",
                                                    what=["my_user"])
-        ical_links = {}
-        for selector in selectors:
-            for field in selectors[selector].fields:
-                field = selectors[selector].fields[field]
-                for choice in field.choices:
-                    from ipdb import set_trace; set_trace()
-                    if ("%s" %choice[0]).isdigit():
-                        ical_links["%s%s" % (selector, choice[0])]=\
-                        get_ical_link_hash( request, selector, choice[0])
-                    else:
-                        ical_links[choice[0]]=get_ical_link_hash(request,
-                                                                 choice[0])
     forms.update(selectors)
-    from ipdb import set_trace; set_trace()
-    return render_to_response('calendar.html', {'forms' : forms,
-    'ical_links' : ical_links} , request)
+    return render_to_response('calendar.html', {'forms' : forms,} , request)
 
 @login_required
 def display_campus_mgr_calendar(request):
