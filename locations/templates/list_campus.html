@@ -1,0 +1,10 @@
+{% extends "crud/list.html" %}
+{% load i18n %}
+{% block info %}
+<p class="info">
+{% blocktrans %}
+Here is a list of campuses. By clicking on the "view" button, 
+you can show a list of classgroups that are actually in this campus, and also
+have geolocation information about them. 
+{% endblocktrans %}</p>
+{% endblock %}

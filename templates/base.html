@@ -37,7 +37,7 @@
 		<ul class="sf-menu">
             {% if not user.is_authenticated %}
             <li class="highlight">
-                <a href="{% url events:display_calendar %}">{% trans "Connect you !" %}</a>
+                <a href="{% url events:display_calendar %}">{% trans "Connect yourself !" %}</a>
             </li>
             {% endif %}
 			<li>
@@ -89,6 +89,7 @@
                 <li class="green">
                     <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a>
                     <ul>
+                        <li><a href="{% url events:display_calendar %}">{% trans "Calendar view" %}</a></li>
                         <li><a href="{% url events:list_events %}">{% trans "Events List" %}</a></li><hr />
                         <li><a href="{% url ical:display_ical_mgmnt %}">{% trans "iCal Exports" %}</a></li><hr />
                     </ul> 

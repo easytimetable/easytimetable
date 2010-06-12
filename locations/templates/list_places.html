@@ -1,0 +1,8 @@
+{% extends "crud/list.html" %}
+{% load i18n %}
+{% block info %}
+<p class="info">Here are the places of all campuses. We do not consider universities and
+campuses as places, so you will only find here the.</br>
+
+You can also view <a href="{% url locations:list_campuses %}">the list of campuses</a>.</p>
+{% endblock %}
