@@ -125,12 +125,10 @@ def delete_event(request, when_id):
     if request.POST:
         when = When.objects.get(id=when_id)
         if not is_event_editable(request.user, when):
-            return False
-        when.event.who_set.all().delete()
+            return HttpResponse("!ok", status=403)
         when.event.delete()
-        when.delete()
         return HttpResponse("ok")
-    return HttpResponse("!ok")
+    return HttpResponse("!ok", status=500)
         
     
 

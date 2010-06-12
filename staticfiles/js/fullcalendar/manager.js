@@ -173,20 +173,22 @@ function CalendarEditor(element, fc_manager, callback)
     element.deleter = function() {
         url = $(this).data("delete_url") + $(this).data("event_id");
         fc_mgr = $(this).data("fc_mgr");
-        $.post(url, {},
+        $.post(url, {"delete": true},
             function(data) {
                fc_mgr.delete_event($(this).data("event_id"))});
         if(callback)
             callback();
         return false;
         }
-    $("[name=deleter]", element).click(function(event) {
-        event.preventDefault()
-        return element.deleter();
-    });
+
+
 
     element.submit(function() {
         return element.submiter();
+    });
+    
+    $("[name=deleter]", element).click(function(event) {
+        return element.deleter();
     });
 }
 
