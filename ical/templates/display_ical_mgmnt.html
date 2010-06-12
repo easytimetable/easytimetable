@@ -2,9 +2,9 @@
 {% load i18n %}
 {% load uni_form_tags %}
 {% block content %}
-<p class="info">{% trans "Here you can <strong> share your calendars
-</strong>, with anyone by requesting a <i>feed link</i> and giving it
-to a friend or a coworker." %}</p>
+<p class="info">{% blocktrans %}
+Here you can <strong> share your calendars </strong>, with anyone by requesting
+a <i>feed link</i> and giving it to a friend or a coworker."{% endblocktrans %}</p>
 
 {% if feeds %}
 <table id="icalfeeds">

@@ -234,12 +234,12 @@ def update_event(request, when_id):
            }
     if when.event.subject_modality:
         data.update({'place' : when.event.places.get().id,
-                     'classgroup' :
-                     when.event.who_set.get(classgroup__isnull=False).classgroup_id,
-                     'modality' : 
-                     when.event.subject_modality.type,
-                     'subject' : 
-                     when.event.subject_modality.subject.id, })
+             'classgroup' :
+             when.event.who_set.get(classgroup__isnull=False).classgroup_id,
+             'modality' : 
+             when.event.subject_modality.type,
+             'subject' : 
+             when.event.subject_modality.subject.id, })
         if request.POST:
             form = ClassgroupEventForm(user=request.user, data=request.POST)
         else:

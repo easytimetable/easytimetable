@@ -11,6 +11,9 @@ class Profile(models.Model):
     classgroup = models.ForeignKey('ClassGroup', null=True, blank=True)
     is_teacher = models.BooleanField(default=False)
 
+    def __unicode__(self):
+        return "%s %s" % (self.first_name, self.last_name)
+
     @property
     def first_name(self):
         return self.user.first_name
@@ -82,4 +85,4 @@ class ClassGroup(models.Model):
         return Profile.objects.filter(classgroup=self)
 
     def __unicode__(self):
-        return self.name
+        return "%s - %s" % (self.campus.name, self.name)

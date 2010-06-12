@@ -16,5 +16,4 @@ urlpatterns = patterns('events.views',
     (r'^add/(?P<what>\w+)?(/?(?P<what_arg>\d+)?)?$', 'add_event', {}, 'add_event'),
     (r'^update/(?P<when_id>\d+)?$', 'update_event', {}, 'update_event'),
     (r'^delete/(?P<when_id>\d+)?$', 'delete_event', {}, 'delete_event'),
-
 )

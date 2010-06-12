@@ -8,6 +8,7 @@ from pedagogy.models import Subject, SubjectModality
 from locations.models import Place, Campus
 
 from utils.widgets import SelectableTimeWidget
+from utils.fields import UserChoiceField
 
 class UserEventForm(forms.Form):
     name = forms.CharField(label="Event name")
@@ -57,6 +58,9 @@ class ClassgroupEventForm(UserEventForm):
     modality = forms.CharField(max_length=20,
                 widget=forms.Select(choices=SubjectModality.TYPE_CHOICES))
     place = forms.ModelChoiceField(queryset=None, label="Place")
+    contributor = UserChoiceField(
+        queryset=User.objects.filter(profile__is_teacher=True),
+        label="Teacher", required=False)
     
     def __init__(self, user=None, *args, **kwargs):
         super(ClassgroupEventForm,self).__init__(*args, **kwargs)
@@ -83,7 +87,13 @@ class ClassgroupEventForm(UserEventForm):
             event.places.add(f['place']) 
             who = self._build_classgroup(when)
             who.event = event
-            who.save() 
+            who.save()
+
+            # add teacher
+            contributor = self.cleaned_data['contributor']
+            if contributor is not None:
+                teacher = Who(user=contributor, is_contributor=True, event=event)
+                teacher.save()
             when = self._build_when(when)
             when.event = event
             when.save()
@@ -97,9 +107,9 @@ class CampusEventForm(UserEventForm):
         label="Campus", required=False)
     place = forms.ModelChoiceField(queryset=None,
         label="Place", required=False)
-    teacher = forms.ModelChoiceField(
+    contributor = UserChoiceField(
         queryset=User.objects.filter(profile__is_teacher=True),
-        label="Teacher", required=False)
+        label="Main Contributor", required=False)
     
     def __init__(self, user=None, *args, **kwargs):
         super(CampusEventForm,self).__init__(*args, **kwargs)

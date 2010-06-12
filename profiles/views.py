@@ -28,9 +28,8 @@ def add_classgroup(request, campus_id=None):
 def list_classgroup_subjects(request,classgroup_id):
     fields = [('id','id'), ('name', 'name')]
     return crud.list(request, fields,
-                     queryset = Subject.objects.filter(
-                     study_period__cursus__class_group__id=classgroup_id),
-                     )
+        queryset = Subject.objects.filter(
+             study_period__cursus__class_group__id=classgroup_id))
 
 def delete_campus_manager(request, user_id):
     profile = Profile.objects.get(user__id=user_id) 
