@@ -71,6 +71,7 @@ INSTALLED_APPS = (
     'events',
     'profiles',
     'utils',
+    'ical',
 )
 
 # if a local_settings.py file exists, override current settings with those
