@@ -23,12 +23,14 @@ MoveEventForm, ClassgroupSelectorForm, CampusSelectorForm, MySelectorForm
 from events.managers import WhenManager
     
 def is_event_editable(user, when):
-    events = when.event.who_set.filter(user=user).count()
-    if events >= 1:
+    event_type, who = when.event.get_type()
+    if event_type == 'classgroup' and\
+        user.get_profile().can_manage_classgroup(who.classgroup.id):
         return True
-    if when.event.subject_modality and when.event.subject_modality.manager.user == user:
+    if event_type == 'user' and who.user == user:
         return True
-    if when.event.who_set.filter(campus__manager=user).count() > 0:
+    if event_type == 'campus' and\
+        user.get_profile().can_manage_campus(who.campus.id):
         return True
     return False
     
@@ -231,6 +233,7 @@ def update_event(request, when_id):
             'start_hour' : int(when.date.strftime("%H")),
             'duration' : int(when.event.duration),
             'place_text' : when.event.place_text,
+            'force_display' : when.event.force_display,
            }
     if event_type == 'classgroup' and\
             request.user.get_profile().can_manage_classgroup(who.classgroup.id):
@@ -252,7 +255,7 @@ def update_event(request, when_id):
         else:
             form = UserEventForm(initial=data)
     elif event_type == 'campus' and\
-            request.user.get_profile().can_manage_cursus(who.campus):
+            request.user.get_profile().can_manage_cursus(who.campus.id):
         try:
             place_id = when.event.places.get().id
         except ObjectDoesNotExist:

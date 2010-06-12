@@ -16,6 +16,7 @@ class UserEventForm(forms.Form):
     start_hour = forms.IntegerField(widget=SelectableTimeWidget())
     duration = forms.IntegerField(widget=SelectableTimeWidget(end_hour=5))
     place_text = forms.CharField(label="Place", required=False)
+    force_display = forms.BooleanField()
 
     def _build_event(self, old_when=None):
         if self.is_valid():
@@ -25,6 +26,7 @@ class UserEventForm(forms.Form):
             event = Event(name=self.cleaned_data['name'],
                           duration=self.cleaned_data['duration'],
                           place_text=self.cleaned_data['place_text'],
+                          force_display=self.cleaned_data['force_display'],
                           id=old_id)
             return event
 

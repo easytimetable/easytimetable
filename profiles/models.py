@@ -33,15 +33,17 @@ class Profile(models.Model):
         """tell if the user can manage campuses"""
         if self.user.is_staff:
             return True
+        elif campus_id is not None:
+            return len(self.campus_managed.filter(id=campus_id)) > 0
         else:
-            return self.campus_managed.filter(id=campus_id) is not None
+            return len(self.campus_managed.all()) > 0
         
     def can_manage_classgroup(self, classgroup_id=None):
         """tell if the user can manage classgroups"""
         if self.user.is_staff:
             return True
         if classgroup_id is None:
-            return self.class_group_managed is not None
+            return len(self.class_group_managed.all()) > 0
         else:
             return self.class_group_managed.filter(id=classgroup_id)
 

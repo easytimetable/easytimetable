@@ -23,7 +23,8 @@ $(document).ready(function(){
 
         },
         eventClick: function(calEvent, jsEvent, view) {
-            pop_edit_event_dialog(calEvent.id, jsEvent);
+            if(calEvent.editable)
+                pop_edit_event_dialog(calEvent.id, jsEvent);
         },
         eventDrop: function(calEvent, days, minutes, allDay) {
             $.post("{% url events:move_event %}"+calEvent.id,
