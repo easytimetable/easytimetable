@@ -35,4 +35,4 @@ def list_classgroup_subjects(request,classgroup_id):
 def delete_campus_manager(request, user_id):
     profile = Profile.objects.get(user__id=user_id) 
     profile.campus_managed.clear()
-    return redirect('profile:list_campus_manager')
+    return redirect('profiles:list_campus_managers')
