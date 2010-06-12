@@ -171,11 +171,12 @@ function CalendarEditor(element, fc_manager, callback)
         }
 
     element.deleter = function() {
+        ev_id = $(this).data("event_id");
         url = $(this).data("delete_url") + $(this).data("event_id");
         fc_mgr = $(this).data("fc_mgr");
         $.post(url, {"delete": true},
             function(data) {
-               fc_mgr.delete_event($(this).data("event_id"))});
+               fc_mgr.delete_event(ev_id)});
         if(callback)
             callback();
         return false;
