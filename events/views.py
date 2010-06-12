@@ -8,6 +8,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.utils import simplejson as json
+from django.core.exceptions import ObjectDoesNotExist
 
 # python imports
 import functools
@@ -98,6 +99,21 @@ def move_event(request, when_id):
         else:
             return False
 
+def resize_event(request, when_id):
+    if request.POST:
+        when = When.objects.get(id=when_id)
+        if not is_event_editable(request.user, when):
+            return False
+        form = MoveEventForm(data=request.POST)
+        if form.is_valid():
+            duration = int(form.cleaned_data['days']) * 24 +\
+                       int(form.cleaned_data['minutes']) / 60
+            when.event.duration = when.event.duration + duration
+            when.event.save()
+            return HttpResponse("ok")
+        else:
+            return HttpResponse("!ok")
+
 
 def add_course_event(request):
     pass
@@ -169,14 +185,14 @@ def update_event(request, when_id):
     when = get_object_or_404(When, pk=when_id)
     data = {'name' : when.event.name,
             'date' : when.date.strftime("%Y-%m-%d"),
-            'start_hour' : when.date.strftime("%H"),
-            'duration' : when.event.duration,
+            'start_hour' : int(when.date.strftime("%H")),
+            'duration' : int(when.event.duration),
             'place_text' : when.event.place_text,
            }
     if when.event.subject_modality:
         data.update({'place' : when.event.places.get().id,
                      'classgroup' :
-                     when.event.who_set.get(classgroup__isnull=False).classgroup.id,
+                     when.event.who_set.get(classgroup__isnull=False).classgroup_id,
                      'modality' : 
                      when.event.subject_modality.type,
                      'subject' : 
@@ -190,6 +206,19 @@ def update_event(request, when_id):
             form = UserEventForm(data=request.POST)
         else:
             form = UserEventForm(initial=data)
+    elif when.event.who_set.filter(campus__manager=request.user).count() > 0:
+        try:
+            place = when.event.places.get().id
+        except ObjectDoesNotExist:
+            place_id = None
+        data.update({'place' : place_id,
+                     'campus' : 
+                     when.event.who_set.get(campus__isnull=False).campus.id,
+                     })
+        if request.POST:
+            form = CampusEventForm(data=request.POST, user=request.user)
+        else:
+            form = CampusEventForm(initial=data, user=request.user)
     if request.POST:
         if form.is_valid():
             when = form.save(when)

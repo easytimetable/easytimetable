@@ -14,11 +14,11 @@ class UserEventForm(forms.Form):
     duration = forms.IntegerField(widget=SelectableTimeWidget(end_hour=5))
     place_text = forms.CharField(label="Place", required=False)
 
-    def _build_event(self, old_event=None):
+    def _build_event(self, old_when=None):
         if self.is_valid():
             old_id = None
-            if old_event:
-                old_id = old_event.id
+            if old_when:
+                old_id = old_when.event.id
             event = Event(name=self.cleaned_data['name'],
                           duration=self.cleaned_data['duration'],
                           place_text=self.cleaned_data['place_text'],
@@ -38,7 +38,7 @@ class UserEventForm(forms.Form):
 
     def save(self, when=None):
         if self.is_valid():
-            event = self._build_event(when.event)
+            event = self._build_event(when)
             when = self._build_when(when)
             event.save()
             when.event = event
@@ -65,25 +65,24 @@ class ClassgroupEventForm(UserEventForm):
         self.fields['classgroup'].queryset = ClassGroup.objects.get_managed_by(self.user)
         self.fields['place'].queryset = Place.objects.get_managed_by(self.user)
     
-    def _build_classgroup(self, old_who=None):
+    def _build_classgroup(self, old_when=None):
         if self.is_valid():
             old_id = None
-            if old_who:
-                old_id = old_who.id
+            if old_when:
+                old_id = old_when.event.who_set.get(classgroup__isnull=False).id
             return Who(classgroup=self.cleaned_data['classgroup'], id=old_id)
 
     def save(self, when=None): 
         if self.is_valid(): 
             f = self.cleaned_data 
-            event = self._build_event(when.event)
+            event = self._build_event(when)
             event.subject_modality = SubjectModality.objects.filter( 
                                subject=f['subject']).filter( 
                                type=f['modality']).get() 
             event.save() 
             event.places.clear()
             event.places.add(f['place']) 
-            who = self._build_classgroup(when.event.who_set.get(
-                                         classgroup__isnull=False))
+            who = self._build_classgroup(when)
             who.event = event
             who.save() 
             when = self._build_when(when)
@@ -92,16 +91,11 @@ class ClassgroupEventForm(UserEventForm):
             return when
         return False
 
-class CampusEventForm(forms.Form):
+class CampusEventForm(UserEventForm):
     user = None
     
     campus = forms.ModelChoiceField(queryset=None,
                                      label="Campus", required=False)
-    name = forms.CharField(label="Event name")
-    date = forms.DateField(widget=forms.DateInput(attrs={'class':'datepicker'}))
-    start_hour = forms.IntegerField(widget=SelectableTimeWidget())
-    duration = forms.IntegerField(widget=SelectableTimeWidget(end_hour=5))
-    place_text = forms.CharField(label="Place", required=False)
     place = forms.ModelChoiceField(queryset=None,
                                      label="Place", required=False)
     
@@ -111,27 +105,26 @@ class CampusEventForm(forms.Form):
         self.fields['place'].queryset = Place.objects.get_managed_by(self.user)
         self.fields['campus'].queryset = Campus.objects.get_managed_by(self.user)
 
-    def save(self):
+    def _build_campus(self, old_when=None):
         if self.is_valid():
-            f = self.cleaned_data
-            event = Event(name=f['name'],
-                          duration=f['duration'],
-                          place_text=f['place_text'],)
+            old_id = None
+            if old_when:
+                old_id = old_when.event.who_set.get(campus__isnull=False).id
+            return Who(campus=self.cleaned_data['campus'], id=old_id)
+
+    def save(self, when=None):
+        if self.is_valid():
+            event = self._build_event(when)
             event.save()
-            if f['place']:
-                event.places.add(f['place'])
-            who = Who(campus=f['campus'], event=event)
+            who = self._build_campus(when)
+            who.event = event
             who.save()
-            edate = "%s %s" % (f['date'],
-                f['start_hour'])
-            edate = datetime.strptime(edate, "%Y-%m-%d %H")
-            when = When(date=edate, event=event)
+            when = self._build_when(when)
+            when.event = event
             when.save()
             return when
         return False
-
-
-
+    
 class MoveEventForm(forms.Form):
     days = forms.IntegerField()
     minutes = forms.IntegerField()

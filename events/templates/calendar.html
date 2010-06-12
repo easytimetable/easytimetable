@@ -28,7 +28,12 @@ $(document).ready(function(){
         eventDrop: function(calEvent, days, minutes, allDay) {
             $.post("{% url events:move_event %}"+calEvent.id,
             {"days" : days, "minutes" : minutes, "all_day": allDay});
-        }
+        },
+        eventResize: function(calEvent, days, minutes) { 
+            $.post("{% url events:resize_event %}"+calEvent.id,
+            {"days" : days, "minutes" : minutes, "all_day": false}
+            );
+        },
     });
     
     calendar_manager = new CalendarManager($('#calendar'), 
@@ -45,8 +50,6 @@ $(document).ready(function(){
 
     // automatically load ajax links within a modal dialog box
     $('a.ajax').click(function(){return pop_add_event_dialog(null,null,null);});
-    
-    
 });
 
 
@@ -67,9 +70,10 @@ function pop_edit_event_dialog(event_id)
     $("#edit_event_dialog").dialog({
         modal: true,
         open: function(){$.get("{% url events:update_event %}" + event_id,
-        function(data){$("#edit_event_form_div").html(data)});
-        $("#form_edit_event").data("url","{% url events:update_event %}" +
-        event_id);},
+            function(data){$("#edit_event_form_div").html(data);
+                           $("#edit_event_form_div .datepicker").datepicker({dateFormat: 'yy-mm-d'});
+                           $("#form_edit_event").data("url","{% url events:update_event %}" +
+                               event_id);})},
         title: "{% trans "Edit an event" %}",
     });
     return false;
