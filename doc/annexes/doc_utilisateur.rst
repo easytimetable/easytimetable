@@ -21,16 +21,10 @@ Fonctionnalités Communes
 .. image:: pictures/locationsList.jpg
    :width: 80%
    
-.. image:: pictures/locationsShow.jpg
-   :height: 400px
-
 * Lister et Afficher les Cursuses, les Study Periods, les Subjects
 
 .. image:: pictures/pedagogyList.jpg
    :width: 80%
-   
-.. image:: pictures/pedagogyShow.jpg
-   :height: 400px
    
 * Lister et Afficher les Classgroups, les Students, les Campus Managers, les Teachers
 
@@ -51,6 +45,21 @@ Fonctionnalités Communes
 
 .. image:: pictures/deauth.jpg
    :width: 80%
+
+Autres Fonctionctionnalités
+---------------------------
+
+Lorsqu'un élément de `Locations` est affiché (Université, Campus, Place), sa localisation
+géographique est affichée sur une carte.
+
+.. image:: pictures/locationsShow.jpg
+   :height: 400px
+
+Lorsqu'une `Study Period` ou un `Subject` sont affichés, un graphique expliquant la répartition
+des contenus apparait (en camembert pour `Subject`, et en barre pour `Study Period`).
+
+.. image:: pictures/pedagogyShow.jpg
+   :height: 400px
 
 Niveaux de privilèges
 ---------------------
