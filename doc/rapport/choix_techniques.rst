@@ -2,36 +2,32 @@ Choix techniques
 ##################
 
 
-Pour la réalisation de ce projet, nous nous appuyons 
-sur la "force de frappe" des logiciels libres.
+Pour la réalisation de ce projet, nous nous appuyons sur la "force de frappe" des logiciels libres.
 
 "TimeTableEasy" étant particulièrement spécifique, afin d'accroitre notre vitesse de production nous avons choisi de nous 
 appuyer sur des composants déjà écrits, ainsi que des frameworks.
 Après une analyse du besoin et la modélisation des données, nous avons jugé que le plus productif serai l'utilisation du lanaguage python 
-associer au framework web django 1.1 nous permettent de nous appuyer sur l'expérience accumulée de milions
+associé au framework web django 1.1 nous permettent de nous appuyer sur l'expérience accumulée de milions
 developpeurs et utilisateurs à travers le monde, mais aussi de l'appui d'une communoté extrement active.
 
 
 Afin de bien pouvoir comprendre nos choix technique, nous allons vous presenter nos choix par rapport à la liste des fonctionnalité:
 
-- Dans le cas de la gestion des utilisateurs nous avons utilisé django.contrib.auth (module du framework django* s'occupant de l'authentification) associé à un système
-personalisé d'ACL(Access Control List).
+- Dans le cas de la gestion des utilisateurs nous avons utilisé django.contrib.auth (module du framework django* s'occupant de l'authentification) associé à un système personalisé d'ACL(Access Control List).
 
 - Pour l'interface d'administration permettant la gestion des cursus, des campus, des classes et des étudiants nous avons créer une classe 
-python factorisant les fonctionnalités Create Read Update Delete et donc un maximum de traitements nous faisant ainsi gagner en maitenabilité, vitesse de developpement, et propreté.
+python factorisant les fonctionnalités Create Read Update Delete et donc un maximum de traitements nous faisant ainsi gagner en maintenabilité, vitesse de developpement, et propreté.
     * Pour la gestion des lieux et des campus nous avons utilisé l'API google map afin d'avoir une représentation géographique
     * Pour les cursus, les periodes d'étude et les sujets nous avons utilisé la bibliothèque graphique javascript "HighCharts"
       permettant ainsi une représentation graphique afin de bien voir la place de chaque chose.
-- Pour les gestion de vue du planning, nous avont implémenté Fullcalendar*, un calendrier opensource nourri par du JSON, auquel nous avon rajouter des intération en utilisant AJAX via 
-le framework javascript JQuery 1.4.2 .
-- Pour l'exportation ical nous avon utilisé quatre qui à suivant l'exemple de marx, travaille a la chaine, mais comment marche quatre ?, quatre est une api, vous vous connectez à une messagerie
-envoyez la commande "bouge ton cul et converti moi sa en ical" et en moins de 20 minute quatre vous convertie votre calidrier en ical
-
-- Pour l'application mobile, nous avons créer une interface web spéciale au format smartphone afin de garder un maxium de compatibilé sur tous les portables.
+- Pour les gestion de vue du planning, nous avons implémenté Fullcalendar*, un calendrier opensource nourrit par du JSON, auquel nous avons rajouté des intéractions en utilisant AJAX via le framework javascript JQuery 1.4.2 .
+- Pour l'exportation ical nous avons utilisé une classe qui existait déjà et l'avons implémenté à notre projet.
+- Pour l'application mobile, nous avons crée une interface web spéciale au format smartphone afin de garder un maxium de compatibilé sur tous les portables.
 
 
-Pour la présentation nous avons utiliser HTML5 et CSS3 avec des bibliotèque CSS "superfish" (menu), "awasome buttons", et le framework css blueprint.
-Et également utilisé les frameworks on bibliothèques suivantes:
+Pour la présentation nous avons utiliser HTML5 et CSS3 avec des bibliotèque CSS "superfish" (menu), "awesome buttons", et le framework css blueprint.
+
+Nous avons également utilisé les frameworks on bibliothèques suivantes:
 
 
 Pour ce qui est de la solution d'hebergement, il est possible d'heberger notre

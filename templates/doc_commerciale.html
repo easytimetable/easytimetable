@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Documentation commerciale" %}{% endblock %}
+ {% block additional_css  %}
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/com.css" type="text/css" media="screen">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="com">
+<img src="{{ MEDIA_URL }}images/student.png" /> <big>Eleve ?</big> <img src="{{ MEDIA_URL }}images/teacher.png" /> <big>Professeur ?</big> 
+ <img src="{{ MEDIA_URL }}images/university.png" /> <big>Université ?</big>
+<br/> 
+<p>
+Vous êtes surement à la recherche d'une solution simple et performante pour gérer vos planning !  
+</br />
+<big>TimeTableEasy est la Solution</big>,
+une solution qui se situe aux limites de la gestion
+de planning et de la gestion des contenus pédagogiques, pour pouvoir avoir une
+intégration parfaite.</p>
+    <a href="http://easy.notmyidea.org">Essayer Immédiatement</a>
+</div>
+
+<div class="com">
+    <big>Acceder partout au infos de votre université !</big>
+    <ul>
+        <li> Accedez à votre planning depuis votre mobile </li>
+        <li> Exportez vos plannings au format ICAL </li>
+    </ul>
+    <big> Au coeur du besoin des universités </big>
+        <ul>
+            <li>Gestion des differents lieux rattachés à vos universités ainsi que
+            les salles de cours.</li>
+            <li> Gerer le contenu pédagogique des differents cursus.</li>
+            <li>Accès et gestion des plannings de vos professeurs et elèves, classe par
+            classe, campus par campus </li>
+            <li>Gérer sur une seule et même plateforme votre planning personnel et
+            scolaire</li>
+        </ul>
+        <big> Une Administration à la hauteur de vos attentes </big>
+        <ul>
+            <li> Une gestion de droits fine (ne donnez pas accès à tout à tout le monde !) </li>
+            <li> Gérez les differents campus et universités </li>
+            <li> Gestion multi université </li>
+            <li> Déléguez la gestion de vos campus </li>
+        </ul>
+</div>
+<div style="float:left; width:45%">
+    <h3>Qui Somme nous ?</h3> 
+
+    GREATTEAMDEVELOPMENT est une jeune entreprise, composée d'une équipe de
+    developeurs, de designers et d'une cellule de rechercher et developement.
+
+    Nous sommes determinés à apporter des solutions de qualité, qui répondent à des
+    besoins précis, grâce à des logiciels évolutifs, et à du code de qualité.
+
+
+</div>
+<div style="width:55%">
+<fieldset>
+    <legend>  Nos Tarifs </legend>
+
+    Nous vous proposons une plusieurs solutions, selon vos besoins:
+    <ul>
+        <li> Offre hebergée: ne vous occupez de rien, on s'en occupe pour vous !</li>
+        <li> Payez au forfait si vous souhaitez </li>
+        <li> Aquerez une licence du logiciel (contactez nous pour plus d'informations)</li>
+    </ul>
+    Vous avez une demande particulière ? N'hésitez pas à demander un devis !  
+
+</fieldset>
+</div>
+{% endblock %}

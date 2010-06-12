@@ -3,13 +3,13 @@ Presentation fonctionelle
 
 Objectifs :
 -----------
-Dans le cadre de la gestion d'une ou plusieurs université, il est nécéssaire de mettre en place un système permettant la gestion des ressources humaines, ajouter des membres a ces univertés, attribuer un rôle a ces membre, et gérer le contexte spatio temporel dans lequel il seront placé au fils des année universitaire.
-Pour des raisons evidantes, il est important que ce logiciel soit facile d'accès afin que tous les membres de chaque université soit informer et est accés au informations dont ils ont besoin.
+Dans le cadre de la gestion d'une ou plusieurs université(s), il est nécéssaire de mettre en place un système permettant la gestion des ressources humaines, ajouter des membres à ces univertés, attribuer un rôle à ces membre, et gérer le contexte spatio temporel dans lequel ils seront placé au fils des années universitaires.
+Pour des raisons evidantes, il est important que ce logiciel soit facile d'accès afin que tous les membres de chaque université soit informé et est un accés au informations dont ils ont besoin.
 
 
 Résultats attendus :
 --------------------
-Pour répondre a ces objectifs, TIMETABLEASY, un site internet accessible depuis tous les navigateur va permettre a un nombre illimité d'utilisateur de visualiser et d'éditer en fonction de leur roles les evenements qui les concerne sur leur calendrier.
+Pour répondre a ces objectifs, TIMETABLEASY, un site internet accessible depuis tous les navigateur va permettre à un nombre illimité d'utilisateur de visualiser et d'éditer en fonction de leur roles les evenements qui les concerne sur leur calendrier.
 Il devra permettre a des utilisateur plus avancé d'avoir certain privilège sur certain ou tous les élément lié a la gestion des ressources humaines.
 
 

@@ -1,0 +1,41 @@
+.com {
+    margin : auto;
+    background-color:#DDDDDD;
+    color: #5A5A5A;
+    border: 2px solid;
+    -webkit-border-radius: 30px;   /* for Safari */
+    -moz-border-radius: 30px;       /* for Firefox */
+    padding:20px 30px;
+    font-size:1.3em;
+    font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+}
+
+.com big {
+    color:black;
+}
+
+.com > p{
+    font-size:1.1em;
+}
+
+fieldset  {
+border:2px solid;
+line-height:1.2em;
+margin-left:20px;
+padding-left:10px;
+padding-right:10px;
+font-size :1.2em;
+}
+
+fieldset > legend {
+margin-left: 20%; margin-top: 5px; margin-bottom: 5px;
+}
+
+fieldset > b {
+text-decoration:underline;
+}
+
+img {
+height:50px;
+width:50px;
+}
