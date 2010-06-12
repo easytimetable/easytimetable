@@ -78,6 +78,8 @@ function pop_edit_event_dialog(event_id)
                            $("#form_edit_event").data("delete_url","{% url events:delete_event %}"), +
                            $("#form_edit_event").data("event_id", event_id);})},
         title: "{% trans "Edit an event" %}",
+        width: 500,
+        height: 500,
     });
     return false;
 }
