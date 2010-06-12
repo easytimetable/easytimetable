@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('events.views',
     (r'^$', 'display_calendar', {}, 'display_calendar'),
+    (r'^mobile/$', 'list_events', {}, 'list_events'),
     (r'^users/me/$', 'get_planning', {'what' : 'me'}, 'get_own_planning'),
     (r'^test/$', 'get_planning', {'what' : 'test'}, 'get_test_planning'),
 

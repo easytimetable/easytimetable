@@ -86,7 +86,13 @@
             </li>
             {% endif %}
             {% if user.is_authenticated %}
-            <li class="green"> <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a> </li>
+                <li class="green">
+                    <a href="{% url events:display_calendar %}">{% trans "My calendar" %}</a>
+                    <ul>
+                        <li><a href="{% url events:list_events %}">{% trans "Events List" %}</a></li><hr />
+                        <li><a href="{% url ical:display_ical_mgmnt %}">{% trans "iCal Exports" %}</a></li><hr />
+                    </ul> 
+                </li>
             {% endif %}
             {% if user.is_authenticated %}
             <li><a href="{% url logout %}">{% trans "logout" %} ({{ user.username }})</a></li>

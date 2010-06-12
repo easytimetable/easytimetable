@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load uni_form_tags %}
+{% block content %}
+<p class="info">{% trans " Events for the next sevent days" %}</p>
+
+{% if whens %}
+<ul id="eventlist">
+{% for when in whens|dictsort:"date" %}
+    {% ifchanged %}<h3>{{ when.date|date }}</h3>{% endifchanged %}
+    <li class="{{ when.resource }} {% cycle "even" "odd" %}">
+        {{ when.date|time:"H:i" }} --  <span class="event_name">{{ when.event.name }} </span>
+        {% trans "for" %} {{ when.event.duration }} {% trans "hour(s)" %}.
+    </li>
+{% endfor %}
+</ul>
+{% else %}
+<br />
+{% blocktrans %}You don't have any events, yet.{% endblocktrans %}
+{% endif %}
+{% endblock %}
+
+

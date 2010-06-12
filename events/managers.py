@@ -30,32 +30,35 @@ class WhenManager(models.Manager):
 
     def user_planning(self, user, what, start_date, end_date, what_arg=None,
     must=False):
-        if what == "mandatory":
-            return self.must_display(user, start_date, end_date)
-        if what == "my_user":
-            return self.personal_planning(user,
-            start_date, end_date)
-        if what == "my_classgroup":
-            return  self.classgroup_planning(user.get_profile().classgroup,
-            start_date, end_date)
-        if what == "my_campus":
-            return self.campus_planning(user.get_profile().classgroup.campus,
-            start_date, end_date)
-        if what == "my_university":
-            return self.university_planning(user.get_profile().classgroup.\
-            campus.university,
-            start_date, end_date)
-       
-       #If we don't have a what arg, we won't be able to go further
-        if what_arg is None:
-            return []
+        try:
+            if what == "mandatory":
+                return self.must_display(user, start_date, end_date)
+            if what == "my_user":
+                return self.personal_planning(user,
+                start_date, end_date)
+            if what == "my_classgroup":
+                return  self.classgroup_planning(user.get_profile().classgroup,
+                start_date, end_date)
+            if what == "my_campus":
+                return self.campus_planning(user.get_profile().classgroup.campus,
+                start_date, end_date)
+            if what == "my_university":
+                return self.university_planning(user.get_profile().classgroup.\
+                campus.university,
+                start_date, end_date)
         
-        if what == "campus":
-            return self.campus_planning(Campus.objects.get(id=what_arg),
-                                            start_date, end_date, must)
-        if what == "classgroup":
-            return self.classgroup_planning(ClassGroup.objects.get(id=what_arg),
-                                            start_date, end_date, must)
+           #If we don't have a what arg, we won't be able to go further
+            if what_arg is None:
+                return []
+            
+            if what == "campus":
+                return self.campus_planning(Campus.objects.get(id=what_arg),
+                                                start_date, end_date, must)
+            if what == "classgroup":
+                return self.classgroup_planning(ClassGroup.objects.get(id=what_arg),
+                                                start_date, end_date, must)
+        except AttributeError:
+            return []
 
     # -- User planning access methods -------------------------------------
     
