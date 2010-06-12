@@ -124,6 +124,10 @@ form button {
     width: 200px;
 }
 
+form p{
+    margin: 2px;
+}
+
 .input{
     width: 140px;
     left: 150px;

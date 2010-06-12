@@ -18,7 +18,9 @@ urlpatterns = patterns('utils.crud',
 
     (r'^classes/$', 'list', {
         'model': ClassGroup, 
-        'fields': [('id', 'id'), ('name', 'name')],
+        'fields': [
+            ('Name', 'name'),
+            ('Campus', 'campus.name')],
         'acl_handler': crud_acl_handler("campus"),
     }, 'list_classgroups'),
 

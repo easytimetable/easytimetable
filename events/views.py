@@ -153,17 +153,19 @@ def display_calendar(request):
     my_selector_form = MySelectorForm(prefix="my_selector")
     forms = { 'user_form': user_form,}
     selectors = {'my_selector_form': my_selector_form,}
+
     if request.user.get_profile().can_manage_campus():
         forms['campus_form'] = CampusEventForm(prefix="campus",
-                                               user=request.user)
+            user=request.user)
         forms['classgroup_form'] = ClassgroupEventForm(prefix="classgroup",
-                                                       user=request.user)
-        selectors['campus'] =\
-            CampusSelectorForm(prefix="cmp_selector", user=request.user)
-        selectors['classgroup'] =\
-            ClassgroupSelectorForm(prefix="cg_selector", user=request.user)
+            user=request.user)
+        selectors['campus'] = CampusSelectorForm(
+            prefix="cmp_selector", user=request.user)
+        selectors['classgroup'] = ClassgroupSelectorForm(
+            prefix="cg_selector", user=request.user)
         selectors['my_selector_form'] = MySelectorForm(prefix="my_selector",
-                                                   what=["my_user"])
+            what=["my_user"])
+
     forms.update(selectors)
     return render_to_response('calendar.html', {'forms' : forms,} , request)
 

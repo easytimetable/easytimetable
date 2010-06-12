@@ -1,10 +1,12 @@
 from django import forms
+from datetime import date, datetime, timedelta
+
 from events.models import Event
-from profiles.models import ClassGroup
+from events.models import Who, When, Event
+from profiles.models import ClassGroup, User
 from pedagogy.models import Subject, SubjectModality
 from locations.models import Place, Campus
-from events.models import Who, When, Event
-from datetime import date, datetime, timedelta
+
 from utils.widgets import SelectableTimeWidget
 
 class UserEventForm(forms.Form):
@@ -45,9 +47,6 @@ class UserEventForm(forms.Form):
             when.save()
             return when
         return False
-    
-
-        
 
 #capitaine skeletor pour le reste des forms du campus manager
 class ClassgroupEventForm(UserEventForm):
@@ -62,7 +61,8 @@ class ClassgroupEventForm(UserEventForm):
     def __init__(self, user=None, *args, **kwargs):
         super(ClassgroupEventForm,self).__init__(*args, **kwargs)
         self.user = user
-        self.fields['classgroup'].queryset = ClassGroup.objects.get_managed_by(self.user)
+        self.fields['classgroup'].queryset = ClassGroup.objects\
+            .get_managed_by(self.user)
         self.fields['place'].queryset = Place.objects.get_managed_by(self.user)
     
     def _build_classgroup(self, old_when=None):
@@ -77,8 +77,7 @@ class ClassgroupEventForm(UserEventForm):
             f = self.cleaned_data 
             event = self._build_event(when)
             event.subject_modality = SubjectModality.objects.filter( 
-                               subject=f['subject']).filter( 
-                               type=f['modality']).get() 
+                subject=f['subject']).filter(type=f['modality']).get() 
             event.save() 
             event.places.clear()
             event.places.add(f['place']) 
@@ -95,9 +94,12 @@ class CampusEventForm(UserEventForm):
     user = None
     
     campus = forms.ModelChoiceField(queryset=None,
-                                     label="Campus", required=False)
+        label="Campus", required=False)
     place = forms.ModelChoiceField(queryset=None,
-                                     label="Place", required=False)
+        label="Place", required=False)
+    teacher = forms.ModelChoiceField(
+        queryset=User.objects.filter(profile__is_teacher=True),
+        label="Teacher", required=False)
     
     def __init__(self, user=None, *args, **kwargs):
         super(CampusEventForm,self).__init__(*args, **kwargs)
@@ -163,7 +165,7 @@ class CampusSelectorForm(forms.Form):
 class ClassgroupSelectorForm(forms.Form):
     user = None
     classgroup = forms.ModelMultipleChoiceField(queryset=None,
-                widget=forms.CheckboxSelectMultiple())
+        widget=forms.CheckboxSelectMultiple())
     def __init__(self, user=None, *args, **kwargs):
         super(ClassgroupSelectorForm,self).__init__(*args, **kwargs)
         self.user = user
