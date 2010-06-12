@@ -121,11 +121,11 @@ urlpatterns = patterns('utils.crud',
         'object_verbose_name': 'teacher',
         'app_name': 'profiles',
         'acl_handler': crud_acl_handler("campus"),
-        'rights':{'update': False},
+        'rights':{'update': False, 'view': False},
     }, 'list_teachers'),
 
     (r'^teachers/(?P<object_id>\d+)/$', 'get', {
-        'queryset': User.objects.filter(profile__campus_managed__isnull=False).distinct(),
+        'queryset': User.objects.filter(profile__is_teacher=True),
         'template_name': 'get_teacher.html',
         'template_object_name': 'teacher',
         'acl_handler': crud_acl_handler("campus"),
