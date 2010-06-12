@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
-
+import copy
 
 from managers import WhenManager
 from locations.models import Place, Campus, University
@@ -79,5 +79,21 @@ class Event(models.Model):
     force_display = models.BooleanField(default=False)
     place_text = models.CharField(max_length=255, blank=True)
     
+    def get_type(self):
+        #Define the priorities here
+        types = {"campus" : 0,
+                "classgroup" : 0,
+                "university" : 0,
+                "user" : 0}
+        res = copy.deepcopy(types)
+        who_set = self.who_set.filter(is_contributor=False).all()
+        for who in who_set:
+            for type, score in types.iteritems():
+                if hasattr(who, type):
+                    if getattr(who, type) is not None:
+                        types[type] = score + 1
+                        res[type]=who
+        return (max(types,key=types.get), res[max(types,key=types.get)])
+        
     def __unicode__(self):
         return self.name

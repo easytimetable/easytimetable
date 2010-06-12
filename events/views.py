@@ -226,16 +226,18 @@ def add_campus_event(request):
 def update_event(request, when_id):
     form = None
     when = get_object_or_404(When, pk=when_id)
+    event_type, who = when.event.get_type()
     data = {'name' : when.event.name,
             'date' : when.date.strftime("%Y-%m-%d"),
             'start_hour' : int(when.date.strftime("%H")),
             'duration' : int(when.event.duration),
             'place_text' : when.event.place_text,
            }
-    if when.event.subject_modality:
+    if event_type == 'classgroup' and\
+            request.user.get_profile().can_manage_classgroup(who.classgroup.id):
         data.update({'place' : when.event.places.get().id,
              'classgroup' :
-             when.event.who_set.get(classgroup__isnull=False).classgroup_id,
+             who.classgroup.id,
              'modality' : 
              when.event.subject_modality.type,
              'subject' : 
@@ -244,19 +246,20 @@ def update_event(request, when_id):
             form = ClassgroupEventForm(user=request.user, data=request.POST)
         else:
             form = ClassgroupEventForm(user=request.user, initial=data)
-    elif when.event.who_set.filter(user=request.user).count() > 0:
+    elif event_type == 'user' and\
+            who.user == request.user:
         if request.POST:
             form = UserEventForm(data=request.POST)
         else:
             form = UserEventForm(initial=data)
-    elif when.event.who_set.filter(campus__manager=request.user).count() > 0:
+    elif event_type == 'campus' and\
+            request.user.get_profile().can_manage_cursus(who.campus):
         try:
-            place = when.event.places.get().id
+            place_id = when.event.places.get().id
         except ObjectDoesNotExist:
             place_id = None
         data.update({'place' : place_id,
-                     'campus' : 
-                     when.event.who_set.get(campus__isnull=False).campus.id,
+                     'campus' : who.campus.id,
                      })
         if request.POST:
             form = CampusEventForm(data=request.POST, user=request.user)

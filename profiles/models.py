@@ -31,24 +31,28 @@ class Profile(models.Model):
     
     def can_manage_campus(self, campus_id=None):
         """tell if the user can manage campuses"""
-        if campus_id is None:
-            return self.user.is_staff
+        if self.user.is_staff:
+            return True
         else:
-            return self.campus_managed.filter(campus__id=campus_id) is not None
+            return self.campus_managed.filter(id=campus_id) is not None
         
     def can_manage_classgroup(self, classgroup_id=None):
         """tell if the user can manage classgroups"""
+        if self.user.is_staff:
+            return True
         if classgroup_id is None:
             return self.class_group_managed is not None
         else:
-            return self.class_group_managed.filter(classgroup__id=classgroup_id)
+            return self.class_group_managed.filter(id=classgroup_id)
 
     def can_manage_cursus(self, cursus_id=None):
         """tell if the user can manage pedagogy related items"""
+        if self.user.is_staff:
+            return True
         if cursus_id is None:
             return self.cursus_managed is not None
         else:
-            return self.cursus_managed.filter(cursus__id=cursus_id)
+            return self.cursus_managed.filter(id=cursus_id)
 
     def can_display_calendar(self):
         """user can display calendar"""
