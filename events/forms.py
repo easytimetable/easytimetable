@@ -132,8 +132,9 @@ class CampusEventForm(UserEventForm):
             event = self._build_event(when)
             event.force_display=self.cleaned_data['force_display']
             event.save()
-            event.places.clear()
-            event.places.add(self.cleaned_data['place']) 
+            if self.cleaned_data['place'] is not None:
+                event.places.clear()
+                event.places.add(self.cleaned_data['place']) 
             who = self._build_campus(when)
             who.event = event
             who.save()
