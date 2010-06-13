@@ -53,7 +53,7 @@ ID Booster: 74710
 
 Julien s'est occupé principalement de:
 
-	- Modélisation
+	- Modèlisation
 	- Déploiement
 	- Documentation d'utilisation & d'administration
 	- Développements mineurs
@@ -74,7 +74,7 @@ ID Booster: 63208
 Nicolas à travaillé sur les thématiques suivantes: 
 
     - Software design
-    - Modélisaation
+    - Modèlisaation
     - Développement de l'interface admin (CRUD)
     - Implémentation du menu
     - Redaction de documention
