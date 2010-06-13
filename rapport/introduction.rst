@@ -17,10 +17,10 @@ approches à la réalisation de sites internet.
 
 C'est finalement avec un plaisir non dissimulé que nous pouvons vous présenter
 la première mouture d'EasyTimeTable. Cette version n'est sans doute pas
-parfaite, et comme tout logiciel, se devrait être en continuelle évolution,
-grace aux differents retours des utilisateurs.
+parfaite, et comme tout logiciel, se devrait d'être en continuelle évolution,
+grâce aux différents retours des utilisateurs.
 
-Nous avons cependant mis en place une architecture solide,qui pourra acceuillir 
+Nous avons cependant mis en place une architecture solide,qui pourra accueillir 
 les futures évolutions du logiciel, et qui comporte d'ores et déjà les
-fonctionalités les plus importantes (Gestion de l'emploi du temps, des personnes
-et des universités/campus)
+fonctionnalités les plus importantes (Gestion de l'emploi du temps, des personnes
+et des universités/campus).

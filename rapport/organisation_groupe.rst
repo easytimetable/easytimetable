@@ -10,11 +10,11 @@ Attribution des rôles
 Le seul rôle spécifique que nous ayons attribué était celui de chef de projet,
 qui est allé à Alexis en raison de son expérience sur des projets similaires.
 
-Par ailleurs, nous avons tous effectué les taches selon ce qui nous interessait.
+Par ailleurs, nous avons tous effectué les tâches selon ce qui nous intéressait.
 Nicolas à pu par exemple travailler sur la mise en place d'un système extensible
-de gestion d'elements (CRUD) alors que Guillaume s'occupait de la gestion du
+de gestion d'éléments (CRUD) alors que Guillaume s'occupait de la gestion du
 calendrier. Nous avons tous travaillé sur quasiment l'ensemble des
-fonctionalités du logiciel, si nous y voyons des modifications à apporter.
+fonctionnalités du logiciel, lorsque nous voyions des modifications à y apporter.
 
 Répartition des tâches
 ----------------------
@@ -24,7 +24,7 @@ Travaux centraux
 
 Notre équipe s'est réunie très tôt pour décider du déroulement du projet.
 Lors de ces premières réunions, et après une première ébauche réalisée en commun
-du modèle de données, nous avons décidé de diviser le projet selon les 3
+du modèle de données, nous avons décidé de diviser le projet selon les 4
 ressources que nous avons manipulé :
 
      - Les évènements
@@ -48,7 +48,7 @@ création de l'environnement de développement.
 
 Ces tâches ont notamment été :
 
-    - La création d'un dépôt git (sur github)
+    - La création d'un dépôt git [*]_ (sur github)
     - La mise en place d'un squelette d'application
     - La rédaction de la présente documentation
 
@@ -62,8 +62,8 @@ Design
 La réalisation d'une telle application a nécessité une importante réflexion lors
 de sa conception.
 
-Toute l'application reposant sur le modèle, toute l'équipe a
-participé à son écriture, et nous n'avons du y apporter que des modifications
+L'ensemble de l'application reposant sur le modèle, toute l'équipe a
+participé à son écriture, et nous n'avons dû y apporter que des modifications
 mineures au cours du projet.
 
 
@@ -87,6 +87,9 @@ problème grâce à Mumble [*]_ et au fait que nous étions suffisamment avancé
 permettre un développement relativement indépendant des différentes parties de
 l'application.
 
+.. [*] Git est un logiciel de gestion de versions décentralisé. C'est un
+   logiciel libre créé par Linus Torvalds, le créateur du noyau Linux, et
+   distribué sous la GNU GPL version 2. : http://git-scm.om
 .. [*] Fullcalendar est une bibliothèque Javascript dédiée à l'affichage de
    calendriers : http://arshaw.com/fullcalendar/
 .. [*] "Mumble is an open source, low-latency, high quality voice chat software
