@@ -1,0 +1,28 @@
+ul#eventlist{
+    list-style-type: none;
+}
+
+ul#eventlist h3{
+    margin-top: 10px;
+}
+
+ul#eventlist li{
+    padding: 10px 10px 10px 20px;
+}
+
+ul#eventlist li.odd{
+    background-color: #eee;
+}
+
+ul#eventlist li.even{
+    background-color: #bbb;
+}
+
+ul#eventlist li.mandatory{
+    background-color: #981818;
+    color: #fff;
+}
+
+ul#eventlist li .event_name{
+    font-weight: bold;
+}
