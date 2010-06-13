@@ -19,11 +19,8 @@ modification, de selectionner l'evenement sur le calendrier, puis de renseigner
 les champs qui apparaissent à l'écran.
 
 .. image:: pictures/calendar.jpg
-   :width: 100%
 .. image:: pictures/eventAdd.jpg
-   :width: 100%
 .. image:: pictures/eventMod.jpg
-   :width: 100%
 
 Lister et Afficher les Universités, les Campus, les lieux
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -33,7 +30,6 @@ similaire. Il suffit pour cela d'utiliser le menu qui se situe en haut à droite
 de chaque page, puis de selectionner l'element souhaité.
 
 .. image:: pictures/locationsList.jpg
-   :width: 100%
    
 Lister et Afficher les Cursus, les periodes d'étude et les matières
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -42,13 +38,11 @@ De la même manière, pour visualiser les elements en relation avec ce que nous
 apellons la "pedagogie", selectionnez les elements depuis le menu.
 
 .. image:: pictures/pedagogyList.jpg
-   :width: 100%
    
 Lister et Afficher les Classgroups, les Students, les Campus Managers, les Teachers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: pictures/userManagementList.jpg
-   :width: 100%
 
 Lister les evenements de planning
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,12 +59,10 @@ La liste simple constitue la version "mobile de notre application".
 * Lister les prochains evenements
 
 .. image:: pictures/eventsList.jpg
-   :width: 100%
    
 * Exporter son planning au format iCal.
 
 .. image:: pictures/iCal.jpg
-   :width: 100%
 
 Se déconnecter.
 ~~~~~~~~~~~~~~~~
@@ -78,7 +70,6 @@ Se déconnecter.
 Si vous souhaitez vous déconnecter, utilisez le menu de droite.
 
 .. image:: pictures/deauth.jpg
-   :width: 100%
 
 Autres Fonctionctionnalités
 ---------------------------
@@ -87,7 +78,6 @@ Lorsqu'un élément de `Lieux` est affiché (Université, Campus, Lieu),
 sa localisation géographique est également affichée sur une carte.
 
 .. image:: pictures/locationsShow.jpg
-   :height: 400px
 
 Lorsqu'une `Période d'étude` ou une `matiere` sont affichés, il est possible de 
 visualiser des graphiques mettant en valeur la répartition des contenus
@@ -95,7 +85,6 @@ pedagogiques (en camembert pour les matières, et en barres cummulées pour
 les périodes d'étude).
 
 .. image:: pictures/pedagogyShow.jpg
-   :height: 400px
 
 Niveaux de privilèges
 ---------------------
@@ -121,7 +110,6 @@ suivants. Il ne peut pas les modifier, ni les supprimer ou en ajouter:
 Il est bien sur également possible de s'authentifier.
 
 .. image:: pictures/noauth.jpg
-   :width: 80%
 
 Elève
 ~~~~~~
@@ -159,7 +147,6 @@ Il peut donc, en plus des fonctionnalités communes :
 	* Les Teachers
 
 .. image:: pictures/classgroupCRUD.jpg
-   :width: 80%
 
 Administrateur
 ~~~~~~~~~~~~~~
