@@ -1,15 +1,6 @@
 Présentation du projet et répartition des tâches
 #################################################
 
-:Auteurs:
-    * Guillaume Espanel
-    * Alexis Metaireau
-    * Nicolas Morel
-    * Julien Grande
-
-:Version:
-    1.0
-
 Composition du grouge
 ======================
 
