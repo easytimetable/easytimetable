@@ -49,9 +49,36 @@ a développé, à ces occasions, plusieurs outils en Python.
 Julien Grande
 --------------
 
+ID Booster: 74710
+
+Julien s'est occupé principalement de:
+
+	- Modélisation
+	- Déploiement
+	- Documentation d'utilisation & d'administration
+	- Développements mineurs
+
+Julien est à la base administrateur systèmes et réseaux cependant, ses expériences passées et sa formation
+l'ont amené à développer avec différents langages (PHP, ASP, ...)et sur différentes plateformes(UNIX, GNU/Linux, Windows).
+
+Ce projet étant son premier contact avec le langage python et le concept MVT, son activité principale a plutôt
+été la partie administration/déploiement/installation.
 
 Nicolas Morel
 --------------
 
+ID Booster: 63208
 
+.. figure:: pictures/nico.jpg width: 50px height: 50px.
 
+Nicolas à travaillé sur les thématiques suivantes: 
+
+    - Software design
+    - Modélisation
+    - Développement de l'interface admin (CRUD)
+    - Implémentation du menu
+    - Redaction de documention
+
+Avant le projet Nicolas s'est principalement interessé à la conception et
+au developpement web assisté par des frameworks. Ceci est sa première 
+experience avec le framework python Django et le model MVT. 
