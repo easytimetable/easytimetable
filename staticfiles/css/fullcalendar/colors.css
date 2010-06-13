@@ -6,6 +6,22 @@
     color: #000;           /* text color */
 }
 
+.my_classgroup,
+.fc-agenda .classgroup .fc-event-time,
+.my_classgroup a {
+    background-color: #329613; /* background color */
+    border-color: #fff;     /* border color */
+    color: #000;           /* text color */
+}
+
+.mandatory,
+.fc-agenda .campus .fc-event-time,
+.mandatory a {
+    background-color: #FF4F00; /* background color */
+    border-color: #fff;     /* border color */
+    color: #000;           /* text color */
+}
+
 .classgroup,
 .fc-agenda .classgroup .fc-event-time,
 .classgroup a {
@@ -18,6 +34,14 @@
 .fc-agenda .campus .fc-event-time,
 .campus a {
     background-color: #C51925; /* background color */
+    border-color: #fff;     /* border color */
+    color: #000;           /* text color */
+}
+
+.my_campus,
+.fc-agenda .campus .fc-event-time,
+.my_campus a {
+    background-color: #0A9CCC; /* background color */
     border-color: #fff;     /* border color */
     color: #000;           /* text color */
 }

@@ -16,7 +16,6 @@ class UserEventForm(forms.Form):
     start_hour = forms.IntegerField(widget=SelectableTimeWidget())
     duration = forms.IntegerField(widget=SelectableTimeWidget(end_hour=5))
     place_text = forms.CharField(label="Place", required=False)
-    force_display = forms.BooleanField()
 
     def _build_event(self, old_when=None):
         if self.is_valid():
@@ -26,7 +25,6 @@ class UserEventForm(forms.Form):
             event = Event(name=self.cleaned_data['name'],
                           duration=self.cleaned_data['duration'],
                           place_text=self.cleaned_data['place_text'],
-                          force_display=self.cleaned_data['force_display'],
                           id=old_id)
             return event
 
@@ -63,6 +61,7 @@ class ClassgroupEventForm(UserEventForm):
     contributor = UserChoiceField(
         queryset=User.objects.filter(profile__is_teacher=True),
         label="Teacher", required=False)
+    force_display = forms.BooleanField(required=False)
     
     def __init__(self, user=None, *args, **kwargs):
         super(ClassgroupEventForm,self).__init__(*args, **kwargs)
@@ -82,6 +81,7 @@ class ClassgroupEventForm(UserEventForm):
         if self.is_valid(): 
             f = self.cleaned_data 
             event = self._build_event(when)
+            event.force_display=self.cleaned_data['force_display']
             event.subject_modality = SubjectModality.objects.filter( 
                 subject=f['subject']).filter(type=f['modality']).get() 
             event.save() 
@@ -112,6 +112,7 @@ class CampusEventForm(UserEventForm):
     contributor = UserChoiceField(
         queryset=User.objects.filter(profile__is_teacher=True),
         label="Main Contributor", required=False)
+    force_display = forms.BooleanField(required=False)
     
     def __init__(self, user=None, *args, **kwargs):
         super(CampusEventForm,self).__init__(*args, **kwargs)
@@ -129,6 +130,7 @@ class CampusEventForm(UserEventForm):
     def save(self, when=None):
         if self.is_valid():
             event = self._build_event(when)
+            event.force_display=self.cleaned_data['force_display']
             event.save()
             event.places.clear()
             event.places.add(self.cleaned_data['place']) 
