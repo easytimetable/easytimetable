@@ -17,6 +17,7 @@
 @import url("theme/jquery-ui.css");
 @import url("../uni_form/uni-form-generic.css");
 @import url("../uni_form/uni-form.css");
+@import url("eventlist.css");
 
 /* Basic Layout */
 .container{
