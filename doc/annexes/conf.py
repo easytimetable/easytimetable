@@ -172,8 +172,8 @@ htmlhelp_basename = 'Annexesdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Annexes.tex', u'Annexes Documentation',
-   u'Guillaume Espanel, Julien Grande, Nicolas Morel, Alexis Metaireau', 'manual'),
+  ('index', 'Annexes.tex', u'TimeTableEasy - Documentation',
+   u'GREATTEAMDEVELOPMENT', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
