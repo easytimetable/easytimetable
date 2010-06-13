@@ -53,5 +53,18 @@ Julien Grande
 Nicolas Morel
 --------------
 
+ID Booster: 63208
 
+.. figure:: pictures/nico.jpg width: 50px height: 50px.
 
+Nicolas s'est occupé principalement, lors du projet, de: 
+
+    - Software design
+    - Modélisaation
+    - Développement de l'interface admin (CRUD)
+    - Implémentation du menu
+    - Redaction de documention
+
+Avant le projet Nicolas s'est principalement interessé a la conception et
+au developpement web assisté par des frameworks. Ceci est sa première 
+experience avec le framework python Django et le model MVT. 
