@@ -13,9 +13,7 @@ Analyse et compréhension du besoin métier
 Pour commencer, nous avons effecuté un mind maping, après lecture de l'ensemble
 des documentations fournies par le client. L'idée ici étant de mettre à plat 
 notre compréhension des besoins utilisateurs, pour ensuite travailler sur la
-modélisation du besoin.
-
-.. image:: pictures/mindmapping.png
+modélisation du besoin. Vous pouvez trouver le resultat sur la page suivante.
 
 Differents cas d'utilisation
 =============================
@@ -50,7 +48,6 @@ Les deux images ci dessous représentent de manière exhaustive ou non les
 relations entre les differentes données.
 
 .. image:: pictures/models.png
-.. image:: pictures/models-simple.png
 
 Architecture logicielle sous jacente
 =====================================

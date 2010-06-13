@@ -10,9 +10,14 @@ Attribution des rôles
 Le seul rôle spécifique que nous ayons attribué était celui de chef de projet,
 qui est allé à Alexis en raison de son expérience sur des projets similaires.
 
+Par ailleurs, nous avons tous effectué les taches selon ce qui nous interessait.
+Nicolas à pu par exemple travailler sur la mise en place d'un système extensible
+de gestion d'elements (CRUD) alors que Guillaume s'occupait de la gestion du
+calendrier. Nous avons tous travaillé sur quasiment l'ensemble des
+fonctionalités du logiciel, si nous y voyons des modifications à apporter.
+
 Répartition des tâches
 ----------------------
-
 
 Travaux centraux
 '''''''''''''''''
@@ -81,10 +86,6 @@ commun pour des réunions d'avancement. Nous avons cependant réussi à pallier 
 problème grâce à Mumble [*]_ et au fait que nous étions suffisamment avancés pour
 permettre un développement relativement indépendant des différentes parties de
 l'application.
-
-
-Notes et annexes
-=================
 
 .. [*] Fullcalendar est une bibliothèque Javascript dédiée à l'affichage de
    calendriers : http://arshaw.com/fullcalendar/
