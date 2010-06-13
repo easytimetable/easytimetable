@@ -7,7 +7,8 @@ universities and class calendars, as of pedagogy content.
 
 We have used Django in order to accomplish this, and it result in this
 application. You could find all the useful documents about the features, the
-installation procedure, in restructured text, using the "doc" branch.
+installation procedure, and so on on 
+`the easytimetable-doc repo <http://github.com/easytimetable/easytimetable-doc/>`_.
 
 Contributors (alphabetical order)
 ==================================
