@@ -159,12 +159,14 @@ class MySelectorForm(forms.Form):
     def __init__(self, what=[], *args, **kwargs):
         super(MySelectorForm,self).__init__(*args, **kwargs)
         if what == []:
+            self.initial['calendars'] = ("my_user", "my_classgroup")
             return
         new_choices = []
         for option in self.fields['calendars'].choices:
             if option[0] in what:
                 new_choices.append(option)
         self.fields['calendars'].choices = new_choices
+        self.initial['calendars'] = ("my_user",)
 
 class CampusSelectorForm(forms.Form):
     user = None
