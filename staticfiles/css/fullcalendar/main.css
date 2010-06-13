@@ -239,8 +239,8 @@ table.fc-header {
 .fc-agenda .fc-event-time,
 .fc-event a {
 	border-style: solid; 
-	border-color: #36c;     /* default BORDER color (probably the same as background-color) */
-	background-color: #36c; /* default BACKGROUND color */
+/*	border-color: #36c;     /* default BORDER color (probably the same as background-color) */
+/*	background-color: #36c; /* default BACKGROUND color */
 	color: #fff;            /* default TEXT color */
 	}
 	

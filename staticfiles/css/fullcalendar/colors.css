@@ -1,80 +1,55 @@
-.my_user,
-.fc-agenda .me .fc-event-time,
-.my_user a {
-    background-color: #bea074; /* background color */
-    border-color: #fff;     /* border color */
-    color: #000;           /* text color */
+.fc-agenda .fc-event-time{
+    background-color: #222;
+    border-style: none;
+}
+.fc-event{
+    background-color: #DAD867;
+    border: 0px;
 }
 
-.my_classgroup,
-.fc-agenda .classgroup .fc-event-time,
-.my_classgroup a {
-    background-color: #329613; /* background color */
-    border-color: #fff;     /* border color */
-    color: #000;           /* text color */
+.fc-event-vert span.fc-event-bg{
+    opacity: 0;
 }
 
-.mandatory,
-.fc-agenda .campus .fc-event-time,
-.mandatory a {
-    background-color: #FF4F00; /* background color */
-    border-color: #fff;     /* border color */
-    color: #000;           /* text color */
+.my_user,.my_user a {
+    background-color: #BEA074; 
 }
 
-.classgroup,
-.fc-agenda .classgroup .fc-event-time,
-.classgroup a {
-    background-color: #0A50FF; /* background color */
-    border-color: #fff;     /* border color */
-    color: #000;           /* text color */
+.my_classgroup,.my_classgroup a {
+    background-color: #329613; 
 }
 
-.campus,
-.fc-agenda .campus .fc-event-time,
-.campus a {
-    background-color: #C51925; /* background color */
-    border-color: #fff;     /* border color */
-    color: #000;           /* text color */
+.mandatory, .mandatory a {
+    background-color: #ce3a00;
 }
 
-.my_campus,
-.fc-agenda .campus .fc-event-time,
-.my_campus a {
-    background-color: #0A9CCC; /* background color */
-    border-color: #fff;     /* border color */
-    color: #000;           /* text color */
+.classgroup, .classgroup a {
+    background-color: #0A50FF; 
 }
 
-.classgroup-0,
-.fc-agenda .classgroup .fc-event-time,
-.classgroup-0 a {
-    background-color: #F4C021; /* background color */
-    border-color: #fff;     /* border color */
-    color: #CCC;           /* text color */
+.campus, .campus a {
+    background-color: #C51925; 
 }
 
-.classgroup-1,
-.fc-agenda .classgroup .fc-event-time,
-.classgroup-1 a {
-    background-color: #0A5CFF; /* background color */
-    border-color: #fff;     /* border color */
-    color: #000;           /* text color */
+.my_campus, .my_campus a {
+    background-color: #0A9CCC; 
 }
 
-.classgroup-2,
-.fc-agenda .classgroup .fc-event-time,
-.classgroup-2 a {
-    background-color: #329613; /* background color */
-    border-color: #fff;     /* border color */
-    color: #CCC;           /* text color */
+.classgroup-0, .classgroup-0 a {
+    background-color: #F4C021; 
+    color: #CCC;
 }
 
-.classgroup-3,
-.fc-agenda .classgroup .fc-event-time,
-.classgroup-3 a {
-    background-color: #0550FF; /* background color */
-    border-color: #fff;     /* border color */
-    color: #000;           /* text color */
+.classgroup-1, .classgroup-1 a {
+    background-color: #61a119; 
+}
+
+.classgroup-2, .classgroup-2 a {
+    background-color: #329613; 
+    color: #CCC;
+}
+
+.classgroup-3, .classgroup-3 a {
+    background-color: #0550FF; 
 }
 

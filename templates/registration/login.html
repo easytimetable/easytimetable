@@ -1,11 +1,25 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load uni_form_tags %}
 {% block title %}Log in{% endblock %}
 {% block content %}
 <h2>Log in</h2>
-<p class="info">{% trans "It seems that you need to be logged in to access the requested page. Please process. <br /> For the demo need, you can connect yourself with the <strong>user</strong> user, using <strong>password</strong> as password." %}</p>
+<div class="info">{% blocktrans %}
+<p>For the demo need, you can connect yourself with the following accounts. 
+All passwords are set to "<em>password</em>", excepted if specified below.</p>
+
+<dl>
+    <dt>Administrator</dt>
+    <dd>admin (password "admin" too)</dd>
+    <dt>Campus manager</dt>
+    <dd>dross</dd>
+    <dt>Simple User</dt>
+    <dd>rking</dd>
+</dl>
+{% endblocktrans %}
+</div>
 <form action="" method="post" accept-charset="utf-8">
-{{ form.as_p }} 
+{{ form|as_uni_form }} 
 <p><input class="awesome input" type="submit" value="{% trans "Login" %}"></p>
 </form>
 {% endblock %}

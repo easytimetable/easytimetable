@@ -15,8 +15,8 @@
 @import url("awesome.css");
 @import url("jquery.gritter.css");
 @import url("theme/jquery-ui.css");
-@import url("uni_form/uni-form-generic.css");
-@import url("uni_form/uni-form.css");
+@import url("../uni_form/uni-form-generic.css");
+@import url("../uni_form/uni-form.css");
 
 /* Basic Layout */
 .container{
@@ -143,6 +143,36 @@ input:focus {
 
 .ui-datepicker-inline{
     display: none;
+}
+
+/**
+ * Definition lists
+ */
+dl
+{
+    width: 41.1em;
+    margin: auto;
+    padding: 0;
+}
+
+dt
+{
+    width: 15em;
+    float: left;
+    margin: 0 0 0 0;
+    padding: .5em;
+    border-top: 1px solid #999;
+    font-weight: bold;
+    clear: both;
+}
+
+dd
+{
+    float: left;
+    width: 24em;
+    margin: 0 0 0 0;
+    padding: .5em;
+    border-top: 1px solid #999;
 }
 
 /**

@@ -10,14 +10,15 @@ $(document).ready(function(){
     var calendar = $('#calendar').fullCalendar({
         defaultView: 'agendaWeek',
         header: {
-            left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay',
+            left: 'month,agendaWeek,agendaDay',
+            right: 'prev,next today',
         },
         theme: true,
         selectable: true,
         selectHelper: true,
         editable: true,
+        firstHour: 8,
         select: function(start, end, allDay) {
            pop_add_event_dialog(start, end, allDay);
 
