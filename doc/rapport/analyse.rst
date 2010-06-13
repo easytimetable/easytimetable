@@ -111,7 +111,7 @@ comprendre les differences de notions de vues et de templates:
 
 Pour illustrer, voici un schema qui permet de mieux saisir les differences:
 
-.. image:: pictures/mvtmvc.png
+.. image:: pictures/mvcmvt.jpg
 
 Séparation des applications
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
