@@ -57,7 +57,7 @@ ID Booster: 63208
 
 .. figure:: pictures/nico.jpg width: 50px height: 50px.
 
-Nicolas s'est occupé principalement, lors du projet, de: 
+Nicolas à travaillé sur les thématiques suivantes: 
 
     - Software design
     - Modélisaation
@@ -65,6 +65,6 @@ Nicolas s'est occupé principalement, lors du projet, de:
     - Implémentation du menu
     - Redaction de documention
 
-Avant le projet Nicolas s'est principalement interessé a la conception et
+Avant le projet Nicolas s'est principalement interessé à la conception et
 au developpement web assisté par des frameworks. Ceci est sa première 
 experience avec le framework python Django et le model MVT. 
